@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const DB_URL =
   process.env.MONGODB_URL ||
-  "MongoDB 서버 주소가 설정되지 않았습니다.\n./db/index.js 파일을 확인해 주세요. \n.env 파일도 필요합니다.\n";
+  "mongodb+srv://elice:W8RsZsSX2Xs1ydE4@cluster0.4gz9ij3.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
