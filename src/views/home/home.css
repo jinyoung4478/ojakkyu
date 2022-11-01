@@ -1,19 +1,70 @@
-.div-container {
+/* reset */
+a {
+  text-decoration: none;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+/* 레이아웃 */
+#headerWrap {
+  max-width: 100%;
+}
+
+/* 헤더 */
+.headerTop {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  height: 100px;
+  background-color: burlywood;
 }
 
-.landing {
-  cursor: pointer;
-  border: 1px solid red;
-  padding: 10px;
+.headerTop img {
+  width: 44px;
+  height: 44px;
 }
 
-.greeting {
-  cursor: pointer;
-  border: 1px solid blue;
-  padding: 10px;
-  margin-left: 3rem;
+.headerTop h1 {
+  font-size: 2em;
 }
+
+.util ul {
+  display: flex;
+  gap: 20px;
+}
+
+/* GNB */
+.gnb {
+  background-color: #f0e3f9;
+  padding: 20px 0;
+}
+
+.gnb ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 메인 */
+#mainWrap {
+  max-width: 100%;
+}
+
+/* 컨텐츠 1 */
+.contentsOne {
+  padding-top: 4%;
+}
+
+.contentsOne ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 컨텐츠 2 */
