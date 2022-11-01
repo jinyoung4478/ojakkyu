@@ -1,7 +1,7 @@
 import { model } from "mongoose";
-import { itemSchema } from "../schemas/product-schema.js";
+import { ProductSchema } from "../schemas/product-schema.js";
 
-const Item = model("users", itemSchema);
+const Item = model("users", ProductSchema);
 
 
 export class ItemModel {
