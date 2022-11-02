@@ -2,45 +2,61 @@ import { Schema } from "mongoose";
 
 const ProductSchema = new Schema(
     {
-        email: {
+        product_id: {
             type: String,
             required: true,
         },
-        fullName: {
+
+        //상품 이름
+        product_name: {
             type: String,
             required: true,
         },
-        password: {
+
+        //상품 제목
+        product_title: {
+            type: String,
+            required: false,
+        },
+
+        //상품 설명
+        description: {
+            type: String,
+            required: false,
+        },
+
+        //가격
+        price: {
             type: String,
             required: true,
         },
-        phoneNumber: {
+
+        //원석 종류
+        stone_type: {
             type: String,
-            required: false,
+            required: true,
         },
-        address: {
-            type: new Schema(
-                {
-                    postalCode: String,
-                    address1: String,
-                    address2: String,
-                },
-                {
-                    _id: false,
-                }
-            ),
-            required: false,
-        },
-        role: {
+
+        //악세사리 종류
+        accessory_type: {
             type: String,
-            required: false,
-            default: "basic-user",
+            required: true,
         },
-    },
-    {
-        collection: "users",
-        timestamps: true,
-    }
-);
+
+        // 주문 가능여부
+        availability: {
+            type: Boolean,
+            required: true
+        },
+
+        //좋아요 수
+        likes: {
+            type: Number,
+            required: false,
+        },
+
+        // 상품 이미지
+        image: ["link"],
+    })
 
 export { ProductSchema };
