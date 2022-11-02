@@ -13,17 +13,18 @@
   justify-content: space-around;
   align-items: center;
   height: 100px;
-  background-color: #9d50bb;
-  color: white;
+
+  background: #8e2de2;
 }
 
 .headerTop img {
-  width: 44px;
-  height: 44px;
+  width: 260px;
+  height: 100%;
 }
 
 .headerTop h1 {
   font-size: 2em;
+  color: #fff;
 }
 
 .util ul {
@@ -40,7 +41,7 @@
 .gnb {
   background-color: #fff;
   padding: 20px 0;
-  border-bottom: 6px solid #9d50bb;
+  border-bottom: 4px solid #8e2de2;
 }
 
 .gnb ul {
