@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Single+Day&family=Ubuntu:wght@300;400;500;700&display=swap");
 html,
 body,
 div,
@@ -124,4 +125,16 @@ table {
 }
 a {
   text-decoration: none;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
+a:visited {
+  color: #d3d3d3;
+}
+ol,
+ul,
+li {
+  list-style: none;
 }
