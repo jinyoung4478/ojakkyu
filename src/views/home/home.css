@@ -26,7 +26,8 @@ li {
   justify-content: space-around;
   align-items: center;
   height: 100px;
-  background-color: burlywood;
+  background-color: #9D50BB;
+  color: white;
 }
 
 .headerTop img {
@@ -43,15 +44,30 @@ li {
   gap: 20px;
 }
 
+.util ul li a{
+  color: #fff;
+  font-weight: 600;
+}
+
 /* GNB */
 .gnb {
-  background-color: #f0e3f9;
+  background-color: #fff;
   padding: 20px 0;
+  border-bottom: 6px solid #9D50BB;
 }
 
 .gnb ul {
   display: flex;
   justify-content: space-evenly;
+}
+
+/* 비주얼 배너 */
+#headerWrap article{
+  max-width: 100%;
+}
+
+#headerWrap article img{
+  max-width: 100%;
 }
 
 /* 메인 */
@@ -85,10 +101,27 @@ li {
   width: 600px;
 }
 
+.besideIframe div{
+  width: 500px;
+  padding: 20px 0;
+  line-height: 1;
+}
+
 .besideIframe p {
   font-family: "Ubuntu", sans-serif;
-  font-size: 2em;
-  padding: 60px;
-  color: rgb(196, 129, 42);
-  font-weight: 900;
+  font-size: 2.2em;
+  color: purple;
+  font-weight: 400;
+  border: 1px solid purple;
+  padding: 10px;
+}
+
+.besideIframe p .subText{
+  color: gray;
+  font-size: 28px;
+}
+
+.besideIframe .hashTag{
+  color: gray;
+  font-size: 16px;
 }
