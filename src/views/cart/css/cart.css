@@ -1,3 +1,5 @@
+@charset "utf-8";
+@import "../../styles/reset.css";
 @import url("https://fonts.googleapis.com/css2?family=Single+Day&family=Ubuntu:wght@300;400;500;700&display=swap");
 
 /* reset */
@@ -26,7 +28,8 @@ li {
   justify-content: space-around;
   align-items: center;
   height: 100px;
-  background-color: burlywood;
+  background-color: #9d50bb;
+  color: white;
 }
 
 .headerTop img {
@@ -43,16 +46,23 @@ li {
   gap: 20px;
 }
 
+.util ul li a {
+  color: #fff;
+  font-weight: 600;
+}
+
 /* GNB */
 .gnb {
-  background-color: #f0e3f9;
+  background-color: #fff;
   padding: 20px 0;
+  border-bottom: 6px solid #9d50bb;
 }
 
 .gnb ul {
   display: flex;
   justify-content: space-evenly;
 }
+
 
 /* CART - MAIN */
 
