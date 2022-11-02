@@ -137,6 +137,24 @@ li {
   font-size: 1.8em;
 }
 
+.productWrap {
+  padding-top: 4%;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product li {
+  width: 25%;
+}
+
+.product li img {
+  width: 300px;
+  height: 300px;
+}
+
 /* 푸터 */
 footer {
   width: 100%;

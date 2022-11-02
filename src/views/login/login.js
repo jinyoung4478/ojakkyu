@@ -1,10 +1,11 @@
-import * as Api from "/api.js";
-import { validateEmail } from "/useful-functions.js";
+import * as Api from "../utils/api";
+import { validateEmail } from "../utils/useful-functions";
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
 const passwordInput = document.querySelector("#passwordInput");
 const submitButton = document.querySelector("#submitButton");
+// let getToken = "";
 
 addAllElements();
 addAllEvents();
@@ -44,7 +45,8 @@ async function handleSubmit(e) {
     // 로그인 성공, 토큰을 세션 스토리지에 저장
     // 물론 다른 스토리지여도 됨
     sessionStorage.setItem("token", token);
-
+    // getToken = sessionStorage.getItem("token");
+    // console.log(getToken);
     alert(`정상적으로 로그인되었습니다.`);
 
     // 로그인 성공
@@ -56,3 +58,5 @@ async function handleSubmit(e) {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+
+// export default { getToken };
