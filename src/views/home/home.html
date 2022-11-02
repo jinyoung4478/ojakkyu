@@ -3,76 +3,182 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
-    <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/elice-rabbit-favicon.png"
-    />
-    <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <!-- 폰트 어썸: 아이콘 -->
+    <title>오작뀨</title>
+
     <script
       defer
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
-    <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="home.css" />
+
+    <link rel="stylesheet" href="./css/home.css" />
     <script src="home.js" type="module" defer></script>
   </head>
+
   <body>
     <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
-          </a>
+    <header id="headerWrap">
+      <nav>
+        <div class="headerTop">
+          <img src="../images/elice-rabbit.png" alt="logo" />
+          <h1>오작뀨</h1>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+          <div class="util">
+            <ul>
+              <li><a href="/login">로그인</a></li>
+              <li><a href="/register">회원가입</a></li>
+              <li><a href="/cart">장바구니</a></li>
+              <li><a href="/mypage">내 정보</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-          <ul id="navbar">
-            <li><a href="/login">로그인</a></li>
-            <li><a href="/register">회원가입</a></li>
-            <li>
-              <a href="#cart" aria-current="page">
-                <span class="icon">
-                  <i class="fas fa-cart-shopping"></i>
-                </span>
-                <span>카트</span>
-              </a>
-            </li>
+        <div class="gnb">
+          <ul>
+            <li><a href="#">ABOUT US</a></li>
+            <li><a href="#">팔찌</a></li>
+            <li><a href="#">반지</a></li>
+            <li><a href="#">목걸이</a></li>
+            <li><a href="#">내 탄생석은?</a></li>
           </ul>
         </div>
-      </div>
-    </nav>
+      </nav>
 
-    <div class="div-container">
-      <div class="landing" id="landingDiv">
-        <h1>랜딩 페이지</h1>
-      </div>
-      <div class="greeting" id="greetingDiv">
-        <h1>안녕하세요!</h1>
-      </div>
-    </div>
+      <article>
+        <img src="../images/visualBanner1.png" alt="visulaImage" />
+      </article>
+    </header>
+
+    <!-- 메인 -->
+    <main role="main" id="mainWrap">
+      <!-- 첫 번째 컨텐츠 -->
+      <section class="contentsOne">
+        <ul>
+          <li>
+            <img src="../images/eventContents1.png" alt="Fast shipping" />
+          </li>
+          <li><img src="../images/eventContents2.png" alt="Review event" /></li>
+          <li><img src="../images/eventContents3.png" alt="Custom carve" /></li>
+        </ul>
+      </section>
+
+      <!-- 두 번째 컨텐츠 -->
+      <section class="contentsSec">
+        <article>
+          <iframe
+            title="#"
+            width="600"
+            height="360"
+            src="https://www.youtube.com/embed/CWTwiE15pdY"
+          >
+            <a href="../images/iframe.jpg" target="img">
+              <img src="../images/iframe.jpg" alt="iframe" />
+            </a>
+          </iframe>
+
+          <div class="besideIframe">
+            <div>
+              <p>
+                GIFT FOR MEMORY<br />
+                <span class="subText"
+                  >당신의 소중한 사람에게 <br />
+                  단 하나뿐인 기억을 선물하세요. <br />
+                </span>
+                <span class="hashTag">
+                  #세상에하나뿐인둘만의추억#선물#기억을선물한다<br />#커스텀쥬얼리#기념선물
+                </span>
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- 세 번째 컨텐츠 -->
+      <section class="newArrival">
+        <strong>NEW ARRIVAL</strong>
+        <article></article>
+      </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+      <article>
+        <ul>
+          <li>
+            <a href="https://www.youtube.com/user/withEverland"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/witheverland/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/witheverland"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://blog.naver.com/witheverland"
+              ><i class="fa-brands fa-blogger"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.witheverland.com/"
+              ><i class="fa-solid fa-t"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/witheverland"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+          </li>
+        </ul>
+      </article>
+      <address>
+        <ul class="addressLink">
+          <li>
+            <a href="#">오작뀨 쥬얼리 몰 소개</a>
+          </li>
+          <li>
+            <a href="#">이용약관</a>
+          </li>
+          <li>
+            <a href="#">이메일주소 무단수집 거부</a>
+          </li>
+          <li>
+            <a href="#">채용</a>
+          </li>
+
+          <li>
+            <a href="#">사이트맵</a>
+          </li>
+        </ul>
+
+        <div class="addressText">
+          <p>
+            english speaking club at church street library (in-person and
+            online), 처치 스트리트 도서관
+          </p>
+          <p>
+            대표이사 : 유의석 | 사업자등록번호 : 110-3030-2020 | 통신판매업
+            신고번호 : 2007-London-3203 | 사업자정보확인
+          </p>
+          <p>
+            <strong style="font-size: 14px; font-weight: 600; cursor: pointer"
+              >고객상담센터</strong
+            >
+            : 031-320-5000(유료) |
+            <span style="color: #d1d1d1; font-weight: 600; cursor: pointer"
+              >개인정보처리방침 | 방침 개정 안내 | 입찰공고</span
+            >
+          </p>
+          <p class="copyLight">
+            Copyright © 오작뀨 Corporation. All rights reserved.
+          </p>
+        </div>
+      </address>
+    </footer>
   </body>
 </html>
