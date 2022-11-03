@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
-const DB_URL =
-  process.env.MONGODB_URL ||
-  "mongodb+srv://elice:W8RsZsSX2Xs1ydE4@cluster0.4gz9ij3.mongodb.net/?retryWrites=true&w=majority";
+const DB_URL = "mongodb+srv://uiseok:1q2w3e4r@cluster0.48jso8v.mongodb.net/?retryWrites=true&w=majority";
+//process.env.MONGODB_URL ||
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;

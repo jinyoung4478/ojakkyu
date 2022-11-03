@@ -1,4 +1,4 @@
-import { ProductModel } from "../db";
+import { productModel } from "../db";
 
 
 class ProductService {
@@ -11,16 +11,17 @@ class ProductService {
     async addProduct(productInfo) {
         // 객체 destructuring
         const { product_id, product_name } = productInfo;
+        console.log("service")
 
         // 제품 명 중복 확인
-        const existedId = await this.productModel.findById(product_id)
-        const existedName = await this.productModel.findByName(product_name)
-        if (existedId) {
-            throw new Error(" 입력한 상품 ID 가 이미 존재합니다.")
-        }
-        if (existedName) {
-            throw new Error("입력한 상품 명이 이미 존재합니다.")
-        }
+        //const existedId = await this.productModel.findById(product_id)
+        // const existedName = await this.productModel.findByName(product_name)
+        // if (existedId) {
+        //     throw new Error(" 입력한 상품 ID 가 이미 존재합니다.")
+        // }
+        // if (existedName) {
+        //     throw new Error("입력한 상품 명이 이미 존재합니다.")
+        // }
         // 아닐 경우 db에 저장
         const createdNewProduct = await this.productModel.create(productInfo);
         return createdNewProduct;
@@ -61,6 +62,6 @@ class ProductService {
 
 }
 
-const productService = new ProductService(ProductModel);
+const productService = new ProductService(productModel);
 
 export { productService };

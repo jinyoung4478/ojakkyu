@@ -1,33 +1,34 @@
 import { model } from "mongoose";
-import { ProductSchema } from "../schemas/product-schema.js";
+import { ProductSchema } from "../schemas/product-schema";
 
-const Product = model("users", ProductSchema);
+const Product = model("Product", ProductSchema);
 
 
-export class ItemModel {
+export class ProductModel {
 
     async findAll() {
         const products = await Product.find({})
-        return products
+        return products;
     }
 
     async findById(product_id) {
         const product = await Product.findOne({ product_id: product_id })
-        return product
+        return product;
     }
 
     async findByName(product_name) {
         const product = await Product.findOne({ product_name: product_name })
-        return product
+        return product;
     }
 
     async findByCategoty(category) {
         const products = await Product.findOne({ category: category })
-        return products
+        return products;
     }
 
     async create(productInfo) {
         const product = await Product.create(productInfo);
+        console.log("model")
         return product;
     }
 
@@ -44,6 +45,6 @@ export class ItemModel {
     }
 }
 
-const ProductModel = new Product();
+const productModel = new ProductModel();
 
-export { ProductModel };
+export { productModel };

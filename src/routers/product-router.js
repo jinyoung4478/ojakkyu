@@ -18,16 +18,16 @@ productRouter.get("/", async (req, res, next) => {
     }
 })
 //카테고리별 상품 조회
-productRouter.get("?category={categoryId}", async (req, res, next) => {
-    try {
-        const category = req.query.categoryId;
-        const products = await productService.getProductsByCategory(category)
-        res.status(200).json(products)
-    }
-    catch (error) {
-        next(error)
-    }
-})
+// productRouter.get("?category={categoryId}", async (req, res, next) => {
+//     try {
+//         const category = req.query.categoryId;
+//         const products = await productService.getProductsByCategory(category)
+//         res.status(200).json(products)
+//     }
+//     catch (error) {
+//         next(error)
+//     }
+// })
 //상품 상세조회
 productRouter.get("/:product_id", async (req, res, next) => {
     try {
@@ -39,6 +39,22 @@ productRouter.get("/:product_id", async (req, res, next) => {
 
     }
 })
+
+
+//상품 등록
+productRouter.post("/", async (req, res, next) => {
+    try {
+        console.log("router")
+        const { product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes } = req.body
+        const product = await productService.addProduct({ product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes })
+
+        res.status(201).json(product)
+    }
+    catch (error) {
+        next(error);
+    }
+})
+
 //상품 수정
 productRouter.put("/:product_id", async (req, res, next) => {
     try {
@@ -79,3 +95,5 @@ productRouter.delete("/:product_id", async (req, res, next) => {
 productRouter.post("/", async (req, res, next) => {
 
 })
+
+export { productRouter }
