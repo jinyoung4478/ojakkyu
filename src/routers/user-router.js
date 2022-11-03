@@ -4,6 +4,11 @@ import is from "@sindresorhus/is";
 import { loginRequired } from "../middlewares";
 import { userService } from "../services";
 
+import { model } from "mongoose";
+import { UserSchema } from "../db/schemas/user-schema";
+
+const User = model("users", UserSchema);
+
 const userRouter = Router();
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/users/login 로 요청해야 함.)
@@ -23,7 +28,19 @@ userRouter.post("/login", async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    res.status(200).json(userToken);
+    // 쿠키 설정
+    res.cookie("token", userToken).cookie("login", "true")
+      .status(200).json(userToken);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 로그아웃
+// 쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
+userRouter.get("/logout", async function (req, res, next) {
+  try { 
+    res.clearCookie("token").clearCookie("login").redirect("/");
   } catch (error) {
     next(error);
   }
@@ -68,6 +85,17 @@ userRouter.get("/", loginRequired, async function (req, res, next) {
 
     // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 사용자 정보 조회
+userRouter.get("/:userId", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const userData = await userService.getUser(userId);
+    res.status(200).json(userData);
   } catch (error) {
     next(error);
   }
@@ -125,5 +153,29 @@ userRouter.put(
     }
   }
 );
+
+// 사용자 정보 삭제
+userRouter.delete("/:userId", async (req, res, next) => {
+try {
+  if (is.emptyObject(req.body)) {
+    throw new Error(
+      "headers의 Content-Type을 application/json으로 설정해주세요"
+    );
+  }
+  const { userId } = req.params;
+  const { currentPassword } = req.body;
+  if (!currentPassword) {
+    throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
+  }
+  const userInfoRequired = { userId, currentPassword };
+  const deletedUserInfo = await userService.deleteUser(userInfoRequired);
+  // 사용자 정보 삭제 성공
+  if (deletedUserInfo) {
+    res.status(200).json({ result: 'success' });
+  }
+} catch (error) {
+  next(error);
+}
+});
 
 export { userRouter };

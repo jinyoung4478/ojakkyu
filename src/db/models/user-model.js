@@ -31,6 +31,28 @@ export class UserModel {
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
   }
+
+  // 함수 추가
+  async deleteById(userId) {
+    const deletedUser = await User.findOneAndDelete({ _id: userId});
+    return deletedUser;
+  }
+
+  async updateOrder({ userId, orderId }) {
+    const updatedUser = await User.updateOne(
+      { _id: userId },
+      { $push: { orderList: orderId } },
+    );
+    return updatedUser;
+  }
+
+  async deleteOrder({ userId, orderId }) {
+    const orderDeletedUser = await User.updateOne(
+      { _id: userId },
+      { $pull: { orderList: orderId } },
+    );
+    return orderDeletedUser;
+  }
 }
 
 const userModel = new UserModel();

@@ -36,6 +36,12 @@ const UserSchema = new Schema(
       required: false,
       default: "basic-user",
     },
+    // 주문내역
+    orderList: {
+      type: [String],
+      required: false,
+      default: [],
+    }
   },
   {
     collection: "users",
