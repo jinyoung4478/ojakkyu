@@ -16,6 +16,11 @@ export class ItemModel {
         return product
     }
 
+    async findByName(product_name) {
+        const product = await Product.findOne({ product_name: product_name })
+        return product
+    }
+
     async findByCategoty(category) {
         const products = await Product.findOne({ category: category })
         return products

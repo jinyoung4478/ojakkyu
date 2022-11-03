@@ -18,7 +18,7 @@ userRouter.post("/login", async function (req, res, next) {
 
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body;
-    
+
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, password });
 
