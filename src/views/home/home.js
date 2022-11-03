@@ -1,5 +1,15 @@
 
 
+<<<<<<< HEAD
+import cors from "cors";
+import express from "express";
+import { viewsRouter, userRouter } from "./routers";
+import { errorHandler } from "./middlewares";
+
+const app = express();
+
+app.use(viewsRouter);
+=======
 const product = document.querySelector(".product");
 
 async function getData() {
@@ -48,3 +58,4 @@ window.addEventListener('load', function() {
   });
 
 });
+>>>>>>> dev
