@@ -3,6 +3,10 @@ async function get(endpoint, params = "") {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, "color: #a25cd1;");
 
+  // nodeJS 가 아닌 브라우저에서 동작하는 javascript 이며,
+  // 따라서 express의 app.get()이 아닌, fetch를 사용한다. 
+  // (node js 내장 라이브러리 에는 fetch 메소드가 없다.)
+
   const res = await fetch(apiUrl, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
@@ -22,6 +26,8 @@ async function get(endpoint, params = "") {
 
   return result;
 }
+
+// 사용자 -------- 홈페이지(서버) ------- DB
 
 // api 로 POST 요청 (/endpoint 로, JSON 데이터 형태로 요청함)
 async function post(endpoint, data) {

@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
-const DB_URL =
-  process.env.MONGODB_URL ||
-  "mongodb+srv://elice:W8RsZsSX2Xs1ydE4@cluster0.4gz9ij3.mongodb.net/?retryWrites=true&w=majority";
+const DB_URL = "mongodb+srv://uiseok:1q2w3e4r@cluster0.48jso8v.mongodb.net/?retryWrites=true&w=majority";
+//process.env.MONGODB_URL ||
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
@@ -19,3 +18,4 @@ db.on("error", (error) =>
 // 예시로, import userModel from '../db/models/user-model' 대신 from '../db' 가 됨
 // '../db/index.js' 에서 index.js 는 생략 가능하므로, '../db' 면 됨 (index는 특별한 용어)
 export * from "./models/user-model";
+export * from "./models/product-model";
