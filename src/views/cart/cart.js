@@ -35,13 +35,22 @@ const FORM_PERCHASING = document.getElementById("purchasing");
 const INPUT_COUNT_ITEM = document.getElementById("countItem");
 
 // __BUTTONS
-/**장바구니 전체 비우는 버튼입니다 */
+/**장바구니 전체 비우는 버튼입니다 
+ * @todo del.All
+*/
 const BTN_ALL_REMOVE = document.getElementById("btnAllRemove");
-/**개별 상품 삭제 버튼입니다. */
+/**개별 상품 삭제 버튼입니다. 
+ * @todo this.del
+*/
 const BTN_DEL_ITEM = document.getElementById("btnDeleteItem");
-/**구매하기 버튼 */
+/**구매하기 버튼 
+ * @todo 구매목록 전송
+ * @todo 장바구니 목록삭제      
+*/
 const BTN_PERCHASE = document.getElementById("btnPurchase");
-/**상품목록으로 돌아가는 버튼 */
+/**상품목록으로 돌아가는 버튼 
+ * @todo link
+*/
 const BTN_MOVO_ITEMLIST = document.getElementById("btnMoveToItemList");
 
 // [221103]작성. 하위요소 추후 수정예정
