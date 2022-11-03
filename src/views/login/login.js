@@ -1,5 +1,5 @@
-import * as Api from "/api.js";
-import { validateEmail } from "/useful-functions.js";
+import * as Api from "../utils/api";
+import { validateEmail } from "../utils/useful-functions";
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
@@ -56,3 +56,5 @@ async function handleSubmit(e) {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+
+// export default { getToken };

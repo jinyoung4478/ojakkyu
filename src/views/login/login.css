@@ -1,18 +1,109 @@
-.login-form-container {
+@charset "utf-8";
+@import "../styles/reset.css";
+
+/* 레이아웃 */
+#headerWrap {
+  max-width: 100%;
+}
+
+/* 헤더 */
+.headerTop {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  height: 85vh;
+  height: 100px;
+  background: #8e2de2;
 }
 
-.login-form-box {
-  width: 30rem;
+.headerTop img {
+  width: 260px;
+  height: 100%;
 }
 
-.login-form-box .title {
+.headerTop h1 {
+  font-size: 2em;
+  color: #000;
+}
+
+.util ul {
+  display: flex;
+  gap: 20px;
+}
+
+.util ul li a {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* GNB */
+.gnb {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 4px solid #8e2de2;
+}
+
+.gnb ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 로그인 */
+
+#loginContainer {
+  max-width: 100%;
+}
+
+.loginWrap {
+  max-width: 1280px;
+  margin: 0 auto;
   text-align: center;
+  padding-top: 10%;
 }
 
-.login-form-box .button {
-  font-weight: bold;
+.loginWrap h2 {
+  font-family: "Stick No Bills", sans-serif;
+  padding: 20px 0;
+  font-size: 2.4em;
+  font-weight: 600;
+}
+
+.selectBtn {
+  display: table;
+  margin: 0 auto;
+  border-bottom: 2px solid #d3d3d3;
+}
+
+.selectBtn button {
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  width: 200px;
+}
+
+.formWrap {
+  line-height: 1.2;
+}
+
+.input {
+  border: none;
+  width: 400px;
+  height: 40px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #999;
+}
+
+.submitBtn {
+  border: none;
+  width: 400px;
+  padding: 20px;
+  background-color: #20002c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 40px;
 }

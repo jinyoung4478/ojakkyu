@@ -11,16 +11,24 @@
       crossorigin="anonymous"
     ></script>
 
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/facon.ico"
+    />
+
     <link rel="stylesheet" href="./css/home.css" />
-    <script src="home.js" type="module" defer></script>
+    <script src="home.js" type="module"></script>
+   
   </head>
 
   <body>
     <!-- 헤더 -->
-    <header id="headerWrap">
+    <!-- <header id="headerWrap">
       <nav>
         <div class="headerTop">
-          <img src="../images/elice-rabbit.png" alt="logo" />
+          <img src="../images/sample_logo.png" alt="logo" />
           <h1>오작뀨</h1>
 
           <div class="util">
@@ -42,12 +50,15 @@
             <li><a href="#">내 탄생석은?</a></li>
           </ul>
         </div>
-      </nav>
+      </nav>     
+    </header> -->
+    <div data-include-path="../components/header.html"></div>
 
-      <article>
-        <img src="../images/visualBanner1.png" alt="visulaImage" />
-      </article>
-    </header>
+
+    <!-- 비주얼 배너 -->
+    <article class="visualBanner">
+      <img src="../images/visualBanner1.png" alt="visulaImage" />
+    </article>
 
     <!-- 메인 -->
     <main role="main" id="mainWrap">
@@ -96,12 +107,17 @@
       <!-- 세 번째 컨텐츠 -->
       <section class="newArrival">
         <strong>NEW ARRIVAL</strong>
-        <article></article>
+        <article class="productWrap">
+          <ul class="product"></ul>
+        </article>
       </section>
     </main>
 
+
+
     <!-- 푸터 -->
-    <footer>
+    <div data-include-path="../components/footer.html"></div>
+    <!-- <footer>
       <article>
         <ul>
           <li>
@@ -179,6 +195,7 @@
           </p>
         </div>
       </address>
-    </footer>
+    </footer> -->
+
   </body>
 </html>
