@@ -4,17 +4,20 @@ const product = document.querySelector(".product");
 
 async function getData() {
   try {
-    const res = await fetch("./product.json");
+    const res = await fetch("/api/products");
     const data = await res.json();
-    const value = data.Product;
-
-    value.forEach((tem) => {
+    // const value = data.Product;
+    
+    data.forEach((tem) => {
       product.innerHTML += `<li>
-          <img src=${tem.url}>
-          <p>${tem.id}</p>
-          <p>${tem.productTitle}</p>
-          <p>${tem.subTitle}</p>
-          <p>${tem.productPrice}</p>
+          <img src=${tem.image}>
+          <p>${tem.accessory_type}</p>
+          <p>${tem.description}</p>
+          <p>${tem.price}</p>
+          <p>${tem.product_id}</p>
+          <p>${tem.product_name}</p>
+          <p>${tem.product_title}</p>
+          <p>${tem.stone_type}</p>
         </li>`;
     });
 
