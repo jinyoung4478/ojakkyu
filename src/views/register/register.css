@@ -1,3 +1,56 @@
+@import "utf-8";
+@import "../styles/reset.css";
+
+/* 레이아웃 */
+#headerWrap {
+  max-width: 100%;
+}
+
+/* 헤더 */
+.headerTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+
+  background: #8e2de2;
+}
+
+.headerTop img {
+  width: 260px;
+  height: 100%;
+}
+
+.headerTop h1 {
+  font-size: 2em;
+  color: #fff;
+}
+
+.util ul {
+  display: flex;
+  gap: 20px;
+}
+
+.util ul li a {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* GNB */
+.gnb {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 4px solid #8e2de2;
+}
+
+.gnb ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 시작 */
+
 .register-user-form-container {
   display: flex;
   align-items: center;
