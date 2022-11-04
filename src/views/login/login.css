@@ -48,9 +48,9 @@
   height: 40px;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  border-color: #999;
+.input:focus{
+  border-color: purple;
+  outline: none;
 }
 
 .submitBtn {

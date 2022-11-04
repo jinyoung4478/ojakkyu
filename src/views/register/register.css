@@ -22,14 +22,37 @@
 }
 
 .formWrap{
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
 }
 
-/* .flexContent{
-} */
+.input{
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
 
-.flexContent .textLeft{
+.input:focus{
+  border-color: purple;
+  outline: none;
+}
+
+.paddingContent .textLeft{
   text-align: left;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
 
+.submitBtn {
+  border: none;
+  width: 410px;
+  padding: 20px 0;
+  background-color: #20002c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 40px;
 }
