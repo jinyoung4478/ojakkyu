@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import * as Api from "../utils/api.js";
 import { validateEmail } from "../utils/useful-functions.js";
-=======
-import * as Api from "../utils/api";
-import { validateEmail } from "../utils/useful-functions";
->>>>>>> f39742e52bfb7466d9078e0957977986fdfca3c7
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
