@@ -39,19 +39,19 @@ export class UserModel {
   }
 
   async updateOrder({ userId, orderId }) {
-    const updatedUser = await User.updateOne(
+    const updatedOrder = await User.updateOne(
       { _id: userId },
       { $push: { orderList: orderId } },
     );
-    return updatedUser;
+    return updatedOrder;
   }
 
   async deleteOrder({ userId, orderId }) {
-    const orderDeletedUser = await User.updateOne(
+    const deletedOrder = await User.updateOne(
       { _id: userId },
       { $pull: { orderList: orderId } },
     );
-    return orderDeletedUser;
+    return deletedOrder;
   }
 }
 
