@@ -12,18 +12,19 @@ async function creatProduct() {
     const data = await res.json();
 
     data.forEach((tem) => {
-      product.innerHTML += `<li class="productEvent" >
-          <img src=${tem.image}>
+      product.innerHTML += `<li class="productEvent">
+          <a href="${DETAIL_PAGE}"><img class="productEvent" src=${tem.image}></a>
           <p>${tem.accessory_type}</p>
           <p>${tem.description}</p>
           <p>${tem.price}</p>
-          <p>${tem.product_id}</p>
+          <p data-id="${tem.product_id}">${tem.product_id}</p>
           <p>${tem.product_name}</p>
           <p>${tem.product_title}</p>
           <p>${tem.stone_type}</p>
         </li>`;
     });
-// <a href="${DETAIL_PAGE}"><img class="productEvent" src=${tem.image}></a>
+
+    // <img src=${tem.image}>
     saveProduct(data)
   } catch (err) {
     console.log(err);
@@ -31,8 +32,8 @@ async function creatProduct() {
 }
 
 function saveProduct(productData){
-  // localStorage.setItem("product", JSON.stringify(productData));
-  console.log(productData)
+  localStorage.setItem("product", JSON.stringify(productData));
+  // console.log(productData)
 }
 
 async function startProduct() {
@@ -41,11 +42,15 @@ async function startProduct() {
 
 startProduct();
 
+
+
 window.onload = function(){
 
-  Array.from(moveDetail).forEach((tem,idx) => {
+  Array.from(moveDetail).forEach((tem, idx) => {
     tem.addEventListener("click", function(e){
-      console.log("asdasdasdasd",e.target,"idididididididx",idx)
+      // Api.get(`/api/products:${e.target.dataset.id}`)
+      const productId = Api.get(`/product/:productId=${e.target.dataset.id}`)
+      console.log("success",productId)
     })
   })
   
