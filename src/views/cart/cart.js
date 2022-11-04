@@ -145,17 +145,10 @@ async function getData() {
           e.preventDefault();
 
           //update: 장바구니 물건 개수 변경
-          let input = INPUT_VALUES[i];
-          let totalItems = [];
-          for (let el of INPUT_VALUES) {
-            totalItems.push(el.value);
-          }
+          totalItems.splice(i, 1);
+          let result = totalItems.reduce((pre, cur) => pre * 1 + cur * 1);
           console.log(totalItems);
-
-          let values = 0;
-          values += totalItems[i] * 1;
-
-          COUNT_PRODUCT.innerHTML = values.toString();
+          COUNT_PRODUCT.innerHTML = result;
 
           btndel.parentElement.parentElement.parentElement.remove();
           //1. 개별삭제시 총액에 반영하기
@@ -168,16 +161,9 @@ async function getData() {
     console.log(err);
   }
 }
-async function delData() {
-  try {
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 async function creatProduct() {
   await getData();
-  await delData();
 }
 
 creatProduct();
