@@ -1,0 +1,104 @@
+@charset "utf-8";
+@import '../../styles/reset.css';
+/* 링크부분은 빼고 복사해주세요 */
+/* 아래부터 사용하시면 됩니다. */
+.ftSerif {
+  font-family: 'Noto Serif KR', serif;
+}
+
+/* MAIN */
+.accountWrapperIn {
+  margin-left: 50%;
+  max-width: 1080px;
+
+  text-align: center;
+
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+
+.accountWrapper aside {
+  margin-top: 20px;
+  margin-bottom: 24px;
+  height: 160px;
+
+  font-size: 1.2em;
+  color: #2e5173;
+  background-color: #f7f8f9;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.accountWrapper ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
+  grid-auto-rows: 240px;
+  row-gap: 8px;
+  grid-template-areas:
+    'img1 img2 '
+    'img3 img4 ';
+}
+
+.accountWrapper li:hover {
+  border: 0;
+}
+.accountWrapper li {
+  width: 100%;
+  height: 100%;
+  line-height: 240px;
+
+  border: 1px solid rgba(18, 64, 117, 0.4);
+
+  display: flex;
+  align-items: center;
+}
+
+.accountWrapper .img1 {
+  grid-area: img1;
+}
+.accountWrapper .img2 {
+  grid-area: img2;
+}
+.accountWrapper .img3 {
+  grid-area: img3;
+}
+.accountWrapper .img4 {
+  grid-area: img4;
+}
+
+.accountWrapper a:hover {
+  color: #fff;
+  font-size: 2em;
+  font-weight: bold;
+}
+.accountWrapper .img1:hover a {
+  background-image: url('../../images/img1.jpg');
+}
+.accountWrapper .img2:hover a {
+  background-image: url('../../images/img2.jpg');
+}
+.accountWrapper .img3:hover a {
+  background-image: url('../../images/img3.jpg');
+}
+.accountWrapper .img4:hover a {
+  background-image: url('../../images/img4.jpg');
+}
+
+.accountWrapper a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+
+  font-size: 24px;
+  color: rgb(18, 64, 117);
+  font-family: 'Noto Serif KR', serif;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
