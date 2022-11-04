@@ -1,100 +1,97 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>헤더</title>
 
     <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="../images/facon.ico"
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/facon.ico"
     />
 
-    <link rel="stylesheet" type="style" href="../styles/reset.css">
+    <link rel="stylesheet" type="style" href="../styles/reset.css" />
 
     <style>
-        /* 헤더 레이아웃 */
-        #headerWrap {
+      /* 헤더 레이아웃 */
+      #headerWrap {
         max-width: 100%;
-        }
+      }
 
-        /* 헤더 */
-        .headerTop {
+      /* 헤더 */
+      .headerTop {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
         height: 100px;
         background: #20002c;
-        }
+      }
 
-        .headerTop img {
+      .headerTop img {
         width: 260px;
         height: 100%;
-        }
+      }
 
-        .headerTop h1 {
+      .headerTop h1 {
         font-size: 2em;
         color: #fff;
-        }
+      }
 
-        .util ul {
+      .util ul {
         display: flex;
         gap: 20px;
-        }
+      }
 
-        .util ul li a {
+      .util ul li a {
         color: #fff;
         font-weight: 600;
-        }
+      }
 
-        /* GNB */
-        .gnb {
+      /* GNB */
+      .gnb {
         background-color: #fff;
         padding: 20px 0;
         border-bottom: 2px solid #20002c;
-        }
+      }
 
-        .gnb ul {
+      .gnb ul {
         display: flex;
         justify-content: space-evenly;
-        }
+      }
     </style>
+  </head>
 
+  <body>
+    <!-- 헤더 -->
+    <header id="headerWrap">
+      <nav>
+        <div class="headerTop">
+          <img src="../images/sample_logo.png" alt="logo" />
+          <h1><a href="/">오작뀨</a></h1>
 
-    </head>
+          <div class="util">
+            <ul>
+              <li><a href="/login">로그인</a></li>
+              <li><a href="/register">회원가입</a></li>
+              <li><a href="/cart">장바구니</a></li>
+              <li><a href="/account">내 정보</a></li>
+            </ul>
+          </div>
+        </div>
 
-    <body>
-        <!-- 헤더 -->
-        <header id="headerWrap">
-            <nav>
-                <div class="headerTop">
-                    <img src="../images/sample_logo.png" alt="logo" />
-                    <h1>오작뀨</h1>
-
-                    <div class="util">
-                    <ul>
-                        <li><a href="/login">로그인</a></li>
-                        <li><a href="/register">회원가입</a></li>
-                        <li><a href="/cart">장바구니</a></li>
-                        <li><a href="/mypage">내 정보</a></li>
-                    </ul>
-                    </div>
-                </div>
-
-                <div class="gnb">
-                    <ul>
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">팔찌</a></li>
-                    <li><a href="#">반지</a></li>
-                    <li><a href="#">목걸이</a></li>
-                    <li><a href="#">내 탄생석은?</a></li>
-                    </ul>
-                </div>
-            </nav>     
-        </header>
-    </body>
+        <div class="gnb">
+          <ul>
+            <li><a href="#">ABOUT US</a></li>
+            <li><a href="#">팔찌</a></li>
+            <li><a href="#">반지</a></li>
+            <li><a href="#">목걸이</a></li>
+            <li><a href="#">내 탄생석은?</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </body>
 </html>
- 
