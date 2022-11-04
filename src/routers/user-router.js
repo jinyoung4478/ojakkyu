@@ -3,6 +3,12 @@ import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from "../middlewares";
 import { userService } from "../services";
+import { orderService } from "../services/order-service";
+
+import { model } from "mongoose";
+import { UserSchema } from "../db/schemas/user-schema";
+
+const User = model("users", UserSchema);
 
 const userRouter = Router();
 
@@ -23,7 +29,19 @@ userRouter.post("/login", async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    res.status(200).json(userToken);
+    // 쿠키 설정
+    res.cookie("token", userToken).cookie("login", "true")
+      .status(200).json(userToken);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 로그아웃
+// 쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
+userRouter.get("/logout", async function (req, res, next) {
+  try { 
+    res.clearCookie("token").clearCookie("login").redirect("/");
   } catch (error) {
     next(error);
   }
@@ -42,11 +60,11 @@ userRouter.post("/", async (req, res, next) => {
     }
 
     // req (request)의 body 에서 데이터 가져오기
-    const { fullName, email, password } = req.body;
+    const { full_name, email, password } = req.body;
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
-      fullName,
+      full_name,
       email,
       password,
     });
@@ -62,7 +80,7 @@ userRouter.post("/", async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/", loginRequired, async function (req, res, next) {
+userRouter.get("/", async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -74,11 +92,31 @@ userRouter.get("/", loginRequired, async function (req, res, next) {
   }
 });
 
+// 사용자 정보 조회
+// userRouter.get("/:userId", async (req, res, next) => {
+//   try {
+//     const { userId } = req.params;
+//     const userData = await userService.getUser(userId);
+//     res.status(200).json(userData);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+userRouter.get("/info", loginRequired, async (req, res, next) => {
+  try {
+    const userId = req.currentUserId;
+    const userInfo = await userService.getUser(userId);
+    res.status(200).json(userInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.put(
   "/:userId",
-  loginRequired,
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -94,7 +132,7 @@ userRouter.put(
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
-      const { fullName, password, address, phoneNumber, role, currentPassword } = req.body;
+      const { full_name, password, address, phone_number, role, currentPassword } = req.body;
 
       // currentPassword 없을 시, 진행 불가
       if (!currentPassword) {
@@ -106,10 +144,10 @@ userRouter.put(
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const toUpdate = {
-        ...(fullName && { fullName }),
+        ...(full_name && { full_name: full_name }),
         ...(password && { password }),
         ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
+        ...(phone_number && { phone_number }),
         ...(role && { role }),
       };
 
@@ -126,5 +164,64 @@ userRouter.put(
     }
   }
 );
+
+// 사용자 정보 삭제
+userRouter.delete("/:userId", async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+    const { userId } = req.params;
+    const { currentPassword } = req.body;
+    if (!currentPassword) {
+      throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
+    }
+    const userInfoRequired = { userId, currentPassword };
+    const deletedUserInfo = await userService.deleteUser(userInfoRequired);
+    // 사용자 정보 삭제 성공
+    if (deletedUserInfo) {
+      res.status(200).json({ result: "success" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 사용자 주문 내역 조회
+userRouter.get("/:userId/orders", async (req, res, next) => {
+  // 로그인이 되어있으면 그 사용자의 주문들을 전부 반환
+  try {
+    const { userId } = req.params;
+    const orders = await orderService.findOrders(userId);
+    res.status(200).json(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 사용자 주문 삭제
+userRouter.get("/:userId/orders/:orderId", async (req, res, next) => {
+  try {
+    const { userId, orderId } = req.params;
+    const currentUserId = await orderService.findUser(orderId);
+
+    if (currentUserId !== userId) {
+      throw new Error(
+        "사용자 아이디와 현재 주문하는 사용자 아이디 정보가 일치하지 않습니다."
+      );
+    }
+    const deletedOrder = await orderService.deleteUserOrder(orderId);
+    if (deletedOrder) {
+      await userService.pullUserOrderList(userId, orderId);
+      res.status(200).json({ result: "success" });
+    } else {
+      throw new Error("주문한 기록이 없습니다.");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { userRouter };
