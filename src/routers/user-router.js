@@ -24,7 +24,7 @@ userRouter.post("/login", async function (req, res, next) {
 
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body;
-    
+
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, password });
 
@@ -50,6 +50,7 @@ userRouter.get("/logout", async function (req, res, next) {
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users 로 요청해야 함.)
 userRouter.post("/", async (req, res, next) => {
   try {
+    console.log("user router")
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
