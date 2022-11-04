@@ -1,5 +1,6 @@
 // import * as Api from "../utils/api";
 // import { validateEmail } from "../utils/useful-functions";
+import { clientSideInclude } from "../utils/useful-functions.js";
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector("#fullNameInput");
@@ -62,23 +63,4 @@ const submitButton = document.querySelector("#submitButton");
 //   }
 // }
 
-window.addEventListener('load', function() {
-
-  let allElements = document.getElementsByTagName('*');
-  Array.prototype.forEach.call(allElements, function(el) {
-      let includePath = el.dataset.includePath;
-      if (includePath) {
-          let xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-              if (this.readyState == 4 && this.status == 200) {
-                  el.outerHTML = this.responseText;
-              }else if(this.status == 404){
-                console.log("failfailfailfailfail")
-              }
-          };
-          xhttp.open('GET', includePath, true);
-          xhttp.send();
-      }
-  });
-
-});
+clientSideInclude();
