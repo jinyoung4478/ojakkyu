@@ -1,36 +1,13 @@
 import * as Api from '../utils/api.js';
-import { addCommas } from '../utils/useful-functions.js';
+import { addCommas, clientSideInclude } from '../utils/useful-functions.js';
+clientSideInclude();
 
-// [221103]작성. 상위요소 추후 수정예정
 console.log('Hello Cart!');
 
-// 요소(element), input 혹은 상수
-/**제품 총수량 */
 const COUNT_PRODUCT = document.getElementById('countAllItem');
-/**장바구니 총액
- * @readonly
- */
 const PRICCE_TOTAL = document.getElementById('priceTotal');
-
-// __BUTTONS
-/**장바구니 전체 비우는 버튼입니다
- * @todo del.All
- */
-/**개별 상품 삭제 버튼입니다.
- * @todo this.del
- */
-/**구매하기 버튼
- * @todo 구매목록 전송
- * @todo 장바구니 목록삭제
- */
 const BTN_PERCHASE = document.getElementById('btnPurchase');
-/**상품목록으로 돌아가는 버튼
- * @todo link
- */
 const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
-
-// [221103]작성. 하위요소 추후 수정예정
-
 const PRODUCT = document.querySelector('#listItems');
 
 async function getData() {
@@ -71,7 +48,7 @@ async function getData() {
       <input type="hidden" value="${tem.id}">
       <input
       id="countItem"
-      value="2"
+      value="${tem.id}"
       class="countItem input is-3 column mr-4 "
       type="number"
       min=1
@@ -149,6 +126,43 @@ async function getData() {
           PRICCE_TOTAL.innerHTML = addCommas(values).toString();
         });
       }
+      //delete: 장바구니 물건 전체 삭제
+      const BTN_ALL_REMOVE = document.getElementById('btnAllRemove');
+      BTN_ALL_REMOVE.addEventListener('click', (e) => {
+        e.preventDefault();
+        COUNT_PRODUCT.innerHTML = '0';
+        PRICCE_TOTAL.innerHTML = '0';
+        PRODUCT.innerHTML = '';
+        console.log('all items delete - clear -');
+      });
+
+      //delete: 장바구니 물건 개별 삭제[221104]
+      const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
+      const PERCHAISING = document.querySelector('#perchasing');
+      for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
+        let btndel = BTN_DEL_ITEMS[i];
+        btndel.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          //update: 장바구니 물건 개수 변경
+          let input = INPUT_VALUES[i];
+          let totalItems = [];
+          for (let el of INPUT_VALUES) {
+            totalItems.push(el.value);
+          }
+          console.log(totalItems);
+
+          let values = 0;
+          values += totalItems[i] * 1;
+
+          COUNT_PRODUCT.innerHTML = values.toString();
+
+          btndel.parentElement.parentElement.parentElement.remove();
+          //1. 개별삭제시 총액에 반영하기
+          //2. 개별삭제로 목록이 모두 삭제될 시 총액 0으로 변경
+          //3.개별삭제 모두 진행시 금액 반영
+        });
+      }
     });
   } catch (err) {
     console.log(err);
@@ -156,26 +170,6 @@ async function getData() {
 }
 async function delData() {
   try {
-    //delete: 장바구니 물건 전체 삭제
-    const BTN_ALL_REMOVE = document.getElementById('btnAllRemove');
-    BTN_ALL_REMOVE.addEventListener('click', (e) => {
-      e.preventDefault();
-      COUNT_PRODUCT.innerHTML = '0';
-      PRICCE_TOTAL.innerHTML = '0';
-      PRODUCT.innerHTML = '';
-      console.log('all items delete - clear -');
-    });
-
-    //delete: 장바구니 물건 개별 삭제
-    const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
-    const PERCHAISING = document.querySelector('#perchasing');
-    for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
-      let btndel = BTN_DEL_ITEMS[i];
-      btndel.addEventListener('click', (e) => {
-        e.preventDefault();
-        btndel.parentElement.parentElement.parentElement.remove();
-      });
-    }
   } catch (err) {
     console.log(err);
   }
@@ -188,7 +182,7 @@ async function creatProduct() {
 
 creatProduct();
 
-// **** 참고 HOME.JS
+// **** 리팩토링 "참고" HOME.JS
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
   insertTextToLanding();
