@@ -126,6 +126,7 @@ async function getData() {
           PRICCE_TOTAL.innerHTML = addCommas(values).toString();
         });
       }
+
       //delete: 장바구니 물건 전체 삭제
       const BTN_ALL_REMOVE = document.getElementById('btnAllRemove');
       BTN_ALL_REMOVE.addEventListener('click', (e) => {
@@ -136,7 +137,7 @@ async function getData() {
         console.log('all items delete - clear -');
       });
 
-      //delete: 장바구니 물건 개별 삭제[221104]
+      //delete: 장바구니 물건 개별 삭제[221104 - 진행중]
       const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
       const PERCHAISING = document.querySelector('#perchasing');
       for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
