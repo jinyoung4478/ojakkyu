@@ -137,7 +137,8 @@ async function getData() {
         console.log('all items delete - clear -');
       });
 
-      //delete: 장바구니 물건 개별 삭제[221104 - 진행중]
+      //delete: 장바구니 물건 개별 삭제
+      //[221104 - 진행중: splice를 사용하면 순차적 삭제시 4번 이후로 삭제가 어렵습니다.]
       const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
       const PERCHAISING = document.querySelector('#perchasing');
       for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
