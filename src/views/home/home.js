@@ -22,10 +22,9 @@ async function creatProduct() {
       // insertAdjacentHTML
 
 
-      product.innerHTML += `<li data-id="${id}" class="productEvent">
-      <a href="${DETAIL_PAGE}"><img class="productEvent" src=${img}></a>
-          
-
+      product.innerHTML += `
+      <li data-id="${id}" class="productEvent">
+          <img src=${img}>
           <p>${description}</p>
           <p>${price}</p>
           <p>${id}</p>
@@ -35,7 +34,6 @@ async function creatProduct() {
         </li>`;
     });
 
-    // <img src=${img}>
 
     // saveProduct(res)
   } catch (err) {
@@ -53,15 +51,7 @@ async function startProduct() {
 
 startProduct();
 
-// const searchParams = new URLSearchParams(location.search);
 
-// console.log(window.location.search,"ASDasdasdas")
-
-// const urlParams = new URL(location.href).searchParams;
-
-// const name = urlParams.get('product_id');
-
-// console.log(name,"asdasd")
 
 
 const url = new URL(location.href)
@@ -77,12 +67,10 @@ window.onload = function(){
 
     tem.addEventListener("click", async function(e){
       if (e.target !== e.currentTarget) return;
-      const productId = e.target.dataset.id;
+     
 
-      const date = Api.get('/product/:productId',`${productId}`)
-      
-      console.log(productId,date)
-      
+      location.href = `/product/${e.target.dataset.id}`
+    
     })
   })
   
