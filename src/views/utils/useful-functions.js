@@ -12,6 +12,11 @@ export const validateEmail = (email) => {
     );
 };
 
+// 폰번호 형식 일치 여부 검증 기능 - 구현 예정
+export const validatePhoneNumber = (phoneNumber) => {
+  return String(phoneNumber).match(/^\d{3}-\d{3,4}-\d{4}$/);
+};
+
 // 숫자에 쉼표를 추가함. (10000 -> 10,000)
 export const addCommas = (n) => {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
