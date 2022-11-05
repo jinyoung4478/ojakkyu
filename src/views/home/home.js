@@ -7,25 +7,26 @@ const DETAIL_PAGE = "/product";
 
 async function creatProduct() {
   try {
-    const res = await fetch("/api/products");
-    // const res = await Api.get("/api/products");
-    const data = await res.json();
+    const res = await Api.get("/api/products");
 
-    data.forEach((tem) => {
-      product.innerHTML += `<li class="productEvent">
-          <a href="${DETAIL_PAGE}"><img class="productEvent" src=${tem.image}></a>
+    // const res = await fetch("/api/products");
+    // const data = await res.json();
+
+    res.forEach((tem) => {
+      product.innerHTML += `<li  data-id="${tem.product_id}" class="productEvent">
+          <img src=${tem.image}>
           <p>${tem.accessory_type}</p>
           <p>${tem.description}</p>
           <p>${tem.price}</p>
-          <p data-id="${tem.product_id}">${tem.product_id}</p>
+          <p>${tem.product_id}</p>
           <p>${tem.product_name}</p>
           <p>${tem.product_title}</p>
           <p>${tem.stone_type}</p>
         </li>`;
     });
+    // <a href="${DETAIL_PAGE}"><img class="productEvent" src=${tem.image}></a>
 
-    // <img src=${tem.image}>
-    saveProduct(data)
+    // saveProduct(res)
   } catch (err) {
     console.log(err);
   }
@@ -33,7 +34,6 @@ async function creatProduct() {
 
 function saveProduct(productData){
   localStorage.setItem("product", JSON.stringify(productData));
-  // console.log(productData)
 }
 
 async function startProduct() {
@@ -45,17 +45,21 @@ startProduct();
 
 
 window.onload = function(){
-
+  
   Array.from(moveDetail).forEach((tem, idx) => {
-    tem.addEventListener("click", function(e){
+    tem.addEventListener("click", async function(e){
+      // e.stopPropagtion();
+      // if (e.target !== e.currentTarget) return;
+      // const productId = e.target.dataset.id;
+      
       // Api.get(`/api/products:${e.target.dataset.id}`)
-      const productId = Api.get(`/product/:productId=${e.target.dataset.id}`)
-      console.log("success",productId)
+    //  console.log(tem.dataset,idx)
+      
     })
   })
   
 };
 
+
 // 컴포넌트 랜더링
 clientSideInclude();
-
