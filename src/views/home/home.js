@@ -46,13 +46,19 @@ startProduct();
 
 window.onload = function(){
   
+
+
   Array.from(moveDetail).forEach((tem, idx) => {
+
+      // 제품 li 하나씩 클릭하는 이벤트
     tem.addEventListener("click", async function(e){
       // e.stopPropagtion();
       // if (e.target !== e.currentTarget) return;
+
+      //  데이터 셋 변수에 담아놓은 product_id
       // const productId = e.target.dataset.id;
       
-      // Api.get(`/api/products:${e.target.dataset.id}`)
+
     //  console.log(tem.dataset,idx)
       
     })
