@@ -47,7 +47,7 @@ userRouter.get("/logout", async function (req, res, next) {
   }
 });
 
-// 회원가입 api (아래는 / 이지만, 실제로는 /api/users 로 요청해야 함.)
+// 회원가입 api (아래는 / 이지만, 실제로는 /api/users/register 로 요청해야 함.)
 userRouter.post("/register", async (req, res, next) => {
   try {
     console.log("user router")

@@ -31,16 +31,22 @@ class OrderService {
     return createdNewOrder;
   }
 
-  // 모든 주문 내역 보기(모든 사용자)
-  async findAllOrders() {
+  // 전체 주문내역 조회
+  async getOrders() {
     const orders = await this.orderModel.findAll();
     return orders;
   }
 
-  // 모든 주문 내역 보기(단일 사용자)
-  async findOrders(userId) {
-    const orders = await this.orderModel.findAllForOneUser(userId);
+  // userId로 사용자 별 주문 내역 조회
+  async getFindByUserId(userId) {
+    const orders = await this.orderModel.findByUserId(userId);
     return orders;
+  }
+
+  // orderId로 주문 상세 조회
+  async getFindByOrderId(orderId) {
+    const order = await this.orderModel.findByOrderId(orderId);
+    return order;
   }
 
   // orderId로 사용자 찾기
@@ -49,6 +55,14 @@ class OrderService {
     const userId = order.userId;
     return userId;
   }
+
+  // 주문 상태 변경
+  async setOrderStatus(orderId, status) {
+    const order = await this.orderModel.update(orderId, status);
+
+    return order;
+  }
+
   // 주문 내역 삭제
   async deleteUserOrder(orderId) {
     const deletedOrder = await this.orderModel.deleteById(orderId);
