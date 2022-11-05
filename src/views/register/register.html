@@ -33,7 +33,7 @@
 
         <form class="formWrap" id="registerUserForm">
           <div class="paddingContent">
-            <p class="textLeft" ><label for="idInput">아이디</label></p>
+            <p class="textLeft"><label for="idInput">아이디</label></p>
             <div>
               <input
                 class="input"
@@ -44,9 +44,9 @@
               />
             </div>
           </div>
-  
+
           <div class="paddingContent">
-            <p class="textLeft" ><label for="passwordInput">비밀번호</label></p>
+            <p class="textLeft"><label for="passwordInput">비밀번호</label></p>
             <div>
               <input
                 class="input"
@@ -57,9 +57,11 @@
               />
             </div>
           </div>
-  
+
           <div class="paddingContent">
-            <p class="textLeft" ><label  for="passwordConfirmInput">비밀번호 확인</label></p>
+            <p class="textLeft">
+              <label for="passwordConfirmInput">비밀번호 확인</label>
+            </p>
             <div>
               <input
                 class="input"
@@ -70,9 +72,9 @@
               />
             </div>
           </div>
-  
+
           <div class="paddingContent">
-            <p class="textLeft" ><label  for="fullNameInput">이름</label></p>
+            <p class="textLeft"><label for="fullNameInput">이름</label></p>
             <div>
               <input
                 class="input"
@@ -83,9 +85,9 @@
               />
             </div>
           </div>
-  
+
           <div class="paddingContent">
-            <p class="textLeft" ><label  for="emailInput">이메일</label></p>
+            <p class="textLeft"><label for="emailInput">이메일</label></p>
             <div>
               <input
                 class="input"
@@ -96,29 +98,28 @@
               />
             </div>
           </div>
-  
+
           <div class="paddingContent">
-            <p class="textLeft" ><label  for="phonNumberInput">휴대폰 번호</label></p>
+            <p class="textLeft">
+              <label for="phonNumberInput">휴대폰 번호</label>
+            </p>
             <div>
               <input
                 class="input"
                 id="phonNumberInput"
                 type="tel"
-                placeholder="010-3993-3263"
+                maxlength="13"
                 autocomplete="off"
+                value="010"
               />
             </div>
           </div>
-  
-  
-          <button class="submitBtn" id="submitButton">
-            회원가입하기
-          </button>
+
+          <button class="submitBtn" id="submitButton">회원가입하기</button>
         </form>
       </div>
 
       <div data-include-path="../components/footer.html"></div>
-
     </section>
   </body>
 </html>
