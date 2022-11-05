@@ -51,17 +51,11 @@ async function startProduct() {
 
 startProduct();
 
-
-
-
 const url = new URL(location.href)
 console.log(url)
 
 
-
-
 window.onload = function(){
-  
 
   Array.from(moveDetail).forEach((tem, idx) => {
 
