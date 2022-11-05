@@ -8,23 +8,34 @@ const DETAIL_PAGE = "/product";
 async function creatProduct() {
   try {
     const res = await Api.get("/api/products");
-
+    console.log(res)
     // const res = await fetch("/api/products");
     // const data = await res.json();
-
     res.forEach((tem) => {
-      product.innerHTML += `<li  data-id="${tem.product_id}" class="productEvent">
-          <img src=${tem.image}>
-          <p>${tem.accessory_type}</p>
-          <p>${tem.description}</p>
-          <p>${tem.price}</p>
-          <p>${tem.product_id}</p>
-          <p>${tem.product_name}</p>
-          <p>${tem.product_title}</p>
-          <p>${tem.stone_type}</p>
+      const img = tem.image;
+      const description = tem.description;
+      const price = tem.price;
+      const id = tem.product_id;
+      const name = tem.product_name;
+      const title = tem.product_title;
+      const type = tem.stone_type;
+      // insertAdjacentHTML
+
+
+      product.innerHTML += `<li data-id="${id}" class="productEvent">
+      <a href="${DETAIL_PAGE}"><img class="productEvent" src=${img}></a>
+          
+
+          <p>${description}</p>
+          <p>${price}</p>
+          <p>${id}</p>
+          <p>${name}</p>
+          <p>${title}</p>
+          <p>${type}</p>
         </li>`;
     });
-    // <a href="${DETAIL_PAGE}"><img class="productEvent" src=${tem.image}></a>
+
+    // <img src=${img}>
 
     // saveProduct(res)
   } catch (err) {
@@ -42,24 +53,35 @@ async function startProduct() {
 
 startProduct();
 
+// const searchParams = new URLSearchParams(location.search);
+
+// console.log(window.location.search,"ASDasdasdas")
+
+// const urlParams = new URL(location.href).searchParams;
+
+// const name = urlParams.get('product_id');
+
+// console.log(name,"asdasd")
+
+
+const url = new URL(location.href)
+console.log(url)
+
+
 
 
 window.onload = function(){
   
 
-
   Array.from(moveDetail).forEach((tem, idx) => {
 
-      // 제품 li 하나씩 클릭하는 이벤트
     tem.addEventListener("click", async function(e){
-      // e.stopPropagtion();
-      // if (e.target !== e.currentTarget) return;
+      if (e.target !== e.currentTarget) return;
+      const productId = e.target.dataset.id;
 
-      //  데이터 셋 변수에 담아놓은 product_id
-      // const productId = e.target.dataset.id;
+      const date = Api.get('/product/:productId',`${productId}`)
       
-
-    //  console.log(tem.dataset,idx)
+      console.log(productId,date)
       
     })
   })
