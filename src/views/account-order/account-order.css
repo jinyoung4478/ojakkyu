@@ -17,8 +17,9 @@
 
 .orderWrap h2 {
   font-family: 'Stick No Bills', sans-serif;
-  padding: 20px 0;
-  font-size: 2.4em;
+  padding-top: 32px;
+  padding-bottom: 36px;
+  font-size: 2em;
   font-weight: 600;
   color: rgb(27, 34, 75);
 }
