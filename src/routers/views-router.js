@@ -14,7 +14,6 @@ viewsRouter.use('/order', serveStatic('account-order'));
 viewsRouter.use('/info', serveStatic('account-info')); // 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요
 viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.use('/product', serveStatic('product'));
-viewsRouter.use('/order', serveStatic('order'));
 // viewsRouter.use('/product/product-category', serveStatic('#'));
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
