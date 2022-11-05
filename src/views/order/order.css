@@ -48,11 +48,17 @@
   border-bottom: 1px solid rgb(55, 72, 119);
 }
 
+.submitBtn:active {
+  color: black;
+  background-color: #fff;
+  border: 2px solid rgb(30, 38, 59);
+}
 .submitBtn {
   border: none;
   border-radius: 5px;
   padding: 6px 2px;
   background-color: rgb(30, 38, 59);
+  border: 2px solid rgb(30, 38, 59);
   color: #fff;
   font-weight: 600;
   font-size: 1.2em;
