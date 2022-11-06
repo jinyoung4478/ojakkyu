@@ -57,6 +57,7 @@ function addAllEvents() {
   phoneNumberToggle.addEventListener('change', handleToggleButton);
   phoneNumberInput.addEventListener('input', handlePhoneNumberInput);
   saveButton.addEventListener('click', openModal);
+  modalBackground.addEventListener('click', closeModal);
   modalCloseButton.addEventListener('click', closeModal);
   document.addEventListener('keydown', keyDownCloseModal);
   saveCompleteButton.addEventListener('click', updateUserData);
