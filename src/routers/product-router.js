@@ -29,11 +29,12 @@ productRouter.get("/:product_id", async (req, res, next) => {
         res.status(200).json(product);
     }
     catch (error) {
-
+        next(error)
     }
 })
 
 productRouter.get("/", async (req, res, next) => {
+
     try {
         const products = await productService.getProductsAll()
         res.status(200).json(products)
@@ -47,8 +48,28 @@ productRouter.get("/", async (req, res, next) => {
 productRouter.post("/", async (req, res, next) => {
     try {
         console.log("router")
-        const { product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes } = req.body
-        const product = await productService.addProduct({ product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes })
+        const {
+            product_id,
+            product_name,
+            product_title,
+            description,
+            price,
+            stone_type,
+            accessory_type,
+            availability,
+            likes,
+        } = req.body;
+        const product = await productService.addProduct({
+            product_id,
+            product_name,
+            product_title,
+            description,
+            price,
+            stone_type,
+            accessory_type,
+            availability,
+            likes,
+        });
 
         res.status(201).json(product)
     }
@@ -84,6 +105,7 @@ productRouter.delete("/:product_id", async (req, res, next) => {
     try {
         const productId = req.params.product_id
         await productService.deleteProduct(productId)
+        res.status(200)
     }
     catch (error) {
         next(error);
