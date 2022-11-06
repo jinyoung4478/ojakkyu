@@ -19,9 +19,9 @@ productRouter.get("/", async (req, res, next) => {
 })
 
 //카테고리별 상품 조회
-productRouter.get("/category/:category_id", async (req, res, next) => {
+productRouter.get("/category/:categoryId", async (req, res, next) => {
     try {
-        const category = req.params.category_id;
+        const category = req.params.categoryId;
 
         const products = await productService.getProductsByCategory(category)
         res.status(200).json(products)
@@ -31,11 +31,11 @@ productRouter.get("/category/:category_id", async (req, res, next) => {
     }
 })
 //상품 상세조회
-productRouter.get("/:product_id", async (req, res, next) => {
+productRouter.get("/:productId", async (req, res, next) => {
     try {
-        const { product_id } = req.params
-        console.log(product_id)
-        const product = await productService.getProduct(product_id)
+        const { productId } = req.params
+        console.log(productId)
+        const product = await productService.getProduct(productId)
         res.status(200).json(product);
     }
     catch (error) {
@@ -49,24 +49,24 @@ productRouter.post("/", async (req, res, next) => {
     try {
         console.log("router")
         const {
-            product_id,
-            product_name,
-            product_title,
+            productId,
+            productName,
+            productTitle,
             description,
             price,
-            stone_type,
-            accessory_type,
+            stoneType,
+            category,
             availability,
             likes,
         } = req.body;
         const product = await productService.addProduct({
-            product_id,
-            product_name,
-            product_title,
+            productId,
+            productName,
+            productTitle,
             description,
             price,
-            stone_type,
-            accessory_type,
+            stoneType,
+            category,
             availability,
             likes,
         });
@@ -79,21 +79,29 @@ productRouter.post("/", async (req, res, next) => {
 })
 
 //상품 수정
-productRouter.put("/:product_id", async (req, res, next) => {
+productRouter.put("/:productId", async (req, res, next) => {
     try {
-        const product_id = req.params.product_id
-        const { product_name, product_title, description, price, stone_type, accessory_type, availability, likes } = req.body
+        const productId = req.params.productId
+        const {
+            productName,
+            productTitle,
+            description,
+            price,
+            stoneType,
+            category,
+            availability,
+            likes, } = req.body
         const toUpdate = {
-            ...(product_name && { product_name }),
-            ...(product_title && { product_title }),
+            ...(productName && { productName }),
+            ...(productTitle && { productTitle }),
             ...(description && { description }),
             ...(price && { price }),
-            ...(stone_type && { stone_type }),
-            ...(accessory_type && { accessory_type }),
+            ...(stoneType && { stoneType }),
+            ...(category && { category }),
             ...(availability && { availability }),
             ...(likes && { likes })
         }
-        const product = await productService.editProduct(product_id, toUpdate)
+        const product = await productService.editProduct(productId, toUpdate)
         res.status(200).json(product)
     }
     catch (error) {
@@ -101,9 +109,9 @@ productRouter.put("/:product_id", async (req, res, next) => {
     }
 })
 //상품 삭제
-productRouter.delete("/:product_id", async (req, res, next) => {
+productRouter.delete("/:productId", async (req, res, next) => {
     try {
-        const productId = req.params.product_id
+        const productId = req.params.productId
         await productService.deleteProduct(productId)
         res.status(200)
     }
