@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
-const DB_URL = "mongodb+srv://uiseok:1q2w3e4r@cluster0.48jso8v.mongodb.net/?retryWrites=true&w=majority";
+//const DB_URL = "mongodb+srv://uiseok:1q2w3e4r@cluster0.48jso8v.mongodb.net/?retryWrites=true&w=majority";
 //process.env.MONGODB_URL ||
+const DB_URL =
+  process.env.MONGODB_URL ||
+  "MongoDB 서버 주소가 설정되지 않았습니다.\n./db/index.js 파일을 확인해 주세요. \n.env 파일도 필요합니다.\n";
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
@@ -19,3 +22,4 @@ db.on("error", (error) =>
 // '../db/index.js' 에서 index.js 는 생략 가능하므로, '../db' 면 됨 (index는 특별한 용어)
 export * from "./models/user-model";
 export * from "./models/product-model";
+export * from "./models/order-model";
