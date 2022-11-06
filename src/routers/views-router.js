@@ -10,13 +10,13 @@ viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/cart', serveStatic('cart'));
-viewsRouter.use('/order', serveStatic('account-order'));
+viewsRouter.use('/order-view', serveStatic('account-order'));
 viewsRouter.use('/info', serveStatic('account-info')); // 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요
 viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.use('/product', serveStatic('product'));
 viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
 viewsRouter.use('/product/category/:category', serveStatic('product'));
-viewsRouter.use('/purchase', serveStatic('cart-order'));
+viewsRouter.use('/order', serveStatic('order'));
 
 // viewsRouter.use('/product/:productId', serveStatic('product_detail'));
 
