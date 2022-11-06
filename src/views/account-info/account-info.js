@@ -8,11 +8,13 @@ import {
 // 각 element 바인딩
 const emailInput = document.querySelector('#emailInput');
 const nameInput = document.querySelector('#nameInput');
+const nameToggle = document.querySelector('#nameToggle');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
+const passwordToggle = document.querySelector('#passwordToggle');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
+const phoneNumberToggle = document.querySelector('#phoneNumberToggle');
 const saveButton = document.querySelector('#saveButton');
-// modal
 const modal = document.querySelector('#modal');
 const modalBackground = document.querySelector('#modalBackground');
 const modalCloseButton = document.querySelector('#modalCloseButton');
@@ -32,28 +34,60 @@ function renderElements() {
   clientSideInclude();
   // 해당 유저 정보 불러오기
   insertData();
+  // 모든 인풋 요소 초기화 (비활성화)
+  disableAllElements();
 }
 
 async function insertData() {
   userData = await Api.get('/api/users/myInfo');
 
-  //const { fullName, phoneNumber } = userData;
-  const { full_name, phone_number } = userData;
+  const { fullName, phoneNumber } = userData;
   userData.password = '';
 
   emailInput.value = userData.email;
-  //nameInput.value = fullName;
-  nameInput.value = full_name;
-  //phoneNumberInput.value = phoneNumber;
-  phoneNumberInput.value = phone_number;
+  nameInput.value = fullName;
+  phoneNumberInput.value = phoneNumber;
 }
 
 function addAllEvents() {
+  nameToggle.addEventListener('change', handleToggleButton);
+  passwordToggle.addEventListener('change', handleToggleButton);
+  phoneNumberToggle.addEventListener('change', handleToggleButton);
   phoneNumberInput.addEventListener('input', handlePhoneNumberInput);
   saveButton.addEventListener('click', openModal);
   modalCloseButton.addEventListener('click', closeModal);
   document.addEventListener('keydown', keyDownCloseModal);
   saveCompleteButton.addEventListener('click', updateUserData);
+}
+
+function handleToggleButton(e) {
+  const toggleTargets = {
+    nameToggle: [nameInput],
+    passwordToggle: [passwordInput, passwordConfirmInput],
+    phoneNumberToggle: [phoneNumberInput],
+  };
+  const isChecked = e.target.checked;
+  const targets = toggleTargets[e.target.id];
+  targets.forEach((target, index) => {
+    if (isChecked) {
+      target.removeAttribute('disabled');
+      if (index === 0) {
+        target.focus();
+      }
+    } else {
+      target.setAttribute('disabled', '');
+    }
+  });
+}
+
+function disableAllElements() {
+  nameInput.setAttribute('disabled', '');
+  nameToggle.checked = false;
+  passwordInput.setAttribute('disabled', '');
+  passwordToggle.checked = false;
+  passwordConfirmInput.setAttribute('disabled', '');
+  phoneNumberInput.setAttribute('disabled', '');
+  phoneNumberToggle.checked = false;
 }
 
 async function updateUserData(e) {
@@ -63,8 +97,7 @@ async function updateUserData(e) {
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
   const phoneNumber = phoneNumberInput.value;
-  //const currentPassword = currentPasswordInput.value;
-  const current_password = currentPasswordInput.value;
+  const currentPassword = currentPasswordInput.value;
 
   if (password && password.length < 4) {
     return alertError('비밀번호는 최소 4글자 이상입니다.');
@@ -73,33 +106,37 @@ async function updateUserData(e) {
     return alertError('비밀번호를 다시 확인해주세요');
   }
 
-  //const data = { currentPassword };
-  const data = { current_password };
+  const data = { currentPassword };
 
-  //if (name !== userData.fullName) {
-  if (name !== userData.full_name && name.length > 1) {
-    //data.fullName = name;
-    data.full_name = name;
+  if (name !== userData.fullName && name.length > 1) {
+    data.fullName = name;
   }
   // 비밀번호 및 비밀번호 확인 일치 여부
   if (password !== userData.password) {
     data.password = password;
   }
-  //if (phoneNumber && phoneNumber !== userData.phoneNumber) {
+  // 폰 번호 수정 사항 여부 판별
   if (
     phoneNumber &&
-    phoneNumber !== userData.phone_number &&
+    phoneNumber !== userData.phoneNumber &&
     phoneNumber.length === 13
   ) {
-    //data.phoneNumber = phoneNumber
-    data.phone_number = phoneNumber;
+    data.phoneNumber = phoneNumber;
   }
 
-  const { _id } = userData;
+  if (Object.keys(data).length === 1) {
+    closeModal();
+    return alert('업데이트된 정보가 없습니다.');
+  }
+
   try {
+    const { _id } = userData;
     await Api.put('/api/users', _id, data);
+    closeModal();
+    alert('회원정보가 안전하게 저장되었습니다.');
   } catch (err) {
-    alert('회원 정보 수정을 실패하였습니다 : ', err);
+    closeModal();
+    alert(err);
   }
 }
 
@@ -124,6 +161,7 @@ function closeModal(e) {
   if (e) {
     e.preventDefault();
   }
+  currentPasswordInput.value = '';
   modal.classList.remove('is-active');
 }
 

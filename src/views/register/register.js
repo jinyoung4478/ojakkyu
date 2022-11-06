@@ -73,10 +73,10 @@ async function handleSubmit(e) {
   // 회원가입 api 요청
   try {
     const data = {
-      full_name: fullName,
+      fullName,
       email,
       password,
-      phone_number: phoneNumber,
+      phoneNumber,
     };
 
     await Api.post('/api/users', data);
