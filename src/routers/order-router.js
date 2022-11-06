@@ -25,11 +25,11 @@ orderRouter.get("/", adminRequired, async (req, res, next) => {
   }
 });
 
-// user_id에 해당하는 주문 내역 보기
-orderRouter.get("/:user_id", loginRequired, async (req, res, next) => {
+// userId에 해당하는 주문 내역 보기
+orderRouter.get("/:userId", loginRequired, async (req, res, next) => {
   try {
-    const user_id = req.params.user_id;
-    const order = await orderService.getFindByUserId(user_id);
+    const userId = req.params.userId;
+    const order = await orderService.getFindByUserId(userId);
 
     res.status(200).json(order);
   } catch (error) {
@@ -37,11 +37,11 @@ orderRouter.get("/:user_id", loginRequired, async (req, res, next) => {
   }
 });
 
-// order_id에 해당하는 주문 내역 보기
-orderRouter.get("/:order_id", loginRequired, async (req, res, next) => {
+// orderId에 해당하는 주문 내역 보기
+orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
   try {
-    const order_id = req.params.order_id;
-    const order = await orderService.getFindByOrderId(order_id);
+    const orderId = req.params.orderId;
+    const order = await orderService.getFindByOrderId(orderId);
 
     res.status(200).json(order);
   } catch (error) {
@@ -60,8 +60,8 @@ orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
         );
     }
 
-    const { user_id, status, total_price, product_list } = req.body;
-    const order_info = { user_id, status, total_price, product_list };
+    const { userId, status, totalPrice, productList } = req.body;
+    const order_info = { userId, status, totalPrice, productList };
     const order = await orderService.addOrder(order_info);
 
     res.status(200).json(order);
@@ -72,7 +72,7 @@ orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
 
 // 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료)
 // adminRequired 필요?
-orderRouter.patch("/:order_id/status", adminRequired, async (req, res, next) => {
+orderRouter.patch("/:orderId/status", adminRequired, async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -82,9 +82,9 @@ orderRouter.patch("/:order_id/status", adminRequired, async (req, res, next) => 
         );
     }
 
-    const order_id = req.params.order_id;
+    const orderId = req.params.orderId;
     const { status } = req.body;
-    const updateStatus = await orderService.setOrderStatus(order_id, status);
+    const updateStatus = await orderService.setOrderStatus(orderId, status);
 
     res.status(200).json(updateStatus);
   } catch (error) {
@@ -93,10 +93,10 @@ orderRouter.patch("/:order_id/status", adminRequired, async (req, res, next) => 
 });
 
 // 주문 삭제
-orderRouter.delete("/:order_id", loginRequired, async (req, res, next) => {
+orderRouter.delete("/:orderId", loginRequired, async (req, res, next) => {
   try {
-    const order_id = req.params.order_id;
-    await orderService.deleteOrder(order_id);
+    const orderId = req.params.orderId;
+    await orderService.deleteOrder(orderId);
 
     res.status(200).json("해당 주문이 취소되었습니다.");
   } catch (error) {

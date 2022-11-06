@@ -10,17 +10,17 @@ class OrderService {
   async addOrder(orderInfo) {
     // 객체 destructuring
     const { 
-        user_id, 
-        status, 
-        total_price, 
-        product_list,
+      userId, 
+      status, 
+      totalPrice, 
+      productList,
     } = orderInfo;
 
     const newOrderInfo = { 
-        user_id, 
-        status, 
-        total_price, 
-        product_list,
+      userId, 
+      status, 
+      totalPrice, 
+      productList,
     };
 
     // db에 저장
@@ -36,27 +36,27 @@ class OrderService {
   }
 
   // user_id로 사용자 별 주문 내역 조회
-  async getFindByUserId(user_id) {
-    const orders = await this.orderModel.findByUserId(user_id);
+  async getFindByUserId(userId) {
+    const orders = await this.orderModel.findByUserId(userId);
     return orders;
   }
 
   // order_id로 주문 상세 조회
-  async getFindByOrderId(order_id) {
-    const order = await this.orderModel.findByOrderId(order_id);
+  async getFindByOrderId(orderId) {
+    const order = await this.orderModel.findByOrderId(orderId);
     return order;
   }
 
   // 주문 상태 변경
-  async setOrderStatus(order_id, status) {
-    const order = await this.orderModel.update(order_id, status);
+  async setOrderStatus(orderId, status) {
+    const order = await this.orderModel.update(orderId, status);
 
     return order;
   }
 
   // 주문 내역 삭제
-  async deleteOrder(order_id) {
-    const deletedOrder = await this.orderModel.deleteById(order_id);
+  async deleteOrder(orderId) {
+    const deletedOrder = await this.orderModel.deleteById(orderId);
     return deletedOrder;
   }
 

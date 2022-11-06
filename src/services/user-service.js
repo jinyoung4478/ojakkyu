@@ -10,9 +10,9 @@ class UserService {
   }
 
   // 회원가입
-  async addUser(user_info) {
+  async addUser(userInfo) {
     // 객체 destructuring
-    const { email, full_name, password, phone_number, address } = user_info;
+    const { email, fullName, password, phoneNumber } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -25,9 +25,9 @@ class UserService {
     // 이메일 중복은 이제 아니므로, 회원가입을 진행함
 
     // 우선 비밀번호 해쉬화(암호화)
-    const hashed_password = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { full_name, email, password: hashed_password, phone_number, address };
+    const newUserInfo = { fullName, email, password: hashedPassword, phoneNumber };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -36,9 +36,9 @@ class UserService {
   }
 
   // 로그인
-  async getUserToken(login_info) {
+  async getUserToken(loginInfo) {
     // 객체 destructuring
-    const { email, password } = login_info;
+    const { email, password } = loginInfo;
 
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
@@ -81,8 +81,8 @@ class UserService {
   }
 
   // id로 검색한 단일 사용자
-  async getUser(user_id) {
-    const user = await this.userModel.findById(user_id);
+  async getUser(userId) {
+    const user = await this.userModel.findById(userId);
     
     if (!user) {
       throw new Error("해당 ID는 찾을 수 없습니다.");

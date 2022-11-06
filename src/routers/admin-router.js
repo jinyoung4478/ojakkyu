@@ -21,10 +21,10 @@ adminRouter.get("/users", async (req, res, next) => {
 });
 
 // 관리자 정보 조회
-adminRouter.get("/:admin_id", async (req, res, next) => {
+adminRouter.get("/:adminId", async (req, res, next) => {
   try {
-    const { admin_id } = req.params;
-    const adminData = await userService.getUser(admin_id);
+    const { adminId } = req.params;
+    const adminData = await userService.getUser(adminId);
     res.status(200).json(adminData);
   } catch (error) {
     next(error);
@@ -33,7 +33,7 @@ adminRouter.get("/:admin_id", async (req, res, next) => {
 
 // 관리자 정보 수정
 adminRouter.put(
-  "/:admin_id",
+  "/:adminId",
   loginRequired,
   async function (req, res, next) {
     try {
@@ -45,23 +45,23 @@ adminRouter.put(
         );
       }
 
-    const admin_id = req.params.admin_id;
+    const adminId = req.params.adminId;
 
-    const { full_name, password, address, phone_number, role, current_password } = req.body;
+    const { fullName, password, address, phoneNumber, role, currentPassword } = req.body;
 
-    if (!current_password) {
+    if (!currentPassword) {
         throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
     }
 
-    const adminInfoRequired = { admin_id, current_password };
+    const adminInfoRequired = { adminId, currentPassword };
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
     const toUpdate = {
-        ...(full_name && { full_name }),
+        ...(fullName && { fullName }),
         ...(password && { password }),
         ...(address && { address }),
-        ...(phone_number && { phone_number }),
+        ...(phoneNumber && { phoneNumber }),
         ...(role && { role }),
     };
 
@@ -81,33 +81,34 @@ adminRouter.put(
 
 // 관리자 정보 삭제
 adminRouter.delete("/:adminId", async (req, res, next) => {
-try {
-    if (is.emptyObject(req.body)) {
-        throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-        );
-    }
+  try {
+      if (is.emptyObject(req.body)) {
+          throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+          );
+      }
 
-    const { adminId } = req.params;
-    const { currentPassword } = req.body;
-    if (!currentPassword) {
-        throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
-    }
-    const adminInfoRequired = { adminId, currentPassword };
-    const deletedAdminInfo = await userService.deleteUser(adminInfoRequired);
-    // 관리자 정보 삭제 성공
-    if (deletedAdminInfo) {
-        res.status(200).json({ result: "success" });
-    }
-} catch (error) {
-    next(error);
-}
+      const { adminId } = req.params;
+      const { currentPassword } = req.body;
+      if (!currentPassword) {
+          throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
+      }
+      const adminInfoRequired = { adminId, currentPassword };
+      const deletedAdminInfo = await userService.deleteUser(adminInfoRequired);
+      // 관리자 정보 삭제 성공
+      if (deletedAdminInfo) {
+          res.status(200).json({ result: "success" });
+      }
+  } catch (error) {
+      next(error);
+  }
+});
 
 // 주문 목록 조회
 // 관리자 전용
 adminRouter.get("/orders", async (req, res, next) => {
   try {
-    const orders = await orderService.findAllOrders();
+    const orders = await orderService.getOrders();
     res.status(200).json(orders);
   } catch (error) {
     next(error);
@@ -115,12 +116,15 @@ adminRouter.get("/orders", async (req, res, next) => {
 });
 
 // 주문 취소
+// !!작성중!!
 adminRouter.delete("orders/:orderId", async (req, res, next) => {
   try {
     const { orderId } = req.params;
-    const userId = await orderService.findUser(orderId);
+    const userId = await orderService.deleteOrder(orderId);
     
+  } catch (error) {
+    next(error);
   }
-})
+});
 
 export { adminRouter };
