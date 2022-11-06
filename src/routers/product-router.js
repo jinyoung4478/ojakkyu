@@ -7,6 +7,16 @@ const productRouter = Router();
 // 현재 url 경로 : api/product/..
 
 //모든 상품조회
+productRouter.get("/", async (req, res, next) => {
+    try {
+        console.log("get all router 실행")
+        const products = await productService.getProductsAll()
+        res.status(200).json(products)
+    }
+    catch (error) {
+        next(error)
+    }
+})
 
 //카테고리별 상품 조회
 productRouter.get("/category/:category_id", async (req, res, next) => {
@@ -33,16 +43,6 @@ productRouter.get("/:product_id", async (req, res, next) => {
     }
 })
 
-productRouter.get("/", async (req, res, next) => {
-
-    try {
-        const products = await productService.getProductsAll()
-        res.status(200).json(products)
-    }
-    catch (error) {
-        next(error)
-    }
-})
 
 //상품 등록
 productRouter.post("/", async (req, res, next) => {
