@@ -44,7 +44,11 @@ class ProductService {
     }
 
     async editProduct(productId, productInfo) {
-        const product = await this.productModel.update(productId, productInfo)
+        const product = await this.productModel.update({
+            product_id: productId,
+            updateContent: productInfo
+        }
+        )
         return product
     }
 
