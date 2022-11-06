@@ -1,0 +1,19 @@
+@charset "utf-8";
+@import "../../styles/reset.css";
+
+.container{
+    width: 1280px;
+    margin: 0 auto;
+}
+
+.detailWrap{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 4%;
+}
+
+.detailWrap .productImg img{
+    width: 400px;
+    height: 300px;
+}

@@ -8,11 +8,13 @@ export class ProductModel {
 
     async findAll() {
         const products = await Product.find({})
+        console.log("findAll를 사용했습니다.")
         return products;
     }
 
     async findById(product_id) {
         const product = await Product.findOne({ product_id: product_id })
+        console.log("findById를 사용했습니다.")
         return product;
     }
 
@@ -22,7 +24,7 @@ export class ProductModel {
     }
 
     async findByCategoty(category) {
-        const products = await Product.findOne({ category: category })
+        const products = await Product.find({ accessory_type: category })
         return products;
     }
 

@@ -94,3 +94,15 @@
   height: 300px;
 }
 
+.product{
+  overflow: visible;
+}
+
+.productEvent{
+  cursor: pointer;
+}
+
+.productEvent:hover{
+  transform: scale(1.05);
+  transition: all 0.4s;
+}
