@@ -1,7 +1,5 @@
 import { orderModel } from "../db/models/order-model";
 
-import bcrypt from "bcrypt";
-
 class OrderService {
   // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
   constructor(orderModel) {
@@ -31,27 +29,34 @@ class OrderService {
     return createdNewOrder;
   }
 
-  // 모든 주문 내역 보기(모든 사용자)
-  async findAllOrders() {
+  // 전체 주문내역 조회
+  async getOrders() {
     const orders = await this.orderModel.findAll();
     return orders;
   }
 
-  // 모든 주문 내역 보기(단일 사용자)
-  async findOrders(userId) {
-    const orders = await this.orderModel.findAllForOneUser(userId);
+  // user_id로 사용자 별 주문 내역 조회
+  async getFindByUserId(user_id) {
+    const orders = await this.orderModel.findByUserId(user_id);
     return orders;
   }
 
-  // orderId로 사용자 찾기
-  async findUser(orderId) {
-    const order = await this.orderModel.findById(orderId);
-    const userId = order.userId;
-    return userId;
+  // order_id로 주문 상세 조회
+  async getFindByOrderId(order_id) {
+    const order = await this.orderModel.findByOrderId(order_id);
+    return order;
   }
+
+  // 주문 상태 변경
+  async setOrderStatus(order_id, status) {
+    const order = await this.orderModel.update(order_id, status);
+
+    return order;
+  }
+
   // 주문 내역 삭제
-  async deleteUserOrder(orderId) {
-    const deletedOrder = await this.orderModel.deleteById(orderId);
+  async deleteOrder(order_id) {
+    const deletedOrder = await this.orderModel.deleteById(order_id);
     return deletedOrder;
   }
 

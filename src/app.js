@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { viewsRouter, userRouter, productRouter } from "./routers";
+import { viewsRouter, userRouter, productRouter, orderRouter } from "./routers";
 import { errorHandler } from "./middlewares";
 
 const app = express();
@@ -22,6 +22,7 @@ app.use(viewsRouter);
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 //여기 아래에 /api/product/.. 주소를 통해 라우팅할 수 있도록 추가 필요
 
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
