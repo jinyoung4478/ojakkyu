@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 
 const OrderSchema = new Schema(
   {
-    user_id: {
+    userId: {
         type: String,
         ref: "users",
         required: true,
@@ -12,10 +12,23 @@ const OrderSchema = new Schema(
         enum: ["상품 준비중", "상품 배송중", "배송완료"],
         default: "상품 준비중",
     },
-    total_price: {
+    totalPrice: {
         type: Number,
     },
-    product_list: [
+    address: {
+      type: new Schema(
+        {
+          postalCode: String,
+          address1: String,
+          address2: String,
+        },
+        {
+          _id: false,
+        }
+      ),
+      required: false,
+    },
+    productList: [
         {
             id: String,
             name: String,

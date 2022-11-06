@@ -60,14 +60,14 @@ userRouter.post("/", async (req, res, next) => {
     }
 
     // req (request)의 body 에서 데이터 가져오기
-    const { full_name, email, password, phone_number, address } = req.body;
+    const { fullName, email, password, phoneNumber, address } = req.body;
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
-      full_name,
+      fullName,
       email,
       password,
-      phone_number,
+      phoneNumber,
       address,
     });
 
@@ -107,9 +107,9 @@ userRouter.get("/", async function (req, res, next) {
 
 userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
   try {
-    const user_id = req.currentUserId;
-    const user_info = await userService.getUser(user_id);
-    res.status(200).json(user_info);
+    const userId = req.currentUserId;
+    const userInfo = await userService.getUser(userId);
+    res.status(200).json(userInfo);
   } catch (error) {
     next(error);
   }
@@ -118,7 +118,7 @@ userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.put(
-  "/:user_id",
+  "/:userId",
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -130,26 +130,26 @@ userRouter.put(
       }
 
       // params로부터 id를 가져옴
-      const user_id = req.params.user_id;
+      const userId = req.params.userId;
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
-      const { full_name, password, address, phone_number, role, current_password } = req.body;
+      const { fullName, password, address, phoneNumber, role, currentPassword } = req.body;
 
       // currentPassword 없을 시, 진행 불가
-      if (!current_password) {
+      if (!currentPassword) {
         throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
       }
 
-      const userInfoRequired = { user_id, current_password };
+      const userInfoRequired = { userId, currentPassword };
 
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const toUpdate = {
-        ...(full_name && { full_name }),
+        ...(fullName && { fullName }),
         ...(password && { password }),
         ...(address && { address }),
-        ...(phone_number && { phone_number }),
+        ...(phoneNumber && { phoneNumber }),
         ...(role && { role }),
       };
 
@@ -168,19 +168,19 @@ userRouter.put(
 );
 
 // 사용자 삭제
-userRouter.delete("/:user_id", async (req, res, next) => {
+userRouter.delete("/:userId", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const { user_id } = req.params;
-    const { current_password } = req.body;
-    if (!current_password) {
+    const { userId } = req.params;
+    const { currentPassword } = req.body;
+    if (!currentPassword) {
       throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
     }
-    const userInfoRequired = { user_id, current_password };
+    const userInfoRequired = { userId, currentPassword };
     const deletedUserInfo = await userService.deleteUser(userInfoRequired);
     // 사용자 정보 삭제 성공
     if (deletedUserInfo) {

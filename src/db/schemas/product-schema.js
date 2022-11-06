@@ -2,19 +2,19 @@ import { Schema } from "mongoose";
 
 const ProductSchema = new Schema(
     {
-        product_id: {
+        productId: {
             type: String,
             required: true,
         },
 
         //상품 이름
-        product_name: {
+        productName: {
             type: String,
             required: true,
         },
 
         //상품 제목
-        product_title: {
+        productTitle: {
             type: String,
             required: false,
         },
@@ -32,13 +32,13 @@ const ProductSchema = new Schema(
         },
 
         //원석 종류
-        stone_type: {
+        stoneType: {
             type: String,
             required: true,
         },
 
         //악세사리 종류
-        accessory_type: {
+        category: {
             type: String,
             required: true,
         },

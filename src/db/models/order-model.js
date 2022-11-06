@@ -5,27 +5,27 @@ const Order = model("orders", OrderSchema);
 
 export class OrderModel {
   // order_id로 주문 찾기
-  async findById(order_id) {
-    const order = await Order.findOne({ _id: order_id });
+  async findById(orderId) {
+    const order = await Order.findOne({ _id: orderId });
     return order;
   }
   // order 생성
-  async create(order_info) {
-    const createdNewOrder = await Order.create(order_info);
+  async create(orderInfo) {
+    const createdNewOrder = await Order.create(orderInfo);
     return createdNewOrder;
   }
 
   // user_id로 사용자 별 주문 내역 보기
-  async findByUserId(user_id) {
-    const order = await Order.find({ user_id: user_id })
+  async findByUserId(userId) {
+    const order = await Order.find({ userId: userId })
         //.populate("user_id")
         //.populate("product_list");
     return order;
   }
 
   // order_id로 주문 상세 보기
-  async findByOrderId(order_id) {
-    const order = await Order.findOne({ _id: order_id });
+  async findByOrderId(orderId) {
+    const order = await Order.findOne({ _id: orderId });
     
     return order;
   }
@@ -37,8 +37,8 @@ export class OrderModel {
   }
 
   // 주문 상태(상품 준비중, 배송중, 배송완료) 변경
-  async update(order_id, status) {
-    const filter = { _id: order_id };
+  async update(orderId, status) {
+    const filter = { _id: orderId };
     const update = { status: status};
     const option = { returnOriginal: false };
 
@@ -47,8 +47,8 @@ export class OrderModel {
   }
 
   // 주문 삭제
-  async deleteById(order_id) {
-    const deletedOrder = await Order.findOneAndDelete({ _id: order_id});
+  async deleteById(orderId) {
+    const deletedOrder = await Order.findOneAndDelete({ _id: orderId});
     return deletedOrder;
   }
 }
