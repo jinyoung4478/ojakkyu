@@ -33,10 +33,17 @@
     <div data-include-path="../components/header.html"></div>
     <!-- 바디 -->
     <main role="main" id="mainWrap" class="container is-max-desktop">
+      <h2 id="userEmail">개인 정보 관리</h2>
       <div class="form-container">
         <form id="infoForm" class="box form-box">
           <div class="field">
-            <label class="label">이름</label>
+            <label>이메일</label>
+            <div class="control">
+              <input type="text" id="emailInput" disabled />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="nameInput">이름</label>
             <div class="control">
               <input type="text" id="nameInput" autocomplete="off" />
               <!-- <label class="switch">
@@ -46,9 +53,9 @@
             </div>
           </div>
           <div class="field">
-            <label class="label">비밀번호</label>
+            <label class="label" for="passwordInput">새 비밀번호</label>
             <div class="control">
-              <input type="password" id="newPasswordInput" autocomplete="off" />
+              <input type="password" id="passwordInput" autocomplete="off" />
               <!-- <label class="switch">
                 <input type="checkbox" id="nameToggle" />
                 <span class="slider round"></span>
@@ -56,17 +63,19 @@
             </div>
           </div>
           <div class="field">
-            <label class="label">비밀번호 확인</label>
+            <label class="label" for="passwordConfirmInput"
+              >비밀번호 확인</label
+            >
             <div class="control">
               <input
                 type="password"
-                id="newPasswordConfirmInput"
+                id="passwordConfirmInput"
                 autocomplete="off"
               />
             </div>
           </div>
           <div class="field">
-            <label class="label">전화번호</label>
+            <label class="label" for="phoneNumberInput">전화번호</label>
             <div class="control">
               <input
                 type="tel"
@@ -86,6 +95,34 @@
           >
             저장하기
           </button>
+          <!-- modal -->
+          <div id="modal" class="modal">
+            <div class="modal-background" id="modalBackground"></div>
+            <div class="modal-content">
+              <button
+                class="delete is-large"
+                id="modalCloseButton"
+                aria-label="close"
+              ></button>
+              <div class="box">
+                <p class="mb-3">현재 비밀번호를 입력해 주세요.</p>
+                <input
+                  type="password"
+                  class="input is-link mb-3"
+                  id="currentPasswordInput"
+                  placeholder
+                  autocomplete="on"
+                />
+                <button
+                  class="button is-link mt-5"
+                  id="saveCompleteButton"
+                  aria-label="close"
+                >
+                  저장 완료하기
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </main>
