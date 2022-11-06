@@ -29,7 +29,20 @@
     <script src="order-modal.js" type="module" defer></script>
   </head>
 
-  <body class="cartOrder">
+  <!-- 뒤로가기 방지 -->
+  <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+      window.history.forward();
+    }
+  </script>
+
+  <body
+    class="cartOrder"
+    onload="noBack();"
+    onpageshow="if(event.persisted) noBack();"
+    onunload=""
+  >
     <!-- 헤더 -->
     <div data-include-path="../components/header.html"></div>
 
