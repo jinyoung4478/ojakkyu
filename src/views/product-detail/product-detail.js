@@ -5,6 +5,8 @@ const productDetail = document.querySelector(".productDetail");
 
 const product_url = window.location.pathname.split('/');
 const productId = product_url[product_url.length - 2];
+const productCount = 0;
+
 
 
 async function start(){
@@ -30,21 +32,59 @@ async function start(){
 
         productDetail.insertAdjacentHTML(
             'afterbegin',
-            `      
-                <p>${description}</p>
-                <li>${price}</li>
-                <li>${id}</li>
-                <li>${name}</li>
-                <li>${title}</li>
-                <li>${type}</li>
-                
+            ` 
+                <ul class="productDesc">
+                    <li><h1>${title}</h1></li>
+                    <li>${name}</li>
+                    <li>판매가 <span>${price}</span></li>
+                    <li>${description}</li>
+                    
+                    <li>
+                        <select>
+                            <label>-[필수]옵션을 선택해 주세요-</label>
+                            <option>원석: ${type}</option>
+                        </select>
+                    </li>
 
+                    <li><strong>최소주문수량 1개 이상</strong></li>
+
+                    <li>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>상품명</th>
+                                    <th>상품수</th>
+                                    <th>가격</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </li>
+
+                    <li>
+                        <p>Total : ${price}<span>(${productCount}개)</span></p>
+                    </li>
+
+                    <figuare class="routeBtn">
+                        <button type="button" onclick="order_product">구매하기</button>
+                        <button type="button">장바구니</button>
+                        <button type="button">관심상품</button>
+                    </figuare>
+                </ul>
+                
+                
+                
             `
         )
-    
+        console.log(data)
+        orderProduct(id)
+
     }catch(err){
         console.log(err)
     }
+}
+
+function orderProduct(productId){
+    location.href = ``
 }
 
 async function createDetail(){
