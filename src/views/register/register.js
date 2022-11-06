@@ -18,7 +18,7 @@ addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
+function addAllElements() {
   clientSideInclude();
 }
 
@@ -79,7 +79,7 @@ async function handleSubmit(e) {
       phone_number: phoneNumber,
     };
 
-    await Api.post('/api/users/register', data);
+    await Api.post('/api/users', data);
 
     alert(`정상적으로 회원가입되었습니다.`);
 
