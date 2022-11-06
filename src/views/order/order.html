@@ -26,9 +26,23 @@
 
     <link rel="stylesheet" href="./order.css" />
     <script src="order.js" type="module" defer></script>
+    <script src="order-modal.js" type="module" defer></script>
   </head>
 
-  <body class="cartOrder">
+  <!-- 뒤로가기 방지 -->
+  <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+      window.history.forward();
+    }
+  </script>
+
+  <body
+    class="cartOrder"
+    onload="noBack();"
+    onpageshow="if(event.persisted) noBack();"
+    onunload=""
+  >
     <!-- 헤더 -->
     <div data-include-path="../components/header.html"></div>
 
@@ -68,7 +82,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -80,7 +94,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -92,7 +106,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -104,18 +118,32 @@
             <div class="block is-align-self-flex-end">
               <h3 class="title is-4 has-text-grey-dark">
                 총액:&nbsp;<span id="priceTotal" class="has-text-danger"
-                  >19,000</span
+                  >30,000</span
                 >&nbsp;원
               </h3>
               <p class="subtitle is-7"></p>
             </div>
+
             <button
-              id="btnPurchase"
-              class="subtitle button is-danger is-outlined py-5 mt-4"
+              class="js-modal-trigger subtitle button is-danger is-outlined py-5 mt-4"
+              data-target="modal-js-example"
             >
               결제하기
             </button>
+
+            <div
+              class="modal"
+              id="modal-js-example"
+              onclick="location.href='http://localhost:3000/order-view'"
+            >
+              <div class="modal-background"></div>
+              <div class="modal-content box" style="text-align: center">
+                결제가 완료되었습니다. 주문조회 화면으로 이동합니다.
+              </div>
+              <!-- <button class="modal-close is-large" aria-label="close"></button> -->
+            </div>
           </div>
+
           <a href="/">
             <button
               id="btnMoveToItemList"
