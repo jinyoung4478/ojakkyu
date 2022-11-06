@@ -68,7 +68,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -80,7 +80,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" />
+                  <input class="input" type="text" />
                 </p>
               </div>
             </div>
@@ -109,13 +109,27 @@
               </h3>
               <p class="subtitle is-7"></p>
             </div>
+
             <button
-              id="btnPurchase"
-              class="subtitle button is-danger is-outlined py-5 mt-4"
+              class="js-modal-trigger subtitle button is-danger is-outlined py-5 mt-4"
+              data-target="modal-js-example"
             >
               결제하기
             </button>
+
+            <div
+              class="modal"
+              id="modal-js-example"
+              onclick="location.href='http://localhost:3000/order-view'"
+            >
+              <div class="modal-background"></div>
+              <div class="modal-content box" style="text-align: center">
+                결제가 완료되었습니다. 주문확인페이지로 이동합니다.
+              </div>
+              <!-- <button class="modal-close is-large" aria-label="close"></button> -->
+            </div>
           </div>
+
           <a href="/">
             <button
               id="btnMoveToItemList"
