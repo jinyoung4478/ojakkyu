@@ -23,7 +23,7 @@ function adminRequired(req, res, next) {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
     const jwtDecoded = jwt.verify(userToken, secretKey);
 
-    const user_id = jwtDecoded.user_id;
+    const userId = jwtDecoded.userId;
     const user_role = jwtDecoded.role;
 
     if (user_role !== "admin-user") {
@@ -31,7 +31,7 @@ function adminRequired(req, res, next) {
     }
 
     // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
-    req.currentUserId = user_id;
+    req.currentUserId = userId;
     req.role = "admin-user";
 
     next();

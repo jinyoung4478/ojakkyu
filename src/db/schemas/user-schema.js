@@ -6,7 +6,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    full_name: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -14,14 +14,14 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    phone_number: {
+    phoneNumber: {
       type: String,
       required: false,
     },
     address: {
       type: new Schema(
         {
-          postal_code: String,
+          postalCode: String,
           address1: String,
           address2: String,
         },
@@ -37,7 +37,7 @@ const UserSchema = new Schema(
       default: "basic-user",
     },
     // 주문내역
-    order_list: {
+    orderList: {
       type: [String],
       required: false,
       default: [],
