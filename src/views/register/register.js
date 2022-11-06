@@ -41,14 +41,14 @@ function formatPhoneNumber(e) {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const full_name = fullNameInput.value;
+  const fullName = fullNameInput.value;
   const email = emailInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
   const phoneNumber = phonNumberInput.value;
 
   // 잘 입력했는지 확인
-  const isFullNameValid = full_name.length >= 2;
+  const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
   const isPasswordValid = password.length >= 4;
   const isPasswordSame = password === passwordConfirm;
@@ -72,7 +72,12 @@ async function handleSubmit(e) {
 
   // 회원가입 api 요청
   try {
-    const data = { full_name, email, password, phone_number: phoneNumber };
+    const data = {
+      full_name: fullName,
+      email,
+      password,
+      phone_number: phoneNumber,
+    };
 
     await Api.post('/api/users/register', data);
 
