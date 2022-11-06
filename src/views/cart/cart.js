@@ -4,7 +4,7 @@ clientSideInclude();
 
 console.log('Hello Cart!');
 
-const COUNT_PRODUCT = document.getElementById('countAllItem');
+const countProduct = document.getElementById('countAllItem');
 const PRICCE_TOTAL = document.getElementById('priceTotal');
 const BTN_PERCHASE = document.getElementById('btnPurchase');
 const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
@@ -14,9 +14,9 @@ async function getData() {
   try {
     const res = await fetch('../home/product.json');
     const data = await res.json();
-    const value = data.Product;
+    const { Product } = data;
 
-    value.forEach((tem) => {
+    Product.forEach((tem) => {
       PRODUCT.innerHTML += `
       <div id="purchasing ">
       <form
@@ -72,8 +72,8 @@ async function getData() {
         values += totalItems[i] * 1;
       }
 
-      const COUNT_PRODUCT = document.getElementById('countAllItem');
-      COUNT_PRODUCT.innerHTML = values;
+      const countProduct = document.getElementById('countAllItem'); //객체:카멜케이스
+      countProduct.innerHTML = values;
 
       //update: 장바구니 물건 개수 변경
       for (let i = 0; i < INPUT_VALUES.length; i++) {
@@ -89,7 +89,7 @@ async function getData() {
             values += totalItems[i] * 1;
           }
 
-          COUNT_PRODUCT.innerHTML = values.toString();
+          countProduct.innerHTML = values.toString();
         });
       }
 
@@ -131,7 +131,7 @@ async function getData() {
       const BTN_ALL_REMOVE = document.getElementById('btnAllRemove');
       BTN_ALL_REMOVE.addEventListener('click', (e) => {
         e.preventDefault();
-        COUNT_PRODUCT.innerHTML = '0';
+        countProduct.innerHTML = '0';
         PRICCE_TOTAL.innerHTML = '0';
         PRODUCT.innerHTML = '';
         console.log('all items delete - clear -');
@@ -150,7 +150,7 @@ async function getData() {
           totalItems.splice(i, 1);
           let result = totalItems.reduce((pre, cur) => pre * 1 + cur * 1);
           console.log(totalItems);
-          COUNT_PRODUCT.innerHTML = result;
+          countProduct.innerHTML = result;
 
           btndel.parentElement.parentElement.parentElement.remove();
           //1. 개별삭제시 총액에 반영하기
