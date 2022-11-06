@@ -10,19 +10,19 @@ class ProductService {
     // 상품등록
     async addProduct(productInfo) {
         // 객체 destructuring
-        const { product_id, product_name } = productInfo;
+        const { productId, productName } = productInfo;
         console.log("service")
 
-        // 제품 명 중복 확인
-        //const existedId = await this.productModel.findById(product_id)
-        // const existedName = await this.productModel.findByName(product_name)
-        // if (existedId) {
-        //     throw new Error(" 입력한 상품 ID 가 이미 존재합니다.")
-        // }
-        // if (existedName) {
-        //     throw new Error("입력한 상품 명이 이미 존재합니다.")
-        // }
-        // 아닐 경우 db에 저장
+        //제품 명 중복 확인
+        const existedId = await this.productModel.findById(productId)
+        const existedName = await this.productModel.findByName(productName)
+        if (existedId) {
+            throw new Error(" 입력한 상품 ID 가 이미 존재합니다.")
+        }
+        if (existedName) {
+            throw new Error("입력한 상품 명이 이미 존재합니다.")
+        }
+        //아닐 경우 db에 저장
         const createdNewProduct = await this.productModel.create(productInfo);
         return createdNewProduct;
     }
@@ -45,7 +45,7 @@ class ProductService {
 
     async editProduct(productId, productInfo) {
         const product = await this.productModel.update({
-            product_id: productId,
+            productId: productId,
             updateContent: productInfo
         }
         )
