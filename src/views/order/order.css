@@ -32,8 +32,6 @@
 .cartOrder #listItems ul:last-child li {
   padding-top: 20px;
 
-  border-bottom: 1px solid gray;
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
