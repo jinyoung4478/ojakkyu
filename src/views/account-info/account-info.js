@@ -139,6 +139,7 @@ async function updateUserData(e) {
     const { _id } = userData;
     await Api.put('/api/users', _id, data);
     closeModal();
+    disableAllElements();
     alert('회원정보가 안전하게 저장되었습니다.');
   } catch (err) {
     closeModal();
