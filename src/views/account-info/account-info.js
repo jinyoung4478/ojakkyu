@@ -38,6 +38,7 @@ function renderElements() {
   disableAllElements();
 }
 
+// 유저 기존 데이터 자동 완성
 async function insertData() {
   userData = await Api.get('/api/users/myInfo');
 
@@ -49,6 +50,7 @@ async function insertData() {
   phoneNumberInput.value = phoneNumber;
 }
 
+// 모든 이벤트 바인딩
 function addAllEvents() {
   nameToggle.addEventListener('change', handleToggleButton);
   passwordToggle.addEventListener('change', handleToggleButton);
@@ -60,6 +62,7 @@ function addAllEvents() {
   saveCompleteButton.addEventListener('click', updateUserData);
 }
 
+// 토글 버튼 기능 동작
 function handleToggleButton(e) {
   const toggleTargets = {
     nameToggle: [nameInput],
@@ -80,6 +83,7 @@ function handleToggleButton(e) {
   });
 }
 
+// 모든 form 관련 요소 비활성화
 function disableAllElements() {
   nameInput.setAttribute('disabled', '');
   nameToggle.checked = false;
@@ -90,6 +94,7 @@ function disableAllElements() {
   phoneNumberToggle.checked = false;
 }
 
+// 개인정보 수정 폼 검증 및 api 요청
 async function updateUserData(e) {
   e.preventDefault();
 
@@ -140,11 +145,13 @@ async function updateUserData(e) {
   }
 }
 
+// form 관련 에러 알림 띄우기
 function alertError(message) {
   closeModal();
   alert(message);
 }
 
+// 폰 번호 입력 시 자동 포맷팅
 function handlePhoneNumberInput() {
   phoneNumberInput.value = formatPhoneNumber(this.value);
 }
