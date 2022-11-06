@@ -48,7 +48,7 @@ userRouter.post("/login", async function (req, res, next) {
 // });
 
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users/register 로 요청해야 함.)
-userRouter.post("/register", async (req, res, next) => {
+userRouter.post("/", async (req, res, next) => {
   try {
     console.log("user router")
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
@@ -107,9 +107,9 @@ userRouter.get("/", async function (req, res, next) {
 
 userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
   try {
-    const userId = req.currentUserId;
-    const userInfo = await userService.getUser(userId);
-    res.status(200).json(userInfo);
+    const user_id = req.currentUserId;
+    const user_info = await userService.getUser(user_id);
+    res.status(200).json(user_info);
   } catch (error) {
     next(error);
   }
@@ -167,7 +167,7 @@ userRouter.put(
   }
 );
 
-// 사용자 정보 삭제
+// 사용자 삭제
 userRouter.delete("/:user_id", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
@@ -190,6 +190,30 @@ userRouter.delete("/:user_id", async (req, res, next) => {
     next(error);
   }
 });
+
+// 회원탈퇴 userId를 파라미터에 넣어서 전송
+// userRouter.delete(
+//   "/users/:userId",
+//   loginRequired,
+//   async function (req, res, next) {
+//     try {
+//       const userId = req.params.userId;
+
+//       // 관리자 계정이 아니라면 유저 아이디 일치하는지 검증
+//       if (req.role !== "admin-user") {
+//         if (req.currentUserId !== userId) {
+//           throw new Error("토큰의 정보와 삭제하려는 유저의 정보가 다릅니다.");
+//         }
+//       }
+//       await userService.deleteUser(userId);
+
+//       res.status(200).json("정상적으로 회원탈퇴 처리 되었습니다.");
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
+
 
 // 사용자 주문 내역 조회
 // userRouter.get("/:userId/orders", async (req, res, next) => {

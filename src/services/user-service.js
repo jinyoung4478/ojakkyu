@@ -10,9 +10,9 @@ class UserService {
   }
 
   // 회원가입
-  async addUser(userInfo) {
+  async addUser(user_info) {
     // 객체 destructuring
-    const { email, full_name, password, phone_number, address } = userInfo;
+    const { email, full_name, password, phone_number, address } = user_info;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -25,9 +25,9 @@ class UserService {
     // 이메일 중복은 이제 아니므로, 회원가입을 진행함
 
     // 우선 비밀번호 해쉬화(암호화)
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashed_password = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { full_name, email, password: hashedPassword, phone_number, address };
+    const newUserInfo = { full_name, email, password: hashed_password, phone_number, address };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -36,9 +36,9 @@ class UserService {
   }
 
   // 로그인
-  async getUserToken(loginInfo) {
+  async getUserToken(login_info) {
     // 객체 destructuring
-    const { email, password } = loginInfo;
+    const { email, password } = login_info;
 
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
@@ -81,8 +81,8 @@ class UserService {
   }
 
   // id로 검색한 단일 사용자
-  async getUser(userId) {
-    const user = await this.userModel.findById(userId);
+  async getUser(user_id) {
+    const user = await this.userModel.findById(user_id);
     
     if (!user) {
       throw new Error("해당 ID는 찾을 수 없습니다.");
@@ -176,22 +176,22 @@ class UserService {
   }
 
   // 사용자 주문 내역 가져오기
-  async pushUserOrderList(userId, orderId) {
-    const updatedUser = await this.userModel.updateOrder({
-      userId,
-      orderId,
-    });
-    return updatedUser;
-  }
+  // async pushUserOrderList(user_id, order_id) {
+  //   const updatedUser = await this.userModel.updateOrder({
+  //     user_id,
+  //     order_id,
+  //   });
+  //   return updatedUser;
+  // }
 
   // 사용자 주문 내역 삭제
-  async pullUserOrderList(userId, orderId) {
-    const updatedUser = await this.userModel.deletOrder({
-      userId,
-      orderId,
-    });
-    return updatedUser;
-  }
+  // async pullUserOrderList(user_id, order_id) {
+  //   const updatedUser = await this.userModel.deletOrder({
+  //     user_id,
+  //     order_id,
+  //   });
+  //   return updatedUser;
+  // }
 }
 
 const userService = new UserService(userModel);

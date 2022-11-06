@@ -9,13 +9,13 @@ export class UserModel {
     return user;
   }
 
-  async findById(userId) {
-    const user = await User.findOne({ _id: userId });
+  async findById(user_id) {
+    const user = await User.findOne({ _id: user_id });
     return user;
   }
 
-  async create(userInfo) {
-    const createdNewUser = await User.create(userInfo);
+  async create(user_info) {
+    const createdNewUser = await User.create(user_info);
     return createdNewUser;
   }
 
@@ -25,8 +25,8 @@ export class UserModel {
     return users;
   }
 
-  async update({ userId, update }) {
-    const filter = { _id: userId };
+  async update({ user_id, update }) {
+    const filter = { _id: user_id };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
@@ -34,8 +34,8 @@ export class UserModel {
   }
 
   // 함수 추가
-  async deleteById(userId) {
-    const deletedUser = await User.findOneAndDelete({ _id: userId});
+  async deleteById(user_id) {
+    const deletedUser = await User.findOneAndDelete({ _id: user_id});
     return deletedUser;
   }
 
