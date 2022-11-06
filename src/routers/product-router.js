@@ -1,15 +1,15 @@
 import { Router } from "express";
-import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { productService } from "../services";
 
 const productRouter = Router();
 
-// 현재 url 경로 : api/products/..
+// 현재 url 경로 : api/product/..
 
 //모든 상품조회
 productRouter.get("/", async (req, res, next) => {
     try {
+        console.log("get all router 실행")
         const products = await productService.getProductsAll()
         res.status(200).json(products)
     }
@@ -17,26 +17,29 @@ productRouter.get("/", async (req, res, next) => {
         next(error)
     }
 })
+
 //카테고리별 상품 조회
-// productRouter.get("?category={categoryId}", async (req, res, next) => {
-//     try {
-//         const category = req.query.categoryId;
-//         const products = await productService.getProductsByCategory(category)
-//         res.status(200).json(products)
-//     }
-//     catch (error) {
-//         next(error)
-//     }
-// })
+productRouter.get("/category/:category_id", async (req, res, next) => {
+    try {
+        const category = req.params.category_id;
+
+        const products = await productService.getProductsByCategory(category)
+        res.status(200).json(products)
+    }
+    catch (error) {
+        next(error)
+    }
+})
 //상품 상세조회
 productRouter.get("/:product_id", async (req, res, next) => {
     try {
         const { product_id } = req.params
+        console.log(product_id)
         const product = await productService.getProduct(product_id)
         res.status(200).json(product);
     }
     catch (error) {
-
+        next(error)
     }
 })
 
@@ -45,8 +48,28 @@ productRouter.get("/:product_id", async (req, res, next) => {
 productRouter.post("/", async (req, res, next) => {
     try {
         console.log("router")
-        const { product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes } = req.body
-        const product = await productService.addProduct({ product_id, product_name, product_title, description, price, stone_type, accessory_type, availability, likes })
+        const {
+            product_id,
+            product_name,
+            product_title,
+            description,
+            price,
+            stone_type,
+            accessory_type,
+            availability,
+            likes,
+        } = req.body;
+        const product = await productService.addProduct({
+            product_id,
+            product_name,
+            product_title,
+            description,
+            price,
+            stone_type,
+            accessory_type,
+            availability,
+            likes,
+        });
 
         res.status(201).json(product)
     }
@@ -82,6 +105,7 @@ productRouter.delete("/:product_id", async (req, res, next) => {
     try {
         const productId = req.params.product_id
         await productService.deleteProduct(productId)
+        res.status(200)
     }
     catch (error) {
         next(error);
