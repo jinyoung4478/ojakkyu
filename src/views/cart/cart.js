@@ -1,5 +1,9 @@
 import * as Api from '../utils/api.js';
-import { addCommas, clientSideInclude } from '../utils/useful-functions.js';
+import {
+  addCommas,
+  clientSideInclude,
+  checkLogin,
+} from '../utils/useful-functions.js';
 clientSideInclude();
 
 console.log('Hello Cart!');
@@ -12,13 +16,19 @@ const PRODUCT = document.querySelector('#listItems');
 
 async function getData() {
   try {
-    const res = await fetch('../home/product.json');
-    const data = await res.json();
-    const { Product } = data;
+    const res = await Api.get('/api/products');
 
-    Product.forEach((tem) => {
+    res.forEach((tem) => {
+      const img = tem.image;
+      const description = tem.description;
+      const price = tem.price;
+      const id = tem.product_id;
+      const name = tem.product_name;
+      const title = tem.product_title;
+      const type = tem.stone_type;
+
       PRODUCT.innerHTML += `
-      <div id="purchasing ">
+      <div id="purchasing " data-id="${id}">
       <form
       class="box block columns is-flex is-align-items-center is-justify-content-space-between"
       >
@@ -26,26 +36,27 @@ async function getData() {
       <figure class="image is-128x128 is-flex mr-2">
       <img
       id="itemPreview"
-      src=${tem.url}
+      src=${img}
       class="mr-2"
       />
       </figure>
       <div>
       <h3 id="txtId" class="title is-5">
-      ${tem.productTitle}
+      ${title}
       </h3>
       <p id="txtSubtitle" class="subtitle is-7">
-      ${tem.subTitle}
+      ${description} <br>
+      ${type}
       </p>
       <p class="subtitle is-7 tag is-link is-light">
-      <span id="pricePerItem">${addCommas(tem.productPrice)}</span>&nbsp;원
+      <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
       </p>
       </div>
       </div>
       <div
       class="block is-flex is-align-items-center is-justify-content-flex-end"
       >
-      <input type="hidden" value="${tem.id}">
+      <input type="hidden" value="${id}">
       <input
       id="countItem"
       value="${tem.id}"
@@ -155,13 +166,23 @@ async function getData() {
           btndel.parentElement.parentElement.parentElement.remove();
           //1. 개별삭제시 총액에 반영하기
           //2. 개별삭제로 목록이 모두 삭제될 시 총액 0으로 변경
-          //3.개별삭제 모두 진행시 금액 반영
+          //3. 개별삭제 모두 진행시 금액 반영
+          //4. 결제하기 버튼
+          BTN_PERCHASE.addEventListener('click', (e) => {
+            // e.preventDefault();
+            checkLogin();
+          });
         });
       }
     });
   } catch (err) {
     console.log(err);
   }
+}
+
+// 로컬스토리지에 제품 저장 함수
+function saveProduct(productData) {
+  localStorage.setItem('product', JSON.stringify(productData));
 }
 
 async function creatProduct() {
