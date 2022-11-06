@@ -25,7 +25,7 @@ orderRouter.get("/", async (req, res, next) => {
 });
 
 // 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료)
-orderRouter.post("/:orderId", async (req, res, next) => {
+orderRouter.post("/:order_id/status", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -35,9 +35,9 @@ orderRouter.post("/:orderId", async (req, res, next) => {
         );
     }
 
-    const orderId = req.params.orderId;
+    const order_id = req.params.order_id;
     const { status } = req.body;
-    const updateStatus = await orderService.setOrderStatus(orderId, status);
+    const updateStatus = await orderService.setOrderStatus(order_id, status);
 
     res.status(200).json(updateStatus);
   } catch (error) {

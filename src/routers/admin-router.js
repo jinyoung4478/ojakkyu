@@ -21,10 +21,10 @@ adminRouter.get("/users", async (req, res, next) => {
 });
 
 // 관리자 정보 조회
-adminRouter.get("/:adminId", async (req, res, next) => {
+adminRouter.get("/:admin_id", async (req, res, next) => {
   try {
-    const { adminId } = req.params;
-    const adminData = await userService.getUser(adminId);
+    const { admin_id } = req.params;
+    const adminData = await userService.getUser(admin_id);
     res.status(200).json(adminData);
   } catch (error) {
     next(error);
@@ -33,7 +33,7 @@ adminRouter.get("/:adminId", async (req, res, next) => {
 
 // 관리자 정보 수정
 adminRouter.put(
-  "/:adminId",
+  "/:admin_id",
   loginRequired,
   async function (req, res, next) {
     try {
@@ -45,23 +45,23 @@ adminRouter.put(
         );
       }
 
-    const adminId = req.params.adminId;
+    const admin_id = req.params.admin_id;
 
-    const { fullName, password, address, phoneNumber, role, currentPassword } = req.body;
+    const { full_name, password, address, phone_number, role, current_password } = req.body;
 
-    if (!currentPassword) {
+    if (!current_password) {
         throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
     }
 
-    const adminInfoRequired = { adminId, currentPassword };
+    const adminInfoRequired = { admin_id, current_password };
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
     const toUpdate = {
-        ...(fullName && { fullName }),
+        ...(full_name && { full_name }),
         ...(password && { password }),
         ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
+        ...(phone_number && { phone_number }),
         ...(role && { role }),
     };
 
