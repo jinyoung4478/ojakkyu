@@ -56,24 +56,19 @@ export const renderClientSideComponent = () => {
       const header = fetch("/components/header.html");
       header.then((res) => res.text()).then((text) => {
         document.querySelector("#header").innerHTML = text;
-        fetch("/components/header.js").then((res) => res.text())
-        .then((text) => {
           let script = document.createElement("script");
-          script.innerHTML = text;
+          script.type = "module";
+          script.src = "/components/header.js";
           document.body.appendChild(script);
-        })
       });
     }
-
+      
     if(footerId){
       const footer = fetch("/components/footer.html");
       footer.then((res) => res.text()).then((text) => {
         document.querySelector("#footer").innerHTML = text;
       })
     }
-    
-
-    
 
   });
 };
