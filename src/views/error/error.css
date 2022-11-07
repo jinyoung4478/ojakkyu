@@ -37,3 +37,27 @@
   font-size: 20em;
   text-shadow: 1px 1px 1px purple;
 }
+
+.error .linkHomeWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.error .linkHome:hover {
+  color: white;
+  background-color: purple;
+}
+
+.error .linkHome {
+  padding: 8px 10px;
+
+  color: gray;
+
+  background-color: transparent;
+  border: 1px solid rgba(182, 182, 182, 0.7);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}

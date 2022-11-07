@@ -17,7 +17,7 @@ viewsRouter.use('/product', serveStatic('product'));
 viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
 viewsRouter.use('/product/category/:category', serveStatic('product'));
 viewsRouter.use('/order', serveStatic('order'));
-viewsRouter.use('/error', serveStatic('not-found'));
+viewsRouter.use('/error', serveStatic('error'));
 
 // viewsRouter.use('/product/:productId', serveStatic('product_detail'));
 
