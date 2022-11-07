@@ -1,21 +1,21 @@
-import { clientSideInclude } from '../utils/useful-functions.js';
+import { renderClientSideComponent } from '../utils/useful-functions.js';
 import * as Api from "../utils/api.js";
 
 const product = document.querySelector(".product");
 const moveDetail = document.querySelectorAll(".newArrival .productWrap .product")[0].children;
 
-async function creatProduct() {
+async function drawProduct() {
   try {
-    const res = await Api.get("/api/products");
+    const res = await Api.get("/api/product");
     
     res.forEach((tem) => {
       const img = tem.image;
       const description = tem.description;
       const price = tem.price;
-      const id = tem.product_id;
-      const name = tem.product_name;
-      const title = tem.product_title;
-      const type = tem.stone_type;
+      const id = tem.productId;
+      const name = tem.productName;
+      const title = tem.productTitle;
+      const type = tem.stoneType;
 
 
       product.innerHTML += `
@@ -27,7 +27,7 @@ async function creatProduct() {
           <p>${name}</p>
           <p>${title}</p>
           <p>${type}</p>
-        </li>`;
+      </li>`;
     });
 
     // 로컬스토리지에 제품 저장
@@ -45,15 +45,14 @@ function saveProduct(productData){
 }
 
 // 제품 리스트 그려주는 비동기 함수
-async function startProduct() {
-  await creatProduct();
+async function start() {
+  await drawProduct();
 }
 
-startProduct();
+start();
 
 // 페이지 랜딩시 그려진 제품 리스트마다 이벤트 핸들러 등록
 window.onload = function(){
-  console.log(moveDetail)
   Array.from(moveDetail).forEach((tem, idx) => {
     tem.addEventListener("click", function(e){
       let temLength = tem.children.length;
@@ -61,14 +60,11 @@ window.onload = function(){
       for(let i = 0; i < temLength; i++){
         temChildren[i].addEventListener('click', (a) => a.stopPropagation());
       }
-      console.log(e.target,temChildren)
-
       location.href = `/product/${tem.dataset.id}`
     
     })
   })
 };
 
-
-// 컴포넌트 랜더링
-clientSideInclude();
+// 컴포넌트 렌더링
+renderClientSideComponent();

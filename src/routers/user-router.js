@@ -106,7 +106,7 @@ userRouter.get("/", adminRequired, async function (req, res, next) {
 //   }
 // });
 
-userRouter.get("/myInfo", async (req, res, next) => {
+userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const userInfo = await userService.getUser(userId);
