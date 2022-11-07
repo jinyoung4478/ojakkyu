@@ -4,7 +4,7 @@ import {
   validatePhoneNumber,
 } from '../utils/useful-functions.js';
 
-import { clientSideInclude } from '../utils/useful-functions.js';
+import { renderClientSideComponent } from '../utils/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
@@ -19,7 +19,7 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
-  clientSideInclude();
+  renderClientSideComponent();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
