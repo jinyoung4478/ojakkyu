@@ -1,2 +1,2 @@
-import { clientSideInclude } from '../utils/useful-functions.js';
-clientSideInclude();
+import { renderClientSideComponent } from '../utils/useful-functions.js';
+renderClientSideComponent();
