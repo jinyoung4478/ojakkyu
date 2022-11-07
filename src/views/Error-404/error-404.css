@@ -1,11 +1,6 @@
 @charset "utf-8";
 @import '../styles/reset.css';
 
-/* body */
-.error404 {
-  /* font-family: 'Noto Serif KR', serif; */
-}
-
 /* description404 */
 .error404 .description404 {
   margin-bottom: 20px;
