@@ -1,6 +1,6 @@
 import * as Api from '../utils/api.js';
 import {
-  clientSideInclude,
+  renderClientSideComponent,
   checkLogin,
   formatPhoneNumber,
   validatePhoneNumber,
@@ -39,7 +39,7 @@ addAllEvents();
 
 function renderElements() {
   // 컴포넌트 렌더링
-  clientSideInclude();
+  renderClientSideComponent();
   // 해당 유저 정보 불러오기
   insertData();
   // 모든 인풋 요소 초기화 (비활성화)
