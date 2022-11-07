@@ -8,24 +8,9 @@ class OrderService {
 
   // 주문 변경
   async addOrder(orderInfo) {
-    // 객체 destructuring
-    const { 
-      userId, 
-      status, 
-      totalPrice, 
-      productList,
-    } = orderInfo;
-
-    const newOrderInfo = { 
-      userId, 
-      status, 
-      totalPrice, 
-      productList,
-    };
-
     // db에 저장
-    const createdNewOrder = await this.orderModel.create(newOrderInfo);
-
+    const createdNewOrder = await this.orderModel.create(orderInfo);
+    console.log("orderInfo:", orderInfo);
     return createdNewOrder;
   }
 
@@ -44,20 +29,35 @@ class OrderService {
   // order_id로 주문 상세 조회
   async getFindByOrderId(orderId) {
     const order = await this.orderModel.findByOrderId(orderId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!order) {
+      throw new Error("해당 id의 주문을 찾을 수 없습니다.");
+    }
+
     return order;
   }
 
-  // 주문 상태 변경
-  async setOrderStatus(orderId, status) {
-    const order = await this.orderModel.update(orderId, status);
+  // 주문 변경
+  async setOrder(orderId, toUpdate) {
+    const order = await this.orderModel.update({
+      orderId,
+      update: toUpdate,
+    });
 
     return order;
   }
 
   // 주문 내역 삭제
   async deleteOrder(orderId) {
-    const deletedOrder = await this.orderModel.deleteById(orderId);
-    return deletedOrder;
+    const { deletedOrder } = await this.orderModel.deleteById(orderId);
+    
+    // 삭제 실패시 에러 메시지 반환
+    if (deletedOrder === 0) {
+      throw new Error(`${orderId} 주문 삭제에 실패했습니다.`);
+    }
+    
+    return { result: "success" };
   }
 
 }

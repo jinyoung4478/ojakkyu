@@ -120,8 +120,9 @@ adminRouter.get("/orders", async (req, res, next) => {
 adminRouter.delete("orders/:orderId", async (req, res, next) => {
   try {
     const { orderId } = req.params;
-    const userId = await orderService.deleteOrder(orderId);
+    const deleteOrder = await orderService.deleteOrder(orderId);
 
+    res.json(200).json(deleteOrder);
   } catch (error) {
     next(error);
   }

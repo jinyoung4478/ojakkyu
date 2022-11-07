@@ -15,7 +15,8 @@ const Order = model("orders", OrderSchema);
 const orderRouter = Router();
 
 // 전체 주문 내역 보기
-orderRouter.get("/", adminRequired, async (req, res, next) => {
+// /api/orders
+orderRouter.get("/", async (req, res, next) => {
   try {
     const orders = await orderService.getOrders();
 
@@ -26,7 +27,7 @@ orderRouter.get("/", adminRequired, async (req, res, next) => {
 });
 
 // userId에 해당하는 주문 내역 보기
-orderRouter.get("/:userId", loginRequired, async (req, res, next) => {
+orderRouter.get("/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const order = await orderService.getFindByUserId(userId);
@@ -50,7 +51,7 @@ orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
 });
 
 // 주문 추가
-orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
+orderRouter.post("/addOrder", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -59,20 +60,30 @@ orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
             "headers의 Content-Type을 application/json으로 설정해주세요"
         );
     }
+    
+    const userId = req.currentUserId;
+    const title = req.body.title;
+    const status = req.body.status;
+    const totalPrice = req.body.totalPrice;
+    const address = req.body.address;
+    
+    const newOrder = await orderService.addOrder({
+      userId,
+      title,
+      status,
+      totalPrice,
+      address,
+    });
 
-    const { userId, status, totalPrice, productList } = req.body;
-    const order_info = { userId, status, totalPrice, productList };
-    const order = await orderService.addOrder(order_info);
-
-    res.status(200).json(order);
+    res.status(200).json(newOrder);
   } catch (error) {
     next(error);
   }
 });
 
 // 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료)
-// adminRequired 필요?
-orderRouter.patch("/:orderId/status", adminRequired, async (req, res, next) => {
+// adminRequired
+orderRouter.patch("/:orderId/status", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -84,7 +95,7 @@ orderRouter.patch("/:orderId/status", adminRequired, async (req, res, next) => {
 
     const orderId = req.params.orderId;
     const { status } = req.body;
-    const updateStatus = await orderService.setOrderStatus(orderId, status);
+    const updateStatus = await orderService.setOrder(orderId, status);
 
     res.status(200).json(updateStatus);
   } catch (error) {
