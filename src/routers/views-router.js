@@ -21,6 +21,9 @@ viewsRouter.use('/product/category/:category', serveStatic('product'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/not-found', serveStatic('error'));
 
+// 메뉴
+viewsRouter.use('/birthstone', serveStatic('birthstone'));
+
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
 

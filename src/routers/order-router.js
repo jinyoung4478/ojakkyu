@@ -1,22 +1,16 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
-// 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from "../middlewares/login-required";
-import { adminRequired } from "../middlewares/admin-required"
-import { userService } from "../services/user-service";
+
+import { loginRequired, adminRequired } from "../middlewares"
+
 import { orderService } from "../services/order-service";
-import { productService } from "../services/product-service";
 
-import { model } from "mongoose";
-import { OrderSchema } from "../db/schemas/order-schema";
-
-const Order = model("orders", OrderSchema);
 
 const orderRouter = Router();
 
-// 전체 주문 내역 보기
-// /api/orders
-orderRouter.get("/", async (req, res, next) => {
+// 전체 주문 내역 보기, /api/orders/all
+// adminRequired
+orderRouter.get("/all", async (req, res, next) => {
   try {
     const orders = await orderService.getOrders();
 
@@ -26,23 +20,12 @@ orderRouter.get("/", async (req, res, next) => {
   }
 });
 
-// userId에 해당하는 주문 내역 보기
-orderRouter.get("/:userId", async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-    const order = await orderService.getFindByUserId(userId);
-
-    res.status(200).json(order);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// orderId에 해당하는 주문 내역 보기
-orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
+// orderId에 해당하는 주문 내역 보기, /api/orders/:orderId
+// loginRequired
+orderRouter.get("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
-    const order = await orderService.getFindByOrderId(orderId);
+    const order = await orderService.getOrder(orderId);
 
     res.status(200).json(order);
   } catch (error) {
@@ -50,8 +33,65 @@ orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
   }
 });
 
-// 주문 추가
-orderRouter.post("/addOrder", async (req, res, next) => {
+// userId에 해당하는 주문 내역 보기, /api/orders/:userId
+// loginRequired
+orderRouter.get("/:userId", async (req, res, next) => {
+  try {
+    const userId = req.currentUserId;
+    const orders = await orderService.getOrdersByUserId(userId);
+
+    res.status(200).json(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// productId에 해당하는 주문 내역 보기, /api/orders/:productId
+// loginRequired
+orderRouter.get("/:productId", async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const orders = await orderService.getOrdersByProductId(productId);
+
+    res.status(200).json(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// (사용자) 주문 추가, /api/orders
+// loginRequired
+orderRouter.post("/", async (req, res, next) => {
+  try {
+    // content-type 을 application/json 로 프론트에서
+    // 설정 안 하고 요청하면, body가 비어 있게 됨.
+    if (is.emptyObject(req.body)) {
+        throw new Error(
+            "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+    }
+    
+    const orderId = req.body.orderId;
+    const productId = req.body.productId;
+    const quantity = req.body.quantity;
+    const totalPrice = req.body.totalPrice;
+    
+    const newOrder = await orderService.addOrder({
+      orderId,
+      productId,
+      quantity,
+      totalPrice,
+    });
+
+    res.status(200).json(newOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// (주문/결제) 주문 추가, /api/orders/payment
+// loginRequired
+orderRouter.post("/payment", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -62,14 +102,14 @@ orderRouter.post("/addOrder", async (req, res, next) => {
     }
     
     const userId = req.currentUserId;
-    const title = req.body.title;
+    const itemIitle = req.body.itemIitle;
     const status = req.body.status;
     const totalPrice = req.body.totalPrice;
     const address = req.body.address;
     
     const newOrder = await orderService.addOrder({
       userId,
-      title,
+      itemIitle,
       status,
       totalPrice,
       address,
@@ -81,9 +121,9 @@ orderRouter.post("/addOrder", async (req, res, next) => {
   }
 });
 
-// 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료)
+// (사용자) 주문 변경, /api/orders/:orderId
 // adminRequired
-orderRouter.patch("/:orderId/status", async (req, res, next) => {
+orderRouter.patch("/:orderId", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -94,22 +134,61 @@ orderRouter.patch("/:orderId/status", async (req, res, next) => {
     }
 
     const orderId = req.params.orderId;
-    const { status } = req.body;
-    const updateStatus = await orderService.setOrder(orderId, status);
+    const address = req.body.address;
+    const status = req.body.status;
 
-    res.status(200).json(updateStatus);
+    const toUpdate = {
+      ...(address && { address }),
+      ...(status && { status }),
+    };
+
+    const updatedOrder = await orderService.setOrder(orderId, toUpdate);
+
+    res.status(200).json(updatedOrder);
   } catch (error) {
     next(error);
   }
 });
 
-// 주문 삭제
-orderRouter.delete("/:orderId", loginRequired, async (req, res, next) => {
+// (주문/결제) 주문 변경, /api/orders/payment/:orderId
+// loginRequired
+orderRouter.patch("/payment/:orderId", async (req, res, next) => {
+  try {
+    // content-type 을 application/json 로 프론트에서
+    // 설정 안 하고 요청하면, body가 비어 있게 됨.
+    if (is.emptyObject(req.body)) {
+        throw new Error(
+            "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+    }
+
+    const orderId = req.params.orderId;
+    const quantity = req.body.quantity;
+    const totalPrice = req.body.totalPrice;
+    const status = req.body.status;
+
+    const toUpdate = {
+      ...(quantity && { quantity }),
+      ...(totalPrice && { totalPrice }),
+      ...(status && { status }),
+    };
+
+    const updatedOrder = await orderService.setOrder(orderId, toUpdate);
+
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 주문 삭제, /api/orders/:orderId
+// loginRequired
+orderRouter.delete("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
-    await orderService.deleteOrder(orderId);
+    const deletedOrder = await orderService.deleteOrder(orderId);
 
-    res.status(200).json("해당 주문이 취소되었습니다.");
+    res.status(200).json(deletedOrder);
   } catch (error) {
     next(error);
   }
