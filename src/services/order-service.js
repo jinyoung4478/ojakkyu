@@ -10,7 +10,7 @@ class OrderService {
   async addOrder(orderInfo) {
     // db에 저장
     const createdNewOrder = await this.orderModel.create(orderInfo);
-    console.log("orderInfo:", orderInfo);
+
     return createdNewOrder;
   }
 
@@ -20,32 +20,37 @@ class OrderService {
     return orders;
   }
 
-  // user_id로 사용자 별 주문 내역 조회
-  async getFindByUserId(userId) {
-    const orders = await this.orderModel.findByUserId(userId);
-    return orders;
-  }
+  // orderId별 주문 조회
+  async getOrder(orderId) {
+    const order = await this.orderModel.findById(orderId);
 
-  // order_id로 주문 상세 조회
-  async getFindByOrderId(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
-
-    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!order) {
-      throw new Error("해당 id의 주문을 찾을 수 없습니다.");
+      throw new Error("해당 id의 주문은 없습니다.");
     }
 
     return order;
   }
 
+  // userId로 사용자 별 주문 내역 조회
+  async getOrdersByUserId(userId) {
+    const orders = await this.orderModel.findAllByUserId(userId);
+    return orders;
+  }
+
+  // productId로 사용자 별 주문 내역 조회
+  async getOrdersByProductId(productId) {
+    const orders = await this.orderModel.findAllByProductId(productId);
+    return orders;
+  }
+
   // 주문 변경
   async setOrder(orderId, toUpdate) {
-    const order = await this.orderModel.update({
+    const updatedOrder = await this.orderModel.update({
       orderId,
       update: toUpdate,
     });
 
-    return order;
+    return updatedOrder;
   }
 
   // 주문 내역 삭제

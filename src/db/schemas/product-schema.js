@@ -57,6 +57,11 @@ const ProductSchema = new Schema(
 
         // 상품 이미지
         image: ["link"],
-    })
+    },
+    {
+        collection: "products",
+        timestamps: true,
+    }
+);
 
 export { ProductSchema };

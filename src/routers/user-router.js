@@ -1,15 +1,8 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from "../middlewares/login-required";
-import { adminRequired } from "../middlewares/admin-required";
+import { loginRequired, adminRequired } from "../middlewares";
 import { userService } from "../services/user-service";
-import { orderService } from "../services/order-service";
-
-import { model } from "mongoose";
-import { UserSchema } from "../db/schemas/user-schema";
-
-const User = model("users", UserSchema);
 
 const userRouter = Router();
 
@@ -195,7 +188,7 @@ userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
 
 // 회원탈퇴 userId를 파라미터에 넣어서 전송
 // userRouter.delete(
-//   "/users/:userId",
+//   "/:userId",
 //   loginRequired,
 //   async function (req, res, next) {
 //     try {
