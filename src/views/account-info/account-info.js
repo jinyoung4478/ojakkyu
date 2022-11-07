@@ -13,6 +13,13 @@ const nameToggle = document.querySelector('#nameToggle');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const passwordToggle = document.querySelector('#passwordToggle');
+
+const postalCodeInput = document.querySelector('#postalCodeInput');
+const searchAddressButton = document.querySelector('#searchAddressButton');
+const addressToggle = document.querySelector('#addressToggle');
+const addressInput = document.querySelector('#addressInput');
+const addressDetailInput = document.querySelector('#addressDetailInput');
+
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const phoneNumberToggle = document.querySelector('#phoneNumberToggle');
 const saveButton = document.querySelector('#saveButton');
@@ -43,11 +50,14 @@ function renderElements() {
 async function insertData() {
   userData = await Api.get('/api/users/myInfo');
 
-  const { fullName, phoneNumber } = userData;
+  const { fullName, phoneNumber, address } = userData;
   userData.password = '';
 
   emailInput.value = userData.email;
   nameInput.value = fullName;
+  postalCodeInput.value = address.postalCode;
+  addressInput.value = address.address1;
+  addressDetailInput.value = address.address2;
   phoneNumberInput.value = phoneNumber;
 }
 
@@ -56,6 +66,9 @@ function addAllEvents() {
   nameToggle.addEventListener('change', handleToggleButton);
   passwordToggle.addEventListener('change', handleToggleButton);
   phoneNumberToggle.addEventListener('change', handleToggleButton);
+  addressToggle.addEventListener('change', handleToggleButton);
+  searchAddressButton.addEventListener('click', searchAddress);
+
   phoneNumberInput.addEventListener('input', handlePhoneNumberInput);
   saveButton.addEventListener('click', openModal);
   modalBackground.addEventListener('click', closeModal);
@@ -69,10 +82,17 @@ function handleToggleButton(e) {
   const toggleTargets = {
     nameToggle: [nameInput],
     passwordToggle: [passwordInput, passwordConfirmInput],
+    addressToggle: [
+      postalCodeInput,
+      addressInput,
+      addressDetailInput,
+      searchAddressButton,
+    ],
     phoneNumberToggle: [phoneNumberInput],
   };
   const isChecked = e.target.checked;
   const targets = toggleTargets[e.target.id];
+  console.log(targets);
   targets.forEach((target, index) => {
     if (isChecked) {
       target.removeAttribute('disabled');
@@ -92,8 +112,47 @@ function disableAllElements() {
   passwordInput.setAttribute('disabled', '');
   passwordToggle.checked = false;
   passwordConfirmInput.setAttribute('disabled', '');
+  postalCodeInput.setAttribute('disabled', '');
+  addressInput.setAttribute('disabled', '');
+  addressDetailInput.setAttribute('disabled', '');
+  addressToggle.checked = false;
+  searchAddressButton.setAttribute('disabled', '');
   phoneNumberInput.setAttribute('disabled', '');
   phoneNumberToggle.checked = false;
+}
+
+// daum 주소 API를 활용한 주소 입력 (참조 : https://postcode.map.daum.net/guide)
+function searchAddress(e) {
+  e.preventDefault();
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+      let extraAddr = '';
+
+      if (data.userSelectedType === 'R') {
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
+
+      if (data.userSelectedType === 'R') {
+        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
+        }
+        if (data.buildingName !== '' && data.apartment === 'Y') {
+          extraAddr +=
+            extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+        }
+        if (extraAddr !== '') {
+          extraAddr = ' (' + extraAddr + ')';
+        }
+      }
+      postalCodeInput.value = data.zonecode;
+      addressInput.value = `${addr} ${extraAddr}`;
+      addressDetailInput.placeholder = '상세 주소를 입력해 주세요';
+      addressDetailInput.focus();
+    },
+  }).open();
 }
 
 // 개인정보 수정 폼 검증 및 api 요청
@@ -103,6 +162,9 @@ async function updateUserData(e) {
   const name = nameInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
+  const postalCode = postalCodeInput.value;
+  const address1 = addressInput.value;
+  const address2 = addressDetailInput.value;
   const phoneNumber = phoneNumberInput.value;
   const currentPassword = currentPasswordInput.value;
 
@@ -112,13 +174,19 @@ async function updateUserData(e) {
   if (password && password !== passwordConfirm) {
     return alertError('비밀번호를 다시 확인해주세요');
   }
-
   if (!validatePhoneNumber(phoneNumber)) {
     return alertError('전화번호 형식이 맞지 않습니다.');
+  }
+  if (!postalCode && !address1) {
+    return alert('주소를 입력해주세요');
+  }
+  if (!address2) {
+    return alert('상세 주소를 입력해주세요');
   }
 
   const data = { currentPassword };
 
+  // 이름 변경 여부 판별
   if (name !== userData.fullName && name.length > 1) {
     data.fullName = name;
   }
@@ -126,7 +194,15 @@ async function updateUserData(e) {
   if (password !== userData.password) {
     data.password = password;
   }
-  // 폰 번호 수정 사항 여부 판별
+  //주소 수정 여부 판별
+  if (
+    postalCode !== userData.postalCode ||
+    address1 !== userData.address1 ||
+    address2 !== userData.address2
+  ) {
+    data.address = { postalCode, address1, address2 };
+  }
+  // 폰 번호 수정 여부 판별
   if (
     phoneNumber &&
     phoneNumber !== userData.phoneNumber &&

@@ -82,3 +82,7 @@ input:checked + .slider:before {
 .modal-content button.delete::after {
   background-color: black;
 }
+
+#addressToggle {
+  width: 66.34px;
+}

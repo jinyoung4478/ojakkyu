@@ -58,7 +58,6 @@ function searchAddress(e) {
         if (extraAddr !== '') {
           extraAddr = ' (' + extraAddr + ')';
         }
-      } else {
       }
       postalCodeInput.value = data.zonecode;
       addressInput.value = `${addr} ${extraAddr}`;
