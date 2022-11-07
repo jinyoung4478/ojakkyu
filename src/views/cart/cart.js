@@ -1,10 +1,10 @@
 import * as Api from '../utils/api.js';
 import {
   addCommas,
-  clientSideInclude,
+  renderClientSideComponent,
   checkLogin,
 } from '../utils/useful-functions.js';
-clientSideInclude();
+renderClientSideComponent();
 
 console.log('Hello Cart!');
 
@@ -13,6 +13,21 @@ const PRICCE_TOTAL = document.getElementById('priceTotal');
 const BTN_PERCHASE = document.getElementById('btnPurchase');
 const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
 const PRODUCT = document.querySelector('#listItems');
+
+async function drawProduct() {
+  const getItem = localStorage.getItem('product');
+  const data = JSON.parse(getItem);
+
+  try {
+    const img = data.image;
+    const description = data.description;
+    const price = data.price;
+    const id = data.product_id;
+    const name = data.product_name;
+    const title = data.product_title;
+    const type = data.stone_type;
+  } catch {}
+}
 
 async function getData() {
   try {
@@ -178,11 +193,6 @@ async function getData() {
   } catch (err) {
     console.log(err);
   }
-}
-
-// 로컬스토리지에 제품 저장 함수
-function saveProduct(productData) {
-  localStorage.setItem('product', JSON.stringify(productData));
 }
 
 async function creatProduct() {
