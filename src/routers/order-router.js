@@ -50,7 +50,7 @@ orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
 });
 
 // 주문 추가
-orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
+orderRouter.post("/addOrder", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -59,12 +59,23 @@ orderRouter.post("/addOrder", loginRequired, async (req, res, next) => {
             "headers의 Content-Type을 application/json으로 설정해주세요"
         );
     }
+    
+    const userId = req.currentUserId;
+    console.log(req.currentUserId);
+    const title = req.body.title;
+    const status = req.body.status;
+    const totalPrice = req.body.totalPrice;
+    const address = req.body.address;
+    
+    const newOrder = await orderService.addOrder({
+      userId,
+      title,
+      status,
+      totalPrice,
+      address,
+    });
 
-    const { userId, status, totalPrice, productList } = req.body;
-    const order_info = { userId, status, totalPrice, productList };
-    const order = await orderService.addOrder(order_info);
-
-    res.status(200).json(order);
+    res.status(200).json(newOrder);
   } catch (error) {
     next(error);
   }
