@@ -17,7 +17,7 @@ export class OrderModel {
 
   // user_id로 사용자 별 주문 내역 보기
   async findByUserId(userId) {
-    const order = await Order.find({ userId: userId })
+    const order = await Order.find({ userId });
         //.populate("user_id")
         //.populate("product_list");
     return order;
@@ -37,13 +37,12 @@ export class OrderModel {
   }
 
   // 주문 상태(상품 준비중, 배송중, 배송완료) 변경
-  async update(orderId, status) {
+  async update(orderId, update) {
     const filter = { _id: orderId };
-    const update = { status: status};
     const option = { returnOriginal: false };
 
-    const order = await Order.findOneAndUpdate(filter, update, option);
-    return order;
+    const updatedOrder = await Order.findOneAndUpdate(filter, update, option);
+    return updatedOrder;
   }
 
   // 주문 삭제
