@@ -6,13 +6,13 @@ import {
 
 import { clientSideInclude } from '../utils/useful-functions.js';
 
-new daum.Postcode({
-  oncomplete: function (data) {
-    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-    console.log(data);
-  },
-}).open();
+// new daum.Postcode({
+//   oncomplete: function (data) {
+//     // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+//     // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+//     console.log(data);
+//   },
+// }).open();
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
@@ -49,15 +49,15 @@ function formatPhoneNumber(e) {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const fullName = fullNameInput.value;
   const email = emailInput.value;
+  const fullName = fullNameInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
   const phoneNumber = phonNumberInput.value;
 
   // 잘 입력했는지 확인
-  const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
+  const isFullNameValid = fullName.length >= 2;
   const isPasswordValid = password.length >= 4;
   const isPasswordSame = password === passwordConfirm;
   const isPhoneNumberValid = validatePhoneNumber(phoneNumber);
@@ -81,8 +81,8 @@ async function handleSubmit(e) {
   // 회원가입 api 요청
   try {
     const data = {
-      fullName,
       email,
+      fullName,
       password,
       phoneNumber,
     };

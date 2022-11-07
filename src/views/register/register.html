@@ -30,17 +30,30 @@
     <!-- 회원가입 폼(Form) -->
     <section id="signupContainer">
       <div class="signupWrap">
-        <h2><strong>SIGN UP</strong></h2>
+        <h2><strong>이메일 간편 가입</strong></h2>
 
         <form class="formWrap" id="registerUserForm">
           <div class="paddingContent">
-            <p class="textLeft"><label for="idInput">아이디</label></p>
+            <p class="textLeft"><label for="emailInput">이메일</label></p>
             <div>
               <input
                 class="input"
-                id="idInput"
+                id="emailInput"
+                type="email"
+                placeholder="email@example.com"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+
+          <div class="paddingContent">
+            <p class="textLeft"><label for="fullNameInput">이름</label></p>
+            <div>
+              <input
+                class="input"
+                id="fullNameInput"
                 type="text"
-                placeholder="아이디"
+                placeholder="이름"
                 autocomplete="on"
               />
             </div>
@@ -70,32 +83,6 @@
                 type="password"
                 placeholder="비밀번호 확인"
                 autocomplete="off"
-              />
-            </div>
-          </div>
-
-          <div class="paddingContent">
-            <p class="textLeft"><label for="fullNameInput">이름</label></p>
-            <div>
-              <input
-                class="input"
-                id="fullNameInput"
-                type="text"
-                placeholder="이름"
-                autocomplete="on"
-              />
-            </div>
-          </div>
-
-          <div class="paddingContent">
-            <p class="textLeft"><label for="emailInput">이메일</label></p>
-            <div>
-              <input
-                class="input"
-                id="emailInput"
-                type="email"
-                placeholder="email@example.com"
-                autocomplete="on"
               />
             </div>
           </div>
