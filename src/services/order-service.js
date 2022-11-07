@@ -10,7 +10,7 @@ class OrderService {
   async addOrder(orderInfo) {
     // db에 저장
     const createdNewOrder = await this.orderModel.create(orderInfo);
-
+    console.log("orderInfo:", orderInfo);
     return createdNewOrder;
   }
 
