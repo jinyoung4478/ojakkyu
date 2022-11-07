@@ -3,7 +3,7 @@
 
 /* 레이아웃 */
 .container{
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -50,4 +50,5 @@
 .routeBtn button{
     border: none;
     padding: 20px 60px;
+    cursor: pointer;
 }

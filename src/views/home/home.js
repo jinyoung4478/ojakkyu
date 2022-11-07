@@ -1,4 +1,4 @@
-import { clientSideInclude } from '../utils/useful-functions.js';
+// import { renderClientSideComponent } from '../utils/useful-functions.js';
 import * as Api from "../utils/api.js";
 
 const product = document.querySelector(".product");
@@ -53,7 +53,6 @@ startProduct();
 
 // 페이지 랜딩시 그려진 제품 리스트마다 이벤트 핸들러 등록
 window.onload = function(){
-  console.log(moveDetail)
   Array.from(moveDetail).forEach((tem, idx) => {
     tem.addEventListener("click", function(e){
       let temLength = tem.children.length;
@@ -70,5 +69,35 @@ window.onload = function(){
 };
 
 
+
 // 컴포넌트 랜더링
-clientSideInclude();
+
+// fetch('/components/header.html')
+// .then((res) => res.text())
+// .then((text) => {
+//   document.querySelector('#header').innerHTML = text;
+//   fetch('/header.js')
+//     .then((response) => response.text())
+//     .then((txt) => {
+//       var script = document.createElement('script');
+//       script.innerHTML = txt;
+//       document.body.appendChild(script);
+//     });
+// });
+// fetch('/footer.html')
+// .then((res) => res.text())
+// .then((text) => {
+//   document.querySelector('#footer').innerHTML = text;
+// });
+
+const renderClientSideComponent = () => {
+  window.addEventListener('load', function () {
+   
+
+    const fheader = fetch("/components/header.html")
+    fheader.then((res) => res.text()).then((text) => {
+      document.querySelector('#header').innerHTML = text;
+    })
+  });
+};
+renderClientSideComponent();

@@ -46,7 +46,7 @@ export const checkLogin = () => {
 };
 
 // 클라이언트 사이드 컴포넌트 렌더링
-export const clientSideInclude = () => {
+export const renderClientSideComponent = () => {
   window.addEventListener('load', function () {
     let allElements = document.getElementsByTagName('*');
     Array.prototype.forEach.call(allElements, function (el) {

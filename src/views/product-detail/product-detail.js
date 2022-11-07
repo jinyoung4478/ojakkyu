@@ -1,5 +1,5 @@
 import * as Api from "../../utils/api.js";
-import { clientSideInclude } from "../../utils/useful-functions.js";
+import { renderClientSideComponent } from "../../utils/useful-functions.js";
 const productImg = document.querySelector(".productImg");
 const productDetail = document.querySelector(".productDetail");
 
@@ -7,7 +7,10 @@ const product_url = window.location.pathname.split('/');
 const productId = product_url[product_url.length - 2];
 const productCount = 0;
 
-
+// const orderProduct = (productId) => {
+//     // location.href = `/order`
+//     console.log("asdasd",productId)
+// }
 
 async function start(){
     try{
@@ -64,31 +67,36 @@ async function start(){
                         <p>Total : ${price}<span>(${productCount}개)</span></p>
                     </li>
 
-                    <figuare class="routeBtn">
-                        <button type="button" onclick="order_product">구매하기</button>
-                        <button type="button">장바구니</button>
-                        <button type="button">관심상품</button>
-                    </figuare>
+                    <li>
+                        <figuare class="routeBtn">
+                            <button type="button" class="moveOrder">구매하기</button>
+                            <button type="button" class="moveCart">장바구니</button>
+                            <button type="button">관심상품</button>
+                        </figuare>  
+                    </li>
+                    
                 </ul>
-                
-                
-                
+        
             `
         )
-        console.log(data)
-        orderProduct(id)
+
+        // 구매하기 버튼 클릭 시 라우팅
+        const moveOrder = document.querySelector(".moveOrder");
+        moveOrder.addEventListener('click', () => location.href = `/order`);
+
+        // 제품 데이터 로컬에 담기
+        const moveCart = document.querySelector(".moveCart");
+        localStorage.setItem('product', JSON.stringify(data))
+        moveCart.addEventListener('click', () => location.href = "/cart")
 
     }catch(err){
         console.log(err)
     }
 }
 
-function orderProduct(productId){
-    location.href = ``
-}
 
 async function createDetail(){
-    await clientSideInclude();
+    await renderClientSideComponent();
     await start();
 }
 
