@@ -15,7 +15,7 @@
   font-weight: bold;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .cartOrder #listItems ul {
@@ -33,7 +33,7 @@
   padding-top: 20px;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .cartOrder #listItems ul:last-child p {

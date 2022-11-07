@@ -12,19 +12,19 @@ export class ProductModel {
         return products;
     }
 
-    async findById(product_id) {
-        const product = await Product.findOne({ product_id: product_id })
+    async findById(productId) {
+        const product = await Product.findOne({ productId: productId })
         console.log("findById를 사용했습니다.")
         return product;
     }
 
-    async findByName(product_name) {
-        const product = await Product.findOne({ product_name: product_name })
+    async findByName(productName) {
+        const product = await Product.findOne({ productName: productName })
         return product;
     }
 
     async findByCategoty(category) {
-        const products = await Product.find({ accessory_type: category })
+        const products = await Product.find({ category: category })
         return products;
     }
 
@@ -34,16 +34,16 @@ export class ProductModel {
         return product;
     }
 
-    async update({ product_id, updateContent }) {
-        const findProduct = { product_id: product_id };
+    async update({ productId, updateContent }) {
+        const findProduct = { productId: productId };
         const option = { returnOriginal: false };
         const updatedProduct = await Product.findOneAndUpdate(findProduct, updateContent, option)
         return updatedProduct
     }
 
-    async delete(product_id) {
-        Product.findOneAndDelete(product_id)
-        return
+    async delete(productId) {
+        return Product.findOneAndDelete(productId)
+
     }
 }
 
