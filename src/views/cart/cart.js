@@ -14,13 +14,11 @@ const BTN_PERCHASE = document.getElementById('btnPurchase');
 const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
 const PRODUCT = document.querySelector('#listItems');
 
-
-
-async function drawProduct(){
+async function drawProduct() {
   const getItem = localStorage.getItem('product');
   const data = JSON.parse(getItem);
 
-  try{
+  try {
     const img = data.image;
     const description = data.description;
     const price = data.price;
@@ -28,11 +26,8 @@ async function drawProduct(){
     const name = data.product_name;
     const title = data.product_title;
     const type = data.stone_type;
-  }
+  } catch {}
 }
-
-
-
 
 async function getData() {
   try {
@@ -199,7 +194,6 @@ async function getData() {
     console.log(err);
   }
 }
-
 
 async function creatProduct() {
   await getData();
