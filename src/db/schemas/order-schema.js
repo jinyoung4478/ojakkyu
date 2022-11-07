@@ -3,20 +3,21 @@ import { Schema } from "mongoose";
 const OrderSchema = new Schema(
   {
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-        required: true,
+      type: Schema.Types.ObjectId,
+      ref: "users",
     },
-    title: {
+    productId: {
+      type: Schema.Types.ObjectId,
+      ref: "products",
+    },
+    itemTitle: {
       type: String,
-      required: true,
     },
-    status: {
-        type: String,
-        default: "상품 준비중",
+    quantity: {
+      type: Number,
     },
     totalPrice: {
-        type: Number,
+      type: Number,
     },
     address: {
       type: new Schema(
@@ -32,6 +33,10 @@ const OrderSchema = new Schema(
         }
       ),
       required: false,
+    },
+    status: {
+      type: String,
+      default: "상품 준비중",
     },
   },
   {
