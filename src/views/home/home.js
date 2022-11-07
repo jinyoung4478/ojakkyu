@@ -2,7 +2,6 @@ import { renderClientSideComponent } from '/utils/useful-functions.js';
 import * as Api from "/utils/api.js";
 
 const product = document.querySelector(".product");
-// const moveDetail = document.querySelectorAll(".newArrival .productWrap .product")[0].children;
 const moveDetail = document.querySelector(".product");
 
 
@@ -58,27 +57,15 @@ async function start() {
 
 start();
 
-// 페이지 랜딩시 그려진 제품 리스트마다 이벤트 핸들러 등록
-window.onload = function(){
-  const li = document.querySelector(".productEvent");
 
+// 상세페이지 이동
+moveDetail.addEventListener("click", (e) => {
+  const pareLi = e.target.parentElement;
+  location.href = `/product/${pareLi.dataset.id}`
+})
 
-
-
-  // moveDetail.addEventListener("click", (e) => {
-  //   if(moveDetail.contains(li)){
-  //     e.stopPropagation();
-  //     console.log(e.target.children)
-  //     location.href = `/product/${e.dataset.id}`
-  //   }
-  // })
-
-  li.addEventListener("click", (e) => {
-    console.log(e.target)
-  })
-
-
-
+// 아까워서 안버리는중입니다.
+// const moveDetail = document.querySelectorAll(".newArrival .productWrap .product")[0].children;
   // Array.from(moveDetail).forEach((tem, idx) => {
   //   tem.addEventListener("click", function(e){
   //     let temLength = tem.children.length;
@@ -90,7 +77,6 @@ window.onload = function(){
     
   //   })
   // })
-};
 
 // 컴포넌트 렌더링
 renderClientSideComponent();
