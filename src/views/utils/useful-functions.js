@@ -48,21 +48,23 @@ export const checkLogin = () => {
 // 클라이언트 사이드 컴포넌트 렌더링
 export const renderClientSideComponent = () => {
   window.addEventListener('load', function () {
-    let allElements = document.getElementsByTagName('*');
-    Array.prototype.forEach.call(allElements, function (el) {
-      let includePath = el.dataset.includePath;
-      if (includePath) {
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            el.outerHTML = this.responseText;
-          } else if (this.status == 404) {
-          }
-        };
-        xhttp.open('GET', includePath, true);
-        xhttp.send();
-      }
+
+    const header = fetch("/components/header.html");
+    header.then((res) => res.text()).then((text) => {
+      document.querySelector("#header").innerHTML = text;
+      fetch("/components/header.js").then((res) => res.text())
+      .then((text) => {
+        let script = document.createElement("script");
+        script.innerHTML = text;
+        document.body.appendChild(script);
+      })
     });
+
+    const footer = fetch("/components/footer.html");
+    footer.then((res) => res.text()).then((text) => {
+      document.querySelector("#footer").innerHTML = text;
+    })
+
   });
 };
 

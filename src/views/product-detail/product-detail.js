@@ -3,26 +3,21 @@ import { renderClientSideComponent } from "../../utils/useful-functions.js";
 const productImg = document.querySelector(".productImg");
 const productDetail = document.querySelector(".productDetail");
 
-const product_url = window.location.pathname.split('/');
-const productId = product_url[product_url.length - 2];
+const productUrl = window.location.pathname.split('/');
+const productId = productUrl[productUrl.length - 2];
 const productCount = 0;
 
-// const orderProduct = (productId) => {
-//     // location.href = `/order`
-//     console.log("asdasd",productId)
-// }
-
-async function start(){
+async function drawDetail(){
     try{
-        const data = await Api.get(`/api/products`, productId)
-      
+        const data = await Api.get("/api/product", productId)
+        console.log(productId)
         const img = data.image
         const description = data.description;
         const price = data.price;
-        const id = data.product_id;
-        const name = data.product_name;
-        const title = data.product_title;
-        const type = data.stone_type;
+        const id = data.productId;
+        const name = data.productName;
+        const title = data.productTitle;
+        const type = data.stoneType;
 
         productImg.insertAdjacentHTML(
             'afterbegin',
@@ -95,9 +90,9 @@ async function start(){
 }
 
 
-async function createDetail(){
+async function start(){
     await renderClientSideComponent();
-    await start();
+    await drawDetail();
 }
 
-createDetail()
+start()
