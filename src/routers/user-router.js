@@ -1,7 +1,8 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from "../middlewares";
+import { loginRequired } from "../middlewares/login-required";
+import { adminRequired } from "../middlewares/admin-required";
 import { userService } from "../services/user-service";
 import { orderService } from "../services/order-service";
 
@@ -82,7 +83,7 @@ userRouter.post("/", async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/", async function (req, res, next) {
+userRouter.get("/", adminRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -105,7 +106,7 @@ userRouter.get("/", async function (req, res, next) {
 //   }
 // });
 
-userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
+userRouter.get("/myInfo", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const userInfo = await userService.getUser(userId);
@@ -119,6 +120,7 @@ userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.put(
   "/:userId",
+  loginRequired,
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -168,7 +170,7 @@ userRouter.put(
 );
 
 // 사용자 삭제
-userRouter.delete("/:userId", async (req, res, next) => {
+userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(

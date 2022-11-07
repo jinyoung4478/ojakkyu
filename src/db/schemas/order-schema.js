@@ -3,13 +3,16 @@ import { Schema } from "mongoose";
 const OrderSchema = new Schema(
   {
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "users",
         required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
     status: {
         type: String,
-        enum: ["상품 준비중", "상품 배송중", "배송완료"],
         default: "상품 준비중",
     },
     totalPrice: {
@@ -21,6 +24,8 @@ const OrderSchema = new Schema(
           postalCode: String,
           address1: String,
           address2: String,
+          receiverName: String,
+          receiverPhoneNumber: String,
         },
         {
           _id: false,
@@ -28,13 +33,6 @@ const OrderSchema = new Schema(
       ),
       required: false,
     },
-    productList: [
-        {
-            id: String,
-            name: String,
-            quantity: Number,
-        }
-    ],
   },
   {
     collection: "orders",
