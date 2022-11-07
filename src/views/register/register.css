@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "../styles/reset.css";
+@import '../styles/reset.css';
 
 /* 시작 */
 
@@ -11,34 +11,34 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 10%;
+  padding-top: 5em;
 }
 
-.signupWrap h2{
-  font-family: "Stick No Bills", sans-serif;
+.signupWrap h2 {
+  font-family: 'Stick No Bills', sans-serif;
   padding: 20px 0;
   font-size: 2.4em;
   font-weight: 600;
 }
 
-.formWrap{
+.formWrap {
   width: 400px;
   margin: 0 auto;
 }
 
-.input{
+.input {
   width: 100%;
   height: 40px;
   border-radius: 10px;
   border: 1px solid black;
 }
 
-.input:focus{
+.input:focus {
   border-color: purple;
   outline: none;
 }
 
-.paddingContent .textLeft{
+.textLeft {
   text-align: left;
   padding: 10px 0;
   font-size: 14px;
@@ -55,4 +55,12 @@
   font-size: 1.2em;
   cursor: pointer;
   margin-top: 40px;
+}
+
+.addressSection {
+  margin: 1em 0;
+}
+
+.addressSection div {
+  display: flex;
 }
