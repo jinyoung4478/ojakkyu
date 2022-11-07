@@ -19,8 +19,9 @@ export class UserModel {
     return createdNewUser;
   }
 
+  // 비밀번호 숨김
   async findAll() {
-    const users = await User.find({});
+    const users = await User.find({}, "-password");
     return users;
   }
 
@@ -31,6 +32,28 @@ export class UserModel {
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
   }
+
+  // 함수 추가
+  async deleteById(userId) {
+    const deletedUser = await User.findOneAndDelete({ _id: userId});
+    return deletedUser;
+  }
+
+  // async updateOrder({ userId, orderId }) {
+  //   const updatedOrder = await User.updateOne(
+  //     { _id: userId },
+  //     { $push: { orderList: orderId } },
+  //   );
+  //   return updatedOrder;
+  // }
+
+  // async deleteOrder({ userId, orderId }) {
+  //   const deletedOrder = await User.updateOne(
+  //     { _id: userId },
+  //     { $pull: { orderList: orderId } },
+  //   );
+  //   return deletedOrder;
+  // }
 }
 
 const userModel = new UserModel();

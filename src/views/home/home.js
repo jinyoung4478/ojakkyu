@@ -1,60 +1,74 @@
-// 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
-// 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
-// 코드 예시를 남겨 두었습니다.
+import { clientSideInclude } from '../utils/useful-functions.js';
+import * as Api from "../utils/api.js";
 
-import * as Api from "/api.js";
-import { randomId } from "/useful-functions.js";
+const product = document.querySelector(".product");
+const moveDetail = document.querySelectorAll(".newArrival .productWrap .product")[0].children;
 
-// 요소(element), input 혹은 상수
-const landingDiv = document.querySelector("#landingDiv");
-const greetingDiv = document.querySelector("#greetingDiv");
+async function creatProduct() {
+  try {
+    const res = await Api.get("/api/products");
+    
+    res.forEach((tem) => {
+      const img = tem.image;
+      const description = tem.description;
+      const price = tem.price;
+      const id = tem.product_id;
+      const name = tem.product_name;
+      const title = tem.product_title;
+      const type = tem.stone_type;
 
-addAllElements();
-addAllEvents();
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-  insertTextToLanding();
-  insertTextToGreeting();
+      product.innerHTML += `
+      <li data-id="${id}" class="productEvent">
+          <img src=${img}>
+          <p>${description}</p>
+          <p>${price}</p>
+          <p>${id}</p>
+          <p>${name}</p>
+          <p>${title}</p>
+          <p>${type}</p>
+        </li>`;
+    });
+
+    // 로컬스토리지에 제품 저장
+    // saveProduct(res)
+
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-  landingDiv.addEventListener("click", alertLandingText);
-  greetingDiv.addEventListener("click", alertGreetingText);
+
+// 로컬스토리지에 제품 저장 함수
+function saveProduct(productData){
+  localStorage.setItem("product", JSON.stringify(productData));
 }
 
-function insertTextToLanding() {
-  landingDiv.insertAdjacentHTML(
-    "beforeend",
-    `
-      <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
-    `
-  );
+// 제품 리스트 그려주는 비동기 함수
+async function startProduct() {
+  await creatProduct();
 }
 
-function insertTextToGreeting() {
-  greetingDiv.insertAdjacentHTML(
-    "beforeend",
-    `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `
-  );
-}
+startProduct();
 
-function alertLandingText() {
-  alert("n팀 쇼핑몰입니다. 안녕하세요.");
-}
+// 페이지 랜딩시 그려진 제품 리스트마다 이벤트 핸들러 등록
+window.onload = function(){
+  console.log(moveDetail)
+  Array.from(moveDetail).forEach((tem, idx) => {
+    tem.addEventListener("click", function(e){
+      let temLength = tem.children.length;
+      let temChildren = tem.children
+      for(let i = 0; i < temLength; i++){
+        temChildren[i].addEventListener('click', (a) => a.stopPropagation());
+      }
+      console.log(e.target,temChildren)
 
-function alertGreetingText() {
-  alert("n팀 쇼핑몰에 오신 것을 환영합니다");
-}
+      location.href = `/product/${tem.dataset.id}`
+    
+    })
+  })
+};
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get("/api/user/data");
-  const random = randomId();
 
-  console.log({ data });
-  console.log({ random });
-}
+// 컴포넌트 랜더링
+clientSideInclude();

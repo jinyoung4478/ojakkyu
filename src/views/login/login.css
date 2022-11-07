@@ -1,18 +1,66 @@
-.login-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
+@charset "utf-8";
+@import "../styles/reset.css";
+
+/* 레이아웃 */
+#headerWrap {
+  max-width: 100%;
 }
 
-.login-form-box {
-  width: 30rem;
+/* 로그인 */
+#loginContainer {
+  max-width: 100%;
 }
 
-.login-form-box .title {
+.loginWrap {
+  max-width: 1280px;
+  margin: 0 auto;
   text-align: center;
+  padding-top: 10%;
 }
 
-.login-form-box .button {
-  font-weight: bold;
+.loginWrap h2 {
+  font-family: "Stick No Bills", sans-serif;
+  padding: 20px 0;
+  font-size: 2.4em;
+  font-weight: 600;
+}
+
+.selectBtn {
+  display: table;
+  margin: 0 auto;
+  border-bottom: 2px solid #d3d3d3;
+}
+
+.selectBtn button {
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  width: 200px;
+}
+
+.formWrap {
+  line-height: 1.2;
+}
+
+.input {
+  border: none;
+  width: 400px;
+  height: 40px;
+}
+
+.input:focus{
+  border-color: purple;
+  outline: none;
+}
+
+.submitBtn {
+  border: none;
+  width: 400px;
+  padding: 20px;
+  background-color: #20002c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 40px;
 }
