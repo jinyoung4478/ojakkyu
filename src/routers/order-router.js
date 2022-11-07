@@ -81,9 +81,9 @@ orderRouter.post("/addOrder", async (req, res, next) => {
   }
 });
 
-// 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료)
+// 주문 내역 상태 변경(상품 준비중, 상품 배송중, 배송 완료) /api/orders/:orderId/status
 // adminRequired
-orderRouter.patch("/:orderId/status", async (req, res, next) => {
+orderRouter.patch("/:orderId", async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
