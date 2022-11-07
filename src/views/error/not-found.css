@@ -1,15 +1,19 @@
 @charset "utf-8";
 @import '../styles/reset.css';
 
-/* description404 */
-.error404 .description404 {
+/* body */
+.error {
+}
+
+/* description */
+.error .description {
   margin-bottom: 20px;
   padding-top: 60px;
 
   color: rgba(182, 182, 182, 0.7);
 }
 
-.error404 .description404Inner {
+.error .descriptionInner {
   display: grid;
   justify-content: center;
   align-items: center;
@@ -17,7 +21,7 @@
   column-gap: 20px;
 }
 
-.error404 .description404 h2 {
+.error .description h2 {
   opacity: 0.2;
   margin-bottom: 20px;
 
@@ -26,11 +30,11 @@
   text-shadow: 1px 1px 1px black;
 }
 
-.error404 .description404 p {
+.error .description p {
   line-height: 2em;
 }
 
-.error404 .description404 .txt404 {
+.error .description .txtError {
   opacity: 0.1;
 
   font-size: 20em;
@@ -38,7 +42,7 @@
 }
 
 /* YouTube */
-.error404 .contentsSec {
+.error .contentsSec {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -46,55 +50,55 @@
   font-family: 'Noto Serif KR', serif;
 }
 
-.error404 .besideIframe {
+.error .besideIframe {
   /* background: url('../../images/milkway.png') no-repeat content-box; */
   width: 600px;
 }
 
-.error404 .besideIframe div {
+.error .besideIframe div {
   width: 500px;
   padding: 60px;
   line-height: 1;
 }
 
-.error404 .besideIframe p {
+.error .besideIframe p {
   opacity: 0.6;
 
   font-size: 2.2em;
   color: purple;
   font-weight: 400;
 }
-.error404 .besideIframe .title {
+.error .besideIframe .title {
   opacity: 0.6;
   line-height: 2em;
   filter: drop-shadow(16px 16px 20px red);
   -webkit-filter: drop-shadow(16px 16px 20px red);
 }
 
-.error404 .besideIframe p .subText {
+.error .besideIframe p .subText {
   color: rgb(82, 82, 82);
   font-size: 28px;
 }
 
-.error404 .besideIframe .hashTag,
-.error404 .besideIframe .linkHome {
+.error .besideIframe .hashTag,
+.error .besideIframe .linkHome {
   color: gray;
   font-size: 16px;
   display: inline-flex;
 }
 
-.error404 .besideIframe .linkHomeWrap {
+.error .besideIframe .linkHomeWrap {
   margin-top: 40px;
   display: grid;
   grid-template-columns: 1fr, max-content;
 }
 
-.error404 .besideIframe .linkHome:hover {
+.error .besideIframe .linkHome:hover {
   color: white;
   background-color: purple;
 }
 
-.error404 .besideIframe .linkHome {
+.error .besideIframe .linkHome {
   padding: 8px 10px;
   border: 1px solid rgba(182, 182, 182, 0.7);
   border-radius: 8px;
