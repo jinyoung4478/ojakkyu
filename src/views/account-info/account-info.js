@@ -3,6 +3,7 @@ import {
   clientSideInclude,
   checkLogin,
   formatPhoneNumber,
+  validatePhoneNumber,
 } from '../utils/useful-functions.js';
 
 // 각 element 바인딩
@@ -110,6 +111,10 @@ async function updateUserData(e) {
   }
   if (password && password !== passwordConfirm) {
     return alertError('비밀번호를 다시 확인해주세요');
+  }
+
+  if (!validatePhoneNumber(phoneNumber)) {
+    return alertError('전화번호 형식이 맞지 않습니다.');
   }
 
   const data = { currentPassword };
