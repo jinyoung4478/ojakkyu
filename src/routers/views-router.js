@@ -20,6 +20,7 @@ viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.use('/product/add', serveStatic('product-add'));
 viewsRouter.use('/product/category/:category', serveStatic('product'));
 viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
+viewsRouter.use('/product/edit/:product_id', serveStatic('product-edit'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/not-found', serveStatic('error'));
 
