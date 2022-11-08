@@ -45,31 +45,42 @@ export const checkLogin = () => {
   }
 };
 
+// 로그인 상태일 때에는 접근 불가한 페이지로 만듦. (회원가입 페이지 등)
+export const blockIfLogin = () => {
+  const token = sessionStorage.getItem('token');
+  if (token) {
+    alert('로그인 상태에서는 접근할 수 없는 페이지입니다.');
+    window.location.replace('/');
+  }
+};
+
 // 클라이언트 사이드 컴포넌트 렌더링
 export const renderClientSideComponent = () => {
   window.addEventListener('load', function () {
+    const headerId = document.querySelector('#header');
+    const footerId = document.querySelector('#footer');
 
-    const headerId = document.querySelector("#header");
-    const footerId = document.querySelector("#footer");
-
-    if(headerId){
-      const header = fetch("/components/header.html");
-      header.then((res) => res.text()).then((text) => {
-        document.querySelector("#header").innerHTML = text;
-          let script = document.createElement("script");
-          script.type = "module";
-          script.src = "/components/header.js";
+    if (headerId) {
+      const header = fetch('/components/header.html');
+      header
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#header').innerHTML = text;
+          let script = document.createElement('script');
+          script.type = 'module';
+          script.src = '/components/header.js';
           document.body.appendChild(script);
-      });
-    }
-      
-    if(footerId){
-      const footer = fetch("/components/footer.html");
-      footer.then((res) => res.text()).then((text) => {
-        document.querySelector("#footer").innerHTML = text;
-      })
+        });
     }
 
+    if (footerId) {
+      const footer = fetch('/components/footer.html');
+      footer
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#footer').innerHTML = text;
+        });
+    }
   });
 };
 
