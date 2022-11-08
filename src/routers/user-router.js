@@ -186,63 +186,15 @@ userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   }
 });
 
-// 회원탈퇴 userId를 파라미터에 넣어서 전송
-// userRouter.delete(
-//   "/:userId",
-//   loginRequired,
-//   async function (req, res, next) {
-//     try {
-//       const userId = req.params.userId;
-
-//       // 관리자 계정이 아니라면 유저 아이디 일치하는지 검증
-//       if (req.role !== "admin-user") {
-//         if (req.currentUserId !== userId) {
-//           throw new Error("토큰의 정보와 삭제하려는 유저의 정보가 다릅니다.");
-//         }
-//       }
-//       await userService.deleteUser(userId);
-
-//       res.status(200).json("정상적으로 회원탈퇴 처리 되었습니다.");
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
-
-
-// 사용자 주문 내역 조회
-// userRouter.get("/:userId/orders", async (req, res, next) => {
-//   // 로그인이 되어있으면 그 사용자의 주문들을 전부 반환
-//   try {
-//     const { userId } = req.params;
-//     const orders = await orderService.findOrders(userId);
-//     res.status(200).json(orders);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// 사용자 주문 삭제
-// userRouter.get("/:userId/orders/:orderId", async (req, res, next) => {
-//   try {
-//     const { userId, orderId } = req.params;
-//     const currentUserId = await orderService.findUser(orderId);
-
-//     if (currentUserId !== userId) {
-//       throw new Error(
-//         "사용자 아이디와 현재 주문하는 사용자 아이디 정보가 일치하지 않습니다."
-//       );
-//     }
-//     const deletedOrder = await orderService.deleteUserOrder(orderId);
-//     if (deletedOrder) {
-//       await userService.pullUserOrderList(userId, orderId);
-//       res.status(200).json({ result: "success" });
-//     } else {
-//       throw new Error("주문한 기록이 없습니다.");
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+// 관리자 토큰 여부 확인
+// adminRequired
+userRouter.get("/admin/check", adminRequired, async (req, res, next) => {
+  try {
+    // adminRequired 통과 -> 관리자 토큰 가짐 확인됨
+    res.status(200).json({ result: "success" });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { userRouter };

@@ -116,7 +116,6 @@ adminRouter.get("/orders", async (req, res, next) => {
 });
 
 // 주문 취소
-// !!작성중!!
 adminRouter.delete("orders/:orderId", async (req, res, next) => {
   try {
     const { orderId } = req.params;
