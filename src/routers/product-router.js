@@ -49,6 +49,7 @@ productRouter.post("/", async (req, res, next) => {
     try {
         console.log("router")
         const {
+            image,
             productId,
             productName,
             productTitle,
@@ -60,6 +61,7 @@ productRouter.post("/", async (req, res, next) => {
             likes,
         } = req.body;
         const product = await productService.addProduct({
+            image,
             productId,
             productName,
             productTitle,

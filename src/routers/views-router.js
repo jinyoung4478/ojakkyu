@@ -16,8 +16,9 @@ viewsRouter.use('/account/signout', serveStatic('account-signout'));
 viewsRouter.use('/account', serveStatic('account'));
 
 // 제품 페이지 라우팅
-viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
+viewsRouter.use('/product/add', serveStatic('product-add'));
 viewsRouter.use('/product/category/:category', serveStatic('product'));
+viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/not-found', serveStatic('error'));
 
