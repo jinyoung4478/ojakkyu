@@ -43,7 +43,7 @@ h2 {
 
   position: absolute;
   animation-duration: 12s;
-  animation-timing-function: lenear;
+  animation-timing-function: ease-in;
   animation-iteration-count: infinite;
   animation-name: slideup;
 }
