@@ -129,10 +129,14 @@ async function handleSubmit(e) {
 
     await Api.post('/api/users', data);
 
+    // 회원가입 성공
     alert(`정상적으로 회원가입되었습니다.`);
 
-    // 로그인 페이지 이동
-    window.location.href = '/login';
+    // 자동 로그인
+    await handleLogin({ email, password });
+
+    // 메인 페이지로 이동
+    window.location.href = '/';
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
@@ -142,4 +146,13 @@ async function handleSubmit(e) {
 // 폰 번호 포맷 자동 수정
 function handlePhoneNumberInput(e) {
   phonNumberInput.value = formatPhoneNumber(this.value);
+}
+
+// 회원가입 성공 시 자동 로그인 기능
+async function handleLogin(data) {
+  const result = await Api.post('/api/users/login', data);
+  const token = result.token;
+
+  // jwt 토큰 저장
+  sessionStorage.setItem('token', token);
 }
