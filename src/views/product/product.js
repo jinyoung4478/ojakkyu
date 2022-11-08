@@ -5,25 +5,25 @@ import { renderClientSideComponent } from "/utils/useful-functions.js";
 const product = document.querySelector(".product");
 const categoryUrl = window.location.pathname.split('/');
 const categoryType = categoryUrl[categoryUrl.length - 2];
+const categoryTitle = document.querySelector(".categoryTitle");
+const categoryWrap = document.querySelector(".categoryWrap");
 
 async function drawCategoryList() {
     try {
 
-        // const data = Api.get(`/api/product/category`, categoryType)
         const res = await fetch(`/api/product/category/${categoryType}`);
         const data = await res.json();
+
         console.log(data)
 
-        data.forEach((e) => {
-            const img = e.image;
-            const price = e.price;
-            const title = e.productTitle;
-            const name = e.productName;
-            const description = e.description;
-
-            product.insertAdjacentHTML( 
-                'afterbegin',
-                `
+        product.innerHTML = data.map((tem) => {
+            const img = tem.image;
+            const price = tem.price;
+            const title = tem.productTitle;
+            const name = tem.productName;
+            const description = tem.description;
+            
+            return `
                     <li class="productEvent">
                         <img src=${img}>
                         <p>${description}</p>
@@ -31,10 +31,10 @@ async function drawCategoryList() {
                         <p>${name}</p>
                         <p>${title}</p>
                     </li>
-                    
-                `)
-        })
-    
+            `
+
+        }).join("")
+
     } catch (err) {
         console.log(err);
     }

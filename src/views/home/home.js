@@ -4,12 +4,10 @@ import * as Api from "/utils/api.js";
 const product = document.querySelector(".product");
 const moveDetail = document.querySelector(".product");
 
-
-
 async function drawProduct() {
   try {
     const res = await Api.get("/api/product");
-    
+    console.log(res)
     product.innerHTML = res.map((tem) => {
 
       const img = tem.image;
@@ -31,8 +29,7 @@ async function drawProduct() {
                 <p>${type}</p>
             </li>
           `
-
-    });
+    }).join("");
 
 
 
@@ -50,9 +47,11 @@ function saveProduct(productData){
   localStorage.setItem("product", JSON.stringify(productData));
 }
 
-// 제품 리스트 그려주는 비동기 함수
+// 제품 리스트 그려주는 비동기 함수 && 컴포넌트 랜더링 함수
 async function start() {
+  await renderClientSideComponent();
   await drawProduct();
+
 }
 
 start();
@@ -78,6 +77,4 @@ moveDetail.addEventListener("click", (e) => {
   //   })
   // })
 
-// 컴포넌트 렌더링
-renderClientSideComponent();
 

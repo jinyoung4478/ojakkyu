@@ -10,10 +10,8 @@ const productCount = 0;
 
 async function drawDetail() {
   try {
+
     const data = await Api.get('/api/product', productId);
-
-
-    // detailWrap.innerHTML = 
 
     const img = data.image;
     const description = data.description;
@@ -80,6 +78,7 @@ async function drawDetail() {
     const moveCart = document.querySelector('.moveCart');
     localStorage.setItem('product', JSON.stringify(data));
     moveCart.addEventListener('click', () => (location.href = '/cart'));
+    
   } catch (err) {
     console.log(err);
   }

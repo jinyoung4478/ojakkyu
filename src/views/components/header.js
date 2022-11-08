@@ -6,6 +6,7 @@ async function drawCategory(){
     // login
     const utilContents = document.querySelector(".utilContents");
     const token = sessionStorage.getItem('token');
+    
     // gnb
     const gnbContents = document.querySelector(".gnbContents");
     const res = await fetch("/api/product");
@@ -41,7 +42,7 @@ async function drawCategory(){
             <li>팔찌</li>
             <li>반지</li>
             <li>목걸이</li>
-            <li>내 탄생석은?</li>
+            <li><a href="/birthstone">내 탄생석은?</a></li>
         `
   
 
@@ -50,12 +51,12 @@ async function drawCategory(){
         Array.prototype.forEach.call(gnbLiContents, function(e){
             e.addEventListener('click', function(){
                 if(e.innerText === "팔찌"){
-                    const typeId = categoryType.find(e => e === "ring");
+                    const typeId = categoryType.find(e => e === "bracelet");
                     location.href = `/product/category/${typeId}`
                 }
 
                 if(e.innerText === "반지"){
-                    const typeId = categoryType.find(e => e === "bracelet");
+                    const typeId = categoryType.find(e => e === "ring");
                     location.href = `/product/category/${typeId}`
                 }
 
