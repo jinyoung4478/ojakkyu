@@ -1,0 +1,56 @@
+@charset "utf-8";
+@import '../styles/reset.css';
+
+.ftSerif {
+  font-family: 'Noto Serif KR', serif;
+}
+
+body {
+  text-align: center;
+}
+
+.title {
+  padding-top: 160px;
+  margin-bottom: 80px;
+
+  font-weight: bold;
+  color: rgb(148, 127, 167);
+  text-shadow: 1px 1px 1px rgb(165, 165, 165);
+
+  background-image: url(https://images.unsplash.com/photo-1587593692659-38c32c496642?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGpld2Vscnl8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60);
+  background-size: contain;
+
+  position: relative;
+}
+
+h2 {
+  padding-top: 60px;
+  margin-bottom: 10px;
+
+  font-size: 4em;
+
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -232px;
+}
+
+.design {
+  margin-bottom: 10px;
+}
+
+.line {
+  margin: 0 auto;
+
+  height: 1px;
+  width: 100px;
+  background-color: rgb(148, 127, 167);
+}
+
+.description {
+  margin: 0 auto;
+  width: 800px;
+  height: 600px;
+
+  color: rgb(109, 99, 85);
+}
