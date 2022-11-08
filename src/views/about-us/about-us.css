@@ -6,6 +6,8 @@
 }
 
 body {
+  overflow: hidden;
+
   text-align: center;
   background-color: rgb(148, 148, 151);
 }
@@ -30,7 +32,7 @@ h2 {
   margin: 0 auto;
 
   height: 1px;
-  width: 200px;
+  width: 600px;
   background-color: rgb(148, 127, 167);
 }
 
@@ -46,7 +48,7 @@ h2 {
   left: 50%;
 
   margin-left: -600px;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   width: 1200px;
   height: 100%;
 }
@@ -104,7 +106,7 @@ h2 {
 }
 
 .card:not(:last-child) {
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 .name {
@@ -132,13 +134,14 @@ h2 {
 
 .description {
   opacity: 0.4;
-
   margin: 0 auto;
 
   color: white;
+  line-height: 1.4em;
 }
 
 .ending {
+  padding-top: 60px;
   font-size: 1.4em;
   color: rgb(185, 178, 178);
 }
