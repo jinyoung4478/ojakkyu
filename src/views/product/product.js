@@ -7,8 +7,6 @@ const categoryUrl = window.location.pathname.split('/');
 const categoryType = categoryUrl[categoryUrl.length - 2];
 const categoryTitle = document.querySelector(".categoryTitle");
 const categoryWrap = document.querySelector(".categoryWrap");
-const productAddButton = document.querySelector('#productAddButton')
-const productAddButton = document.querySelector('#productAddButton')
 
 async function drawCategoryList() {
   try {

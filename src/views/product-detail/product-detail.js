@@ -9,25 +9,26 @@ const productId = productUrl[productUrl.length - 2];
 const productCount = 0;
 
 async function drawDetail() {
-  try {
+    try {
 
-    const data = await Api.get('/api/product', productId);
+        const data = await Api.get('/api/product', productId);
 
-    const img = data.image;
-    const description = data.description;
-    const price = data.price;
-    const name = data.productName;
-    const title = data.productTitle;
-    const type = data.stoneType;
+        const id = data.productId;
+        const img = data.image;
+        const description = data.description;
+        const price = data.price;
+        const name = data.productName;
+        const title = data.productTitle;
+        const type = data.stoneType;
 
-    productImg.innerHTML = `
+        productImg.innerHTML = `
                 <figure>
                     <img src="${img}"/>
                 </figure>
             `
 
 
-    productDetail.innerHTML = ` 
+        productDetail.innerHTML = ` 
                 <ul class="productDesc">
                     <li><h1>${title}</h1></li>
                     <li>${name}</li>
@@ -64,6 +65,7 @@ async function drawDetail() {
                             <button type="button" class="moveOrder">구매하기</button>
                             <button type="button" class="moveCart">장바구니</button>
                             <button type="button">관심상품</button>
+                            <button type="button" class="editProduct" data-id="${id}">상품수정</button>
                         </figuare>  
                     </li>
                     
@@ -90,8 +92,8 @@ async function drawDetail() {
 }
 
 async function start() {
-  await renderClientSideComponent();
-  await drawDetail();
+    await renderClientSideComponent();
+    await drawDetail();
 }
 
 start();

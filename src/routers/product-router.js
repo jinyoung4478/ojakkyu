@@ -85,6 +85,7 @@ productRouter.put("/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
         const {
+            image,
             productName,
             productTitle,
             description,
@@ -94,6 +95,7 @@ productRouter.put("/:productId", async (req, res, next) => {
             availability,
             likes, } = req.body
         const toUpdate = {
+            ...(image && { image }),
             ...(productName && { productName }),
             ...(productTitle && { productTitle }),
             ...(description && { description }),
