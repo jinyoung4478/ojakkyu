@@ -7,33 +7,78 @@
 
 body {
   text-align: center;
+  background-color: rgb(148, 148, 151);
 }
 
 .title {
-  margin-bottom: 40px;
-
+  font-weight: bold;
   color: rgb(148, 127, 167);
 }
 
 h2 {
+  padding-top: 60px;
+  margin-bottom: 20px;
+
   font-size: 4em;
+}
+
+.design {
   margin-bottom: 20px;
 }
 
 .line {
-  margin: 0 auto 20px auto;
+  margin: 0 auto;
 
   height: 1px;
-  width: 40px;
+  width: 200px;
   background-color: rgb(148, 127, 167);
 }
 
+.slideWrap {
+  position: relative;
+  height: 500px;
+}
+
 .businessCardWrap {
+  z-index: 301;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+
+  margin-left: -600px;
+  margin-bottom: 10px;
+  width: 1200px;
+  height: 100%;
+}
+
+#slider {
+  opacity: 0.2;
   overflow: hidden;
   position: relative;
+  margin-top: 100px;
+  width: 3000px;
+  height: 200px;
+}
 
-  margin-bottom: 10px;
-  height: 500px;
+.image-box {
+  width: 5280px;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  animation: bannermove 24s linear infinite;
+  -webkit-animation: bannermove 50s linear infinite;
+}
+@keyframes bannermove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+.image-box img {
+  height: 100%;
 }
 
 .businessCardWrapInner {
@@ -42,7 +87,7 @@ h2 {
   width: 600px;
 
   position: absolute;
-  animation-duration: 12s;
+  animation-duration: 16s;
   animation-timing-function: ease-in;
   animation-iteration-count: infinite;
   animation-name: slideup;
@@ -54,12 +99,12 @@ h2 {
   }
 
   100% {
-    top: -120%;
+    top: -200%;
   }
 }
 
 .card:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 .name {
@@ -69,7 +114,7 @@ h2 {
 }
 
 .tech {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .who::before {
@@ -89,9 +134,8 @@ h2 {
   opacity: 0.4;
 
   margin: 0 auto;
-  max-width: 160px;
 
-  color: rgb(148, 127, 167);
+  color: white;
 }
 
 .ending {
