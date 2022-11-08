@@ -11,10 +11,11 @@ body {
 
 .title {
   padding-top: 160px;
-  margin-bottom: 80px;
+  margin: 0 auto 10px auto;
+  max-width: 1080px;
 
   font-weight: bold;
-  color: rgb(148, 127, 167);
+  color: rgba(70, 30, 105, 0.4);
   text-shadow: 1px 1px 1px rgb(165, 165, 165);
 
   background-image: url(https://images.unsplash.com/photo-1587593692659-38c32c496642?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGpld2Vscnl8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60);
@@ -36,7 +37,8 @@ h2 {
 }
 
 .design {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  color: white;
 }
 
 .line {
@@ -44,13 +46,59 @@ h2 {
 
   height: 1px;
   width: 100px;
-  background-color: rgb(148, 127, 167);
+  background-color: rgba(70, 30, 105, 0.4);
 }
 
 .description {
   margin: 0 auto;
   width: 800px;
   height: 600px;
+}
+
+.subtitle {
+  margin-bottom: 40px;
+
+  color: white;
+  text-shadow: 1px 1px 1px rgb(165, 165, 165);
+}
+
+.contents {
+  margin-bottom: 100px;
+  max-width: 800px;
+  height: 400px;
 
   color: rgb(109, 99, 85);
+  font-size: 1.2em;
+  line-height: 2em;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.contentsIn {
+  max-width: 800px;
+  height: 600px;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -270px;
+
+  animation-name: moveUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 20s;
+}
+
+@keyframes moveUp {
+  0% {
+    top: 120%;
+  }
+
+  100% {
+    top: -200%;
+  }
+}
+
+.topContents {
+  margin-bottom: 60px;
 }
