@@ -17,7 +17,7 @@ async function drawProduct() {
       const name = tem.productName;
       const title = tem.productTitle;
       const type = tem.stoneType;
-             
+
       return`
             <li data-id="${id}" class="productEvent">
                 <img src=${img}>
