@@ -1,0 +1,100 @@
+@charset "utf-8";
+@import '../styles/reset.css';
+
+.ftSerif {
+  font-family: 'Noto Serif KR', serif;
+}
+
+body {
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 40px;
+
+  color: rgb(148, 127, 167);
+}
+
+h2 {
+  font-size: 4em;
+  margin-bottom: 20px;
+}
+
+.line {
+  margin: 0 auto 20px auto;
+
+  height: 1px;
+  width: 40px;
+  background-color: rgb(148, 127, 167);
+}
+
+.businessCardWrap {
+  overflow: hidden;
+  position: relative;
+
+  margin-bottom: 10px;
+  height: 500px;
+}
+
+.businessCardWrapInner {
+  margin-left: -300px;
+  left: 50%;
+  width: 600px;
+
+  position: absolute;
+  animation-duration: 12s;
+  animation-timing-function: lenear;
+  animation-iteration-count: infinite;
+  animation-name: slideup;
+}
+
+@keyframes slideup {
+  0% {
+    top: 120%;
+  }
+
+  100% {
+    top: -120%;
+  }
+}
+
+.card:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.name {
+  font-size: 2em;
+  line-height: 1.4em;
+  color: rgb(185, 178, 178);
+}
+
+.tech {
+  margin-bottom: 40px;
+}
+
+.who::before {
+  content: '[';
+}
+
+.who {
+  font-size: 1.4em;
+  line-height: 2em;
+}
+
+.who::after {
+  content: ']';
+}
+
+.description {
+  opacity: 0.4;
+
+  margin: 0 auto;
+  max-width: 160px;
+
+  color: rgb(148, 127, 167);
+}
+
+.ending {
+  font-size: 1.4em;
+  color: rgb(185, 178, 178);
+}
