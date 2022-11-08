@@ -28,26 +28,29 @@
     />
 
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="account.css" />
-    <script src="account.js" type="module" defer></script>
+    <link rel="stylesheet" href="order-complete.css" />
+    <script src="order-complete.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
     <div id="header"></div>
     <!-- 바디 -->
     <main role="main" id="mainWrap" class="container is-max-desktop">
-      <section class="accountWrapper">
-        <div class="accountWrapperIn">
-          <aside>
-            <p class="ftSerif">세상에 하나뿐인 추억을 선물하세요</p>
-          </aside>
-          <ul>
-            <li class="img1"><a href="/order-result">주문 목록</a></li>
-            <li class="img2"><a href="/cart">장바구니</a></li>
-            <!-- 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요 -->
-            <li class="img3"><a href="/info">개인 정보</a></li>
-            <li class="img4"><a href="/account/signout">회원탈퇴</a></li>
-          </ul>
+      <section class="orderComplete">
+        <div class="orderCompleteIn">
+          <div class="buttons">
+            <h2 class="notice">
+              <i class="fa-solid fa-circle-check"></i>&nbsp;주문이
+              완료되었습니다!
+            </h2>
+            <a href="/order-result">
+              <button type="button">주문내역 보기</button>
+            </a>
+            <br />
+            <a href="/">
+              <button type="button">쇼핑 계속하기</button>
+            </a>
+          </div>
         </div>
       </section>
     </main>

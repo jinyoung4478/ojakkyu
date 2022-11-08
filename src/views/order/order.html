@@ -118,8 +118,8 @@
 
         <section class="total mt-6">
           <div class="is-flex is-flex-direction-column">
-            <div class="block is-align-self-flex-end">
-              <h3 class="title is-4 has-text-grey-dark">
+            <div class=" is-align-self-flex-end">
+              <h3 class="title is-4 has-text-grey-dark mt-5">
                 총액:&nbsp;<span id="priceTotal" class="has-text-danger"
                   >30,000</span
                 >&nbsp;원
@@ -127,34 +127,14 @@
               <p class="subtitle is-7"></p>
             </div>
 
-            <button
-              class="js-modal-trigger subtitle button is-danger is-outlined py-5 mt-4"
-              data-target="modal-js-example"
-            >
-              결제하기
-            </button>
+            <a href="/order-complete" class="is-flex">
+              <button
+                class="subtitle button is-danger is-outlined py-5 mt-4 mb-6 is-fullwidth is-large"
+              >
+                결제하기
+              </button>
+            </a>
 
-            <div
-              class="modal"
-              id="modal-js-example"
-              onclick="location.href='http://localhost:3000/order-view'"
-            >
-              <div class="modal-background"></div>
-              <div class="modal-content box" style="text-align: center">
-                결제가 완료되었습니다. 주문조회 화면으로 이동합니다.
-              </div>
-              <!-- <button class="modal-close is-large" aria-label="close"></button> -->
-            </div>
-          </div>
-
-          <a href="/">
-            <button
-              id="btnMoveToItemList"
-              class="button is-danger is-outlined mt-4 mb-4 px-5"
-            >
-              더 구매하기
-            </button>
-          </a>
         </section>
       </div>
     </main>
