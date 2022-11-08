@@ -6,7 +6,7 @@ async function drawCategory(){
     // login
     const utilContents = document.querySelector(".utilContents");
     const token = sessionStorage.getItem('token');
-    
+
     // gnb
     const gnbContents = document.querySelector(".gnbContents");
     const res = await fetch("/api/product");
@@ -38,7 +38,7 @@ async function drawCategory(){
     }
     
     gnbContents.innerHTML = `
-            <li>ABOUT US</li>
+            <li><a href="/about-us">ABOUT US</a></li>
             <li>팔찌</li>
             <li>반지</li>
             <li>목걸이</li>

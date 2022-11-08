@@ -21,7 +21,6 @@
     display: flex;
     flex-wrap: wrap;
     padding-top: 4%;
-    justify-content: space-around;
     gap: 20px;
 }
 
