@@ -1,37 +1,110 @@
-import * as Api from '../utils/api.js';
+import * as Api from '/utils/api.js';
 import {
   addCommas,
   renderClientSideComponent,
   checkLogin,
-} from '../utils/useful-functions.js';
+} from '/utils/useful-functions.js';
 renderClientSideComponent();
 
-console.log('Hello Cart!');
+const cartWrap = document.querySelector(".cartWrap");
+const countDelete = document.querySelector(".countDelete");
+
+
 
 const countProduct = document.getElementById('countAllItem');
 const PRICCE_TOTAL = document.getElementById('priceTotal');
 const BTN_PERCHASE = document.getElementById('btnPurchase');
 const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
-const PRODUCT = document.querySelector('#listItems');
+const productList = document.querySelector('.listItems');
 
-async function drawProduct() {
-  const getItem = localStorage.getItem('product');
-  const data = JSON.parse(getItem);
 
-  try {
-    const img = data.image;
-    const description = data.description;
-    const price = data.price;
-    const id = data.product_id;
-    const name = data.product_name;
-    const title = data.product_title;
-    const type = data.stone_type;
-  } catch {}
-}
+// async function drawProduct() {
+//   const getItem = localStorage.getItem('product');
+//   const data = JSON.parse(getItem);
+//   console.log(data)
+//   try {
+
+//     cartWrap.innerHTML = data.map((tem) => {
+//       const img = data.image;
+//       const description = data.description;
+//       const price = data.price;
+//       const id = data.product_id;
+//       const name = data.product_name;
+//       const title = data.product_title;
+//       const type = data.stone_type;
+
+
+//       countDelete.innerHTML = `
+//               <p class="productCount">
+//                 총&nbsp;
+//                 <span id="countAllItem">3</span>
+//                 개
+//               </p>
+//               <p>
+//                 <button id="btnAllRemove" class="deleteBtn">
+//                   전체삭제
+//                 </button>
+//               </p>
+//         `
+
+
+//       productList.innerHTML = `
+//         <div id="purchasing" data-id="${id}">
+//           <form class="box block columns is-flex is-align-items-center is-justify-content-space-between">
+//             <div class="is-flex is-align-items-center">
+//               <figure class="image is-128x128 is-flex mr-2">
+//                 <img
+//                   id="itemPreview"
+//                   src=${img}
+//                   class="mr-2"
+//                 />
+//               </figure>
+//                 <div>
+//                   <h3 id="txtId" class="title is-5">
+//                     ${title}
+//                   </h3>
+//                   <p id="txtSubtitle" class="subtitle is-7">
+//                     ${description} <br>
+//                     ${type}
+//                   </p>
+//                   <p class="subtitle is-7 tag is-link is-light">
+//                     <span id="pricePerItem">0</span>&nbsp;원
+//                   </p>
+//                 </div>
+//               </div>
+//               <div class="block is-flex is-align-items-center is-justify-content-flex-end">
+//                 <input type="hidden" value="${id}">
+//                 <input
+//                   id="countItem"
+//                   value="${tem.id}"
+//                   class="countItem input is-3 column mr-4 "
+//                   type="number"
+//                   min=1
+//                   placeholder="0"
+//                 />
+//                 <button id="btnDeleteItem" class="delete column"></button>
+//               </div>
+//             </form>
+//         </div>
+//       `;
+
+//     })
+
+    
+
+
+
+
+//   } catch(err){
+//     console.log(err)
+//   }
+// }
+// drawProduct()
+
 
 async function getData() {
   try {
-    const res = await Api.get('/api/products');
+    const res = await Api.get('/api/product');
 
     res.forEach((tem) => {
       const img = tem.image;
@@ -42,48 +115,45 @@ async function getData() {
       const title = tem.product_title;
       const type = tem.stone_type;
 
-      PRODUCT.innerHTML += `
-      <div id="purchasing " data-id="${id}">
-      <form
-      class="box block columns is-flex is-align-items-center is-justify-content-space-between"
-      >
-      <div class="is-flex is-align-items-center">
-      <figure class="image is-128x128 is-flex mr-2">
-      <img
-      id="itemPreview"
-      src=${img}
-      class="mr-2"
-      />
-      </figure>
-      <div>
-      <h3 id="txtId" class="title is-5">
-      ${title}
-      </h3>
-      <p id="txtSubtitle" class="subtitle is-7">
-      ${description} <br>
-      ${type}
-      </p>
-      <p class="subtitle is-7 tag is-link is-light">
-      <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
-      </p>
-      </div>
-      </div>
-      <div
-      class="block is-flex is-align-items-center is-justify-content-flex-end"
-      >
-      <input type="hidden" value="${id}">
-      <input
-      id="countItem"
-      value="${tem.id}"
-      class="countItem input is-3 column mr-4 "
-      type="number"
-      min=1
-      placeholder="0"
-      />
-      <button id="btnDeleteItem" class="delete column"></button>
-      </div>
-      </form>
-      </div>
+      productList.innerHTML += `
+        <div>
+          <form class="cartForm">
+            <div class="cartInfo">
+              <figure class="innerImg">
+                <img
+                  id="itemPreview"
+                  src=${img}
+                  class="mr-2"
+                />
+              </figure>
+                <div>
+                  <h3 id="txtId" class="title is-5">
+                    ${title}
+                  </h3>
+                  <p id="txtSubtitle" class="subtitle is-7">
+                    ${description} <br>
+                    ${type}
+                  </p>
+                  <p class="subtitle is-7 tag is-link is-light">
+                    <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
+                  </p>
+                </div>
+              </div>
+
+              <div class="block is-flex is-align-items-center is-justify-content-flex-end">
+                <input type="hidden" value="${id}">
+                <input
+                  id="countItem"
+                  value="${tem.id}"
+                  class="countItem input is-3 column mr-4 "
+                  type="number"
+                  min=1
+                  placeholder="0"
+                />
+                <button id="btnDeleteItem" class="delete column"></button>
+              </div>
+            </form>
+        </div>
       `;
 
       // read: 장바구니 물건 총개수

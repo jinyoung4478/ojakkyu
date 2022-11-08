@@ -71,13 +71,18 @@ async function drawDetail() {
             `
 
     // 구매하기 버튼 클릭 시 라우팅
-    const moveOrder = document.querySelector('.moveOrder');
+    const moveOrder = document.querySelector(".moveOrder");
     moveOrder.addEventListener('click', () => (location.href = `/order`));
 
     // 제품 데이터 로컬에 담기
-    const moveCart = document.querySelector('.moveCart');
-    localStorage.setItem('product', JSON.stringify(data));
-    moveCart.addEventListener('click', () => (location.href = '/cart'));
+    const moveCart = document.querySelector(".moveCart");
+    moveCart.addEventListener('click', () => {
+        const baskets = JSON.parse(localStorage.getItem("product")) || [];
+        baskets.push(data)
+
+        localStorage.setItem('product', JSON.stringify(baskets));
+        location.href = '/cart'
+    });
     
   } catch (err) {
     console.log(err);

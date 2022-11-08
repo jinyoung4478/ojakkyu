@@ -7,7 +7,7 @@ const moveDetail = document.querySelector(".product");
 async function drawProduct() {
   try {
     const res = await Api.get("/api/product");
-    console.log(res)
+
     product.innerHTML = res.map((tem) => {
 
       const img = tem.image;
@@ -31,20 +31,9 @@ async function drawProduct() {
           `
     }).join("");
 
-
-
-    // 로컬스토리지에 제품 저장
-    // saveProduct(res)
-
   } catch (err) {
     console.log(err);
   }
-}
-
-
-// 로컬스토리지에 제품 저장 함수
-function saveProduct(productData){
-  localStorage.setItem("product", JSON.stringify(productData));
 }
 
 // 제품 리스트 그려주는 비동기 함수 && 컴포넌트 랜더링 함수

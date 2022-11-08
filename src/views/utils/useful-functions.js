@@ -67,6 +67,10 @@ export const renderClientSideComponent = () => {
       const footer = fetch("/components/footer.html");
       footer.then((res) => res.text()).then((text) => {
         document.querySelector("#footer").innerHTML = text;
+        let script = document.createElement("script");
+        script.type = "module";
+        script.src = "https://kit.fontawesome.com/9daa42bcef.js";
+        this.document.body.appendChild(script);
       })
     }
 
