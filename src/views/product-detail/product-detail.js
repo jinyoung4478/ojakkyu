@@ -1,7 +1,8 @@
-import * as Api from '../../utils/api.js';
-import { renderClientSideComponent } from '../../utils/useful-functions.js';
-const productImg = document.querySelector('.productImg');
-const productDetail = document.querySelector('.productDetail');
+import * as Api from '/utils/api.js';
+import { renderClientSideComponent } from '/utils/useful-functions.js';
+const detailWrap = document.querySelector(".detailWrap")
+const productImg = document.querySelector(".productImg");
+const productDetail = document.querySelector(".productDetail");
 
 const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
@@ -9,28 +10,24 @@ const productCount = 0;
 
 async function drawDetail() {
   try {
+
     const data = await Api.get('/api/product', productId);
-    console.log(productId);
+
     const img = data.image;
     const description = data.description;
     const price = data.price;
-    const id = data.productId;
     const name = data.productName;
     const title = data.productTitle;
     const type = data.stoneType;
 
-    productImg.insertAdjacentHTML(
-      'afterbegin',
-      `
+    productImg.innerHTML = `
                 <figure>
                     <img src="${img}"/>
                 </figure>
-            `,
-    );
+            `
 
-    productDetail.insertAdjacentHTML(
-      'afterbegin',
-      ` 
+
+    productDetail.innerHTML = ` 
                 <ul class="productDesc">
                     <li><h1>${title}</h1></li>
                     <li>${name}</li>
@@ -71,9 +68,7 @@ async function drawDetail() {
                     </li>
                     
                 </ul>
-        
-            `,
-    );
+            `
 
     // 구매하기 버튼 클릭 시 라우팅
     const moveOrder = document.querySelector('.moveOrder');
@@ -83,6 +78,7 @@ async function drawDetail() {
     const moveCart = document.querySelector('.moveCart');
     localStorage.setItem('product', JSON.stringify(data));
     moveCart.addEventListener('click', () => (location.href = '/cart'));
+    
   } catch (err) {
     console.log(err);
   }

@@ -12,7 +12,6 @@
       href="../images/facon.ico"
     />
 
-    <link rel="stylesheet" type="style" href="../styles/reset.css"/>
 
     <style>
       /* 헤더 레이아웃 */
@@ -38,6 +37,8 @@
       .headerTop h1 {
         font-size: 2em;
         color: #000;
+        font-family: "OKDDUNG";
+
         }
 
       .util ul {
@@ -45,11 +46,20 @@
         gap: 20px;
       }
 
+      .util ul .logout{
+        color: #000;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
       .util ul li a {
         color: #000;
         font-weight: 600;
       }
 
+      .util ul li a:hover{
+        color: coral;
+      }
       
 
       /* GNB */
@@ -85,11 +95,8 @@
           <h1><a href="/">오작뀨</a></h1>
 
           <div class="util">
-            <ul>
-              <li><a href="/login">로그인</a></li>
-              <li><a href="/register">회원가입</a></li>
-              <li><a href="/cart">장바구니</a></li>
-              <li><a href="/account">내 정보</a></li>
+            <ul class="utilContents">
+
             </ul>
           </div>
         </div>
