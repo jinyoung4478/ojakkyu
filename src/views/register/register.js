@@ -1,10 +1,14 @@
 import * as Api from '../utils/api.js';
 import {
+  blockIfLogin,
   validateEmail,
   validatePhoneNumber,
   renderClientSideComponent,
   formatPhoneNumber,
 } from '../utils/useful-functions.js';
+
+// 로그인 상태에 접근 차단
+blockIfLogin();
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');

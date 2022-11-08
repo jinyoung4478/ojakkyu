@@ -1,8 +1,12 @@
 import * as Api from '../utils/api.js';
 import {
+  blockIfLogin,
   validateEmail,
   renderClientSideComponent,
 } from '../utils/useful-functions.js';
+
+// 로그인 상태에 접근 차단
+blockIfLogin();
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
