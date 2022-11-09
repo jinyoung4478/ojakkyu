@@ -4,14 +4,12 @@ import {
   renderClientSideComponent,
 } from '/utils/useful-functions.js';
 
-// 요소(element), input 혹은 상수
-const checkUserOrder = document.querySelector('#checkUserOrder');
-
-// 페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함
-let orderIdToDelete;
-
 checkLogin();
 renderClientSideComponent();
+
+// 요소(element), input 혹은 상수
+const checkUserOrder = document.querySelector('#checkUserOrder');
+let orderIdToDelete; // 주문 id
 
 // 주문 가져오기
 const res = await fetch('/api/product');
