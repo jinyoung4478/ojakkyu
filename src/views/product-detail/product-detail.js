@@ -102,21 +102,40 @@ function handlePurchase(e) {
 
 function handleProductToCart() {
   // 기존 장바구니 목록 데이터
-  let exData = sessionStorage.getItem('cart');
-  exData = JSON.parse(exData).product;
+  let exData;
+  try {
+    exData = sessionStorage.getItem('cart');
+    exData = JSON.parse(exData).product;
+  } catch (err) {
+    console.log(err);
+  }
 
   // data = 기존 데이터 + 새로운 데이터
-  const data1 = JSON.stringify({
-    product: [
-      ...exData,
-      {
-        id: data.productId,
-        name: data.productName,
-        price: data.price,
-        quantity: 1,
-      },
-    ],
-  });
+  let data1;
+  if (exData) {
+    data1 = JSON.stringify({
+      product: [
+        ...exData,
+        {
+          id: data.productId,
+          name: data.productName,
+          price: data.price,
+          quantity: 1,
+        },
+      ],
+    });
+  } else {
+    data1 = JSON.stringify({
+      product: [
+        {
+          id: data.productId,
+          name: data.productName,
+          price: data.price,
+          quantity: 1,
+        },
+      ],
+    });
+  }
 
   sessionStorage.setItem('cart', data1);
   //location.href = '/cart';
