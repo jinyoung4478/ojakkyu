@@ -7,39 +7,37 @@
 
 body {
   text-align: center;
-  background-image: url(https://images.unsplash.com/photo-1608508644127-ba99d7732fee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80);
+  background-image: url(https://images.unsplash.com/photo-1608153917100-3bd2426fde7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
   background-size: cover;
 }
 
 .title {
-  padding-top: 110px;
-  margin: 0 auto 10px auto;
+  padding-top: 120px;
+  margin: 0 auto 40px auto;
   max-width: 1105px;
-
-  font-weight: bold;
-  text-shadow: 1px 1px 1px gray;
 
   position: relative;
 }
 
 h2 {
-  /* opacity: 0.8; */
   padding-top: 28px;
   margin-bottom: 10px;
 
-  font-size: 4em;
+  font-size: 6em;
+  font-weight: bold;
   color: #e9b7b8;
   text-shadow: 1px 1px 1px white;
 
   position: absolute;
-  top: -10px;
+  top: -19px;
   left: 50%;
-  margin-left: -232px;
+  margin-left: -340px;
 }
 
 .design {
   margin-bottom: 8px;
   color: white;
+  text-shadow: 1px 1px 1px gray;
 }
 
 .line {
@@ -57,10 +55,9 @@ h2 {
 }
 
 .subtitle {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 
   color: white;
-  text-shadow: 1px 1px 1px gray;
 }
 
 .contents {
@@ -70,6 +67,7 @@ h2 {
 
   color: rgb(109, 99, 85);
   font-size: 1.2em;
+  text-shadow: 1px 1px 1px rgb(228, 228, 228);
   line-height: 2em;
 
   position: relative;
