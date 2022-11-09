@@ -152,8 +152,15 @@ function handlePhoneNumberInput() {
   phoneNumberInput.value = formatPhoneNumber(this.value);
 }
 
-function handlePurchase(e) {
+async function handlePurchase(e) {
   e.preventDefault();
+  const postalCode = postalCodeInput.value;
+  const address1 = addressInput.value;
+  const address2 = addressDetailInput.value;
+  const receiverName = nameInput.value;
+  const receiverPhoneNumber = phoneNumberInput.value;
+  const totalPrice = priceTotalSpan.value;
+
   // 구매자 데이터 입력이 잘 되었는지 검증
   if (!nameInput.value) {
     return alert('주문자 이름을 입력해주세요');
@@ -172,4 +179,27 @@ function handlePurchase(e) {
   }
 
   // order api 요청
+  const currentUserId = userData._id;
+  const summaryTitle = ''; // 미구현
+  const status = '상품 준비 중';
+  const address = {
+    postalCode,
+    address1,
+    address2,
+    receiverName,
+    receiverPhoneNumber,
+  };
+
+  const data = {
+    currentUserId,
+    summaryTitle,
+    address,
+    quantity: 1,
+    status,
+    totalPrice,
+  };
+  const jsonData = JSON.stringify(data);
+
+  const result = await Api.post('/api/orders/payment', jsonData);
+  console.log(result);
 }
