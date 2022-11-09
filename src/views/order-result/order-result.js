@@ -43,24 +43,16 @@ for (const order of orders) {
 
 //전역변수에 해당 주문의 id 할당
 const deleteButton = document.querySelector(`#deleteButton-${orderIdToDelete}`);
-deleteButton.addEventListener('click', async (e) => {
-  e.preventDefault();
+deleteButton.addEventListener('click', (e) => {
+  Api.delete('/api/product', orderIdToDelete);
 
-  try {
-    await Api.delete('/api/product', orderIdToDelete);
+  // 삭제 성공
+  alert('주문 정보가 삭제되었습니다.');
 
-    // 삭제 성공
-    alert('주문 정보가 삭제되었습니다.');
+  // 삭제한 아이템 화면에서 지우기
+  const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
+  deletedItem.remove();
 
-    // 삭제한 아이템 화면에서 지우기
-    const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
-    deletedItem.remove();
-
-    // 전역변수 초기화
-    orderIdToDelete = '';
-
-    closeModal();
-  } catch (err) {
-    alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
-  }
+  // 전역변수 초기화
+  orderIdToDelete = '';
 });
