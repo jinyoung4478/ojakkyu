@@ -84,9 +84,11 @@ productRouter.post("/", async (req, res, next) => {
 productRouter.put("/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
+
         const {
+            editproductId,
             image,
-            productName,
+            editproductName,
             productTitle,
             description,
             price,
@@ -94,9 +96,11 @@ productRouter.put("/:productId", async (req, res, next) => {
             category,
             availability,
             likes, } = req.body
+
         const toUpdate = {
             ...(image && { image }),
-            ...(productName && { productName }),
+            ...(editproductId && { editproductId }),
+            ...(editproductName && { editproductName }),
             ...(productTitle && { productTitle }),
             ...(description && { description }),
             ...(price && { price }),
