@@ -3,12 +3,19 @@
 
 /* 전체 레이아웃 */
 .container{
-  width: 1280px;
+  width: 980px;
   margin: 0 auto;
 }
 
-
 /* 타이틀 영역 */
+.checkBox{
+  margin-right: 4%;  
+}
+
+.checkBox input[type="checkbox" i]{
+  width: 24px;
+  height: 24px;
+}
 
 .cartTitle{
   color: #4a4a4a;
@@ -63,6 +70,7 @@
 .cartInfo{
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .innerImg{
@@ -70,6 +78,7 @@
 }
 
 .subWrap{
+  width: 400px;
   line-height: 1.6;
 }
 
@@ -98,8 +107,9 @@
 }
 
 .countItem{
-  width: 40%;
-  padding: 4% 16%;
+  width: 40px;
+  padding: 10px;
+  text-align: center;
   margin-right: 4%;
 }
 

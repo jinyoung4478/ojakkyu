@@ -5,48 +5,53 @@ import {
   checkLogin,
 } from '/utils/useful-functions.js';
 
-// 컴포넌틑 렌더링
-renderClientSideComponent();
-
+// dom 요소
 const productList = document.querySelector('.listItems');
 const countDelete = document.querySelector(".countDelete");
+const data = JSON.parse(sessionStorage.getItem("cart"));
+
+
+renderElements();
+
+// 엘리먼트 렌더링
+function renderElements() {
+  renderClientSideComponent();
+  drawProduct();
+}
+
+// 총 개수 세기
+totalProductItems();
+
+function totalProductItems(){
+  const countAllItem = document.querySelector(".countAllItem");
+  const productCount = document.querySelector(".productCount");
+
+  if(data.length === 0) {
+    productCount.innerText = "장바구니가 비어있습니다.";
+    sessionStorage.clear(); 
+  }
+  else countAllItem.innerText = data.length;
+}
 
 
 
 async function drawProduct() {
-  const data = JSON.parse(sessionStorage.getItem('cart'));
-  console.log(data.product)
 
   productList.innerHTML = "";
-
   try {
+    console.log(data)
+    const insertList = data.map((tem) => {
+    const { image, id, title, name, quantity, price, description} = tem;
 
-  countDelete.innerHTML = `
-      <p class="productCount">
-        총&nbsp;
-        <span id="countAllItem">3</span>
-        개
-      </p>
-      <p>
-        <button id="btnAllRemove" class="deleteBtn">
-          전체삭제
-        </button>
-      </p>
-    `
-
-    const insertList = data.product.map((tem) => {
-      const { image, id, title, name, quantity, price, description} = tem;
       console.log(tem)
-
       return `
 
         <form class="cartForm">
           <div class="cartInfo">
+            <p class="checkBox"><input type="checkbox" name="cart" class="checkCart"/></p>
             <figure class="innerImg">
               <img
-                id="itemPreview"
                 src=${image}
-                class="mr-2"
               />
             </figure>
             <div class="subWrap">
@@ -67,34 +72,73 @@ async function drawProduct() {
               <input
                 value="${quantity}"
                 class="countItem"
-                type="text"
+                type="number"
                 placeholder="0"
               />
-              <button data-id="${id}" class="deleteProduct"></button>
+              <button tpye="button" data-id="${id}" class="deleteProduct"></button>
             </div>
           </div>
         </form>
-        
         `
     })
 
     productList.innerHTML = insertList.join("");
-
-    // 개별 삭제
-    const deleteProduct = document.querySelectorAll(".deleteProduct");
-    console.log(deleteProduct[0].dataset);
-    function deleteCart(e){
-      e.preventDefault();
-      console.log(e.target)
-    };
-    deleteProduct.addEventListener("click", deleteCart);
+ 
+   
 
   } catch(err){
     console.log(err)
   }
 }
 
+const allDelete = document.querySelector(".deleteBtn");
+function allDeleteCart(){
+  if(window.confirm("정말 삭제 하시겠습니까?")) {
+    data.product.length ? (
+      productList.innerHTML = "",
+      sessionStorage.clear()
+    )
+    :
+    (
+      ""
+    )
+  }
+}
+
+allDelete.addEventListener("click", allDeleteCart)
 
 
-drawProduct()
+// 개별 삭제
+const quantityInput = document.querySelector(".quantityInput");
+const deleteProduct = document.querySelectorAll(".deleteProduct");
+const checkCart = document.querySelectorAll(".checkCart");
+const listItems = document.querySelector(".listItems");
+
+function deleteChoice(e){
+
+
+  if(e.target.className === "deleteProduct"){
+    e.preventDefault();
+    const local = data.filter( a => a.id != e.target.dataset.id);
+
+    checkCart.forEach((c) => {
+      c.checked ? (
+        e.target.closest(".cartForm").remove(),
+        sessionStorage.setItem("cart",JSON.stringify(local))
+      ) : (
+          ""
+      )
+    })
+    
+  }
+}
+listItems.addEventListener("click", deleteChoice);
+
+
+
+  
+
+
+
+
 

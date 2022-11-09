@@ -11,13 +11,6 @@
       sizes="16x16"
       href="/images/facon.ico"
     />
-
-    <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-
   
     <link rel="stylesheet" href="cart.css" />
     <script src="cart.js" type="module" defer></script>
@@ -37,7 +30,16 @@
           </h2>
 
           <div class="countDelete">
-            
+            <p class="productCount">
+              총
+              <span class="countAllItem"></span>
+              개
+            </p>
+            <p>
+              <button class="deleteBtn">
+                전체삭제
+              </button>
+            </p>
           </div>
 
           <section class="listItems"></section>
@@ -53,7 +55,6 @@
                   >19,000</span
                 >&nbsp;원
               </h3>
-              <p class="subtitle is-7"></p>
             </div>
             <a href="/order">
               <button id="btnPurchase" class="orderBtn">
