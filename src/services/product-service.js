@@ -44,6 +44,16 @@ class ProductService {
     }
 
     async editProduct(productId, productInfo) {
+        const { productName } = productInfo;
+        const existedId = await this.productModel.findByExistedId(productId)
+        const existedName = await this.productModel.findByExistedName(productName)
+        if (existedId) {
+            throw new Error(" 입력한 상품 ID 가 이미 존재합니다.")
+        }
+        if (existedName) {
+            throw new Error("입력한 상품 명이 이미 존재합니다.")
+        }
+        // 중복된 거 없으면 수정
         const product = await this.productModel.update({
             productId: productId,
             updateContent: productInfo
