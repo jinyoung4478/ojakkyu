@@ -117,7 +117,7 @@ productRouter.delete("/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
         await productService.deleteProduct(productId)
-        res.status(200)
+        res.status(200).json(productId)
     }
     catch (error) {
         next(error);
