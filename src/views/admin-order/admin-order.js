@@ -31,7 +31,7 @@ for (const order of orders) {
 }
 
 // 주문 삭제
-checkUserOrder.onclick = function (event) {
+checkUserOrder.onclick = async function (event) {
   if (event.target.className != 'deleteButton') return;
   let orderList = event.target.closest('.orderList');
   orderList.remove();
@@ -39,9 +39,6 @@ checkUserOrder.onclick = function (event) {
   const { target: button } = event;
   console.log(button['id']);
 
-  Api.delete('/api/product', button['id']);
+  await Api.delete('/:productId', button['id'], { orders });
   alert('주문 정보가 삭제되었습니다.');
-
-  // 전역변수 초기화
-  orderIdToDelete = '';
 };
