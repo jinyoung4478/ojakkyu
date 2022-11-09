@@ -184,40 +184,37 @@ async function handlePurchase(e) {
     return alert('전화번호 형식이 맞지 않습니다.');
   }
 
-  // order api 요청
-
   const currentUserId = userData._id;
-
   const summaryTitle = orderData.reduce(
     (acc, item) => acc + `${item.name} / ${item.quantity}개\n`,
     '',
   );
-  const status = '상품 준비 중';
-  const address = {
-    postalCode,
-    address1,
-    address2,
-    receiverName,
-    receiverPhoneNumber,
-  };
 
   const data = {
     currentUserId,
     summaryTitle,
-    address,
-    status,
+    address: {
+      postalCode,
+      address1,
+      address2,
+      receiverName,
+      receiverPhoneNumber,
+    },
+    status: '상품 준비 중',
     totalPrice,
   };
 
   try {
-    const result = await Api.post('/api/orders/payment', data);
-    console.log(result);
+    // order api 요청
+    await Api.post('/api/orders/payment', data);
+
+    // 요청 성공
     alert('결제 및 주문이 정상적으로 완료되었습니다.');
 
     // 성공 시 sessionStorage 데이터 제거
     sessionStorage.removeItem(type);
 
-    window.location.replace(`/order-complete`);
+    //window.location.replace(`/order-complete`);
   } catch (err) {
     return alert(`Error: ${err}`);
   }
