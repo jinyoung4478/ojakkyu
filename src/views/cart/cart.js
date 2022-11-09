@@ -65,13 +65,12 @@ async function drawProduct() {
             <div class="quantityInput">
               <input type="hidden" value="${id}">
               <input
-                id="countItem"
                 value="${quantity}"
                 class="countItem"
                 type="text"
                 placeholder="0"
               />
-              <button id="btnDeleteItem" class="deleteProduct"></button>
+              <button data-id="${id}" class="deleteProduct"></button>
             </div>
           </div>
         </form>
@@ -81,33 +80,20 @@ async function drawProduct() {
 
     productList.innerHTML = insertList.join("");
 
-
-      // 개별 삭제
-
-    const deleteProduct = document.querySelector(".deleteProduct");
-
-    console.log(deleteProduct)
-
+    // 개별 삭제
+    const deleteProduct = document.querySelectorAll(".deleteProduct");
+    console.log(deleteProduct[0].dataset);
     function deleteCart(e){
       e.preventDefault();
-
-    }
-    deleteProduct.addEventListener("click", deleteCart)
+      console.log(e.target)
+    };
+    deleteProduct.addEventListener("click", deleteCart);
 
   } catch(err){
     console.log(err)
   }
 }
 
-
-//       //delete: 장바구니 물건 개별 삭제
-//       //[221104 - 진행중: splice를 사용하면 순차적 삭제시 4번 이후로 삭제가 어렵습니다.]
-//       const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
-//       const PERCHAISING = document.querySelector('#perchasing');
-//       for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
-//         let btndel = BTN_DEL_ITEMS[i];
-//         btndel.addEventListener('click', (e) => {
-//           e.preventDefault();
 
 
 drawProduct()

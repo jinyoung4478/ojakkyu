@@ -9,8 +9,8 @@ const purchaseButton = document.querySelector('#purchaseButton');
 const adCartButton = document.querySelector('#adCartButton');
 const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
-let data;
 
+let data;
 console.log(adCartButton, purchaseButton)
 
 // 페이지 렌더링

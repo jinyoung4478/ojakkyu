@@ -11,23 +11,17 @@ async function drawProduct() {
 
     product.innerHTML = res.map((tem) => {
 
-      const img = tem.image;
-      const description = tem.description;
-      const price = tem.price;
-      const id = tem.productId;
-      const name = tem.productName;
-      const title = tem.productTitle;
-      const type = tem.stoneType;
+      const { image, description, price, productName, productTitle, stoneType, productId } = tem;
 
       return`
-            <li data-id="${id}" class="productEvent">
-                <img src=${img}>
+            <li data-id="${productId}" class="productEvent">
+                <img src=${image}>
                 <p>${description}</p>
                 <p>${price}</p>
-                <p>${id}</p>
-                <p>${name}</p>
-                <p>${title}</p>
-                <p>${type}</p>
+                <p>${productId}</p>
+                <p>${productName}</p>
+                <p>${productTitle}</p>
+                <p>${stoneType}</p>
             </li>
           `
     }).join("");
@@ -41,7 +35,6 @@ async function drawProduct() {
 async function start() {
   await renderClientSideComponent();
   await drawProduct();
-
 }
 
 start();
