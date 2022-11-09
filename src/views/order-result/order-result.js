@@ -43,7 +43,7 @@ for (const order of orders) {
 
 //전역변수에 해당 주문의 id 할당
 const deleteButton = document.querySelector(`#deleteButton-${orderIdToDelete}`);
-deleteButton.addEventListener('click', (e) => {
+deleteButton.addEventListener('click', () => {
   Api.delete('/api/product', orderIdToDelete);
 
   // 삭제 성공
