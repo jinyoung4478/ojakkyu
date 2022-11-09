@@ -20,18 +20,18 @@ function renderElements() {
 }
 
 // 총 개수 세기
-totalProductItems();
+// totalProductItems();
 
-function totalProductItems(){
-  const countAllItem = document.querySelector(".countAllItem");
-  const productCount = document.querySelector(".productCount");
-
-  if(data.length === 0) {
-    productCount.innerText = "장바구니가 비어있습니다.";
-    sessionStorage.clear(); 
-  }
-  else countAllItem.innerText = data.length;
-}
+// function totalProductItems(){
+//   const countAllItem = document.querySelector(".countAllItem");
+//   const productCount = document.querySelector(".productCount");
+//   console.log(data.length)
+//   if(data.length === 0) {
+//     productCount.innerText = "장바구니가 비어있습니다.";
+//     sessionStorage.clear(); 
+//   }
+//   else countAllItem.innerText = data.length;
+// }
 
 
 
@@ -83,18 +83,17 @@ async function drawProduct() {
     })
 
     productList.innerHTML = insertList.join("");
- 
-   
 
   } catch(err){
     console.log(err)
   }
 }
 
+// 전체삭제
 const allDelete = document.querySelector(".deleteBtn");
 function allDeleteCart(){
   if(window.confirm("정말 삭제 하시겠습니까?")) {
-    data.product.length ? (
+    data.length ? (
       productList.innerHTML = "",
       sessionStorage.clear()
     )
@@ -109,14 +108,10 @@ allDelete.addEventListener("click", allDeleteCart)
 
 
 // 개별 삭제
-const quantityInput = document.querySelector(".quantityInput");
-const deleteProduct = document.querySelectorAll(".deleteProduct");
 const checkCart = document.querySelectorAll(".checkCart");
 const listItems = document.querySelector(".listItems");
 
 function deleteChoice(e){
-
-
   if(e.target.className === "deleteProduct"){
     e.preventDefault();
     const local = data.filter( a => a.id != e.target.dataset.id);
@@ -129,7 +124,6 @@ function deleteChoice(e){
           ""
       )
     })
-    
   }
 }
 listItems.addEventListener("click", deleteChoice);
