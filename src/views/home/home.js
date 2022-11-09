@@ -7,6 +7,7 @@ const moveDetail = document.querySelector(".product");
 async function drawProduct() {
   try {
     const res = await Api.get("/api/product");
+    console.log(res)
 
     product.innerHTML = res.map((tem) => {
 

@@ -3,16 +3,12 @@
 
 /* 전체 레이아웃 */
 .container{
-  max-width: 1280px;
+  width: 1280px;
   margin: 0 auto;
 }
 
-/* 타이틀 영역 */
 
-.countDelete{
-  display: flex;
-  justify-content: space-between;
-}
+/* 타이틀 영역 */
 
 .cartTitle{
   color: #4a4a4a;
@@ -22,17 +18,26 @@
   text-align: center;
 }
 
+.countDelete{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+}
+
 .productCount{
   color: #4a4a4a;
   padding-bottom: 4%;
+  font-size: 1.6em;
 }
 
 .deleteBtn{
   background-color: #eff5fb;
   color: #296fa8;
-  padding: calc(1em - 2px) 2em;
-  border: none;
+  padding: calc(1.4em - 2px) 2.4em;
+  border: transparent;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .deleteBtn:hover{
@@ -62,11 +67,61 @@
 
 .innerImg{
   display: flex;
-  
+}
 
+.subWrap{
+  line-height: 1.6;
+}
+
+.subTitle{
+  color: #363636;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.totalPrice{
+  background-color: #eff1fa;
+  color: #3850b7;
+  text-align: center;
+  max-width: 80px;
 }
 
 .innerImg img{
   width: 128px;
   height: 128px;
+}
+
+.priceInput{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 하단 */
+.totalPriceOrder{
+  padding-top: 4%;
+}
+
+.priceWrap{
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceText{
+  color: #f14668;
+}
+
+.orderBtn{
+  background-color: transparent;
+  border: 1px solid #f14668;
+  color: #f14668;
+  border-radius: 4px;
+  padding: 1.2em 4em;;
+  cursor: pointer;
+}
+
+.orderBtn:hover, .orderBtn:focus{
+  background-color: #f14668;
+  border-color: #f14668;
+  color: #fff;
 }

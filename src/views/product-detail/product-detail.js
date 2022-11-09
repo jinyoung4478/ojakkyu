@@ -12,7 +12,7 @@ async function drawDetail() {
     try {
 
         const data = await Api.get('/api/product', productId);
-
+        // const { productId, image, description, price, productName, productTitle, stoneType} = data;
         const id = data.productId;
         const img = data.image;
         const description = data.description;
@@ -66,23 +66,29 @@ async function drawDetail() {
                             <button type="button" class="moveCart">장바구니</button>
                             <button type="button">관심상품</button>
                             <button type="button" class="editProduct" data-id="${id}">상품수정</button>
+                            <button type="button" class="deleteProduct" data-id="${id}">상품삭제</button>
                         </figuare>  
                     </li>
                     
                 </ul>
             `
 
+    // 어드민 제품 수정
+    const editProduct = document.querySelector(".editProduct");
+    editProduct.addEventListener("click", (e) => location.href = `/product/edit/${e.target.dataset.id}`)
+
     // 구매하기 버튼 클릭 시 라우팅
     const moveOrder = document.querySelector(".moveOrder");
     moveOrder.addEventListener('click', () => (location.href = `/order`));
-
+        
     // 제품 데이터 로컬에 담기
     const moveCart = document.querySelector(".moveCart");
     moveCart.addEventListener('click', () => {
-        const baskets = JSON.parse(localStorage.getItem("product")) || [];
+        const baskets = JSON.parse(sessionStorage.getItem("cart")) || [];
         baskets.push(data)
-
-        localStorage.setItem('product', JSON.stringify(baskets));
+        
+       
+        sessionStorage.setItem('cart', JSON.stringify(baskets));
         location.href = '/cart'
     });
     
