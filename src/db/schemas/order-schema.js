@@ -10,7 +10,7 @@ const OrderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "products",
     },
-    itemTitle: {
+    summaryTitle: {
       type: String,
     },
     quantity: {
