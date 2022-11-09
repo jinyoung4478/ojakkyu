@@ -55,6 +55,4 @@ deleteButton.addEventListener('click', () => {
 
   // 전역변수 초기화
   orderIdToDelete = '';
-
-  location.reload();
 });
