@@ -20,13 +20,12 @@ for (const order of orders) {
   orderIdToDelete = _id;
   //const date = createdAt.split('T')[0];
 
-  console.log('id', _id);
   checkUserOrder.innerHTML += `
-      <ul class="orderList" id="order-${_id}">
+      <ul class="orderList" id="${_id}">
       <li>${date}</li>
       <li>${productTitle} / ${price}</li>
       <li>${productName}</li>
-      <li><button class="deleteButton" id="deleteButton-${_id}">제품삭제</button></li>
+      <li><button class="deleteButton" id="${_id}">제품삭제</button></li>
       </ul>
       `;
 }
@@ -37,7 +36,9 @@ checkUserOrder.onclick = function (event) {
   let orderList = event.target.closest('.orderList');
   orderList.remove();
 
-  Api.delete('/api/product', orderIdToDelete);
+  const { target: button } = event;
+  console.log(button['id']);
+  Api.delete('/api/product', button['id']);
   alert('주문 정보가 삭제되었습니다.');
 
   // 전역변수 초기화
