@@ -12,7 +12,7 @@ const checkUserOrder = document.querySelector('#checkUserOrder');
 let orderIdToDelete; // 주문 id
 
 // 주문 가져오기
-const res = await fetch('/api/orders/:userId');
+const res = await fetch('/api/product');
 const orders = await res.json();
 
 for (const order of orders) {
@@ -26,7 +26,7 @@ for (const order of orders) {
       <li>${date}</li>
       <li>${productTitle} / ${price}</li>
       <li>${productName}</li>
-      <li><button class="deleteButton" id="deleteButton-${_id}">주문취소</button></li>
+      <li><button class="deleteButton" id="deleteButton-${_id}">제품삭제</button></li>
       </ul>
       `;
 }
