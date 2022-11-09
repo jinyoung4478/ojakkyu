@@ -2,7 +2,7 @@
 @import '../styles/reset.css';
 
 body {
-  background-color: rgba(233, 150, 150, 0.2);
+  /* background-color: rgba(233, 150, 150, 0.2); */
 }
 
 main {
@@ -15,7 +15,7 @@ main ul {
   gap: 20px;
 }
 
-li {
+main li {
   height: 300px;
   background-size: cover;
   background-position: center;
@@ -23,11 +23,11 @@ li {
   position: relative;
 }
 
-li:not(:last-child) {
+main li:not(:last-child) {
   margin-bottom: 20px;
 }
 
-h2 {
+main h2 {
   color: white;
   text-shadow: 1px 1px 1px gray;
 
