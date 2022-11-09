@@ -38,20 +38,14 @@ for (const order of orders) {
       `;
 }
 
-// 전역변수에 해당 주문의 id 할당
-const deleteButton = document.querySelector(`#deleteButton-${orderIdToDelete}`);
+checkUserOrder.onclick = async function (event) {
+  if (event.target.className != 'deleteButton') return;
 
-// issue!!마지막 order만 삭제되는 문제 해결 필요
-deleteButton.addEventListener('click', async () => {
-  await Api.delete('/api/product', orderIdToDelete);
-
-  // 삭제 성공
   alert('주문 정보가 삭제되었습니다.');
-
-  // 삭제한 아이템 화면에서 지우기
-  const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
-  deletedItem.remove();
+  let orderList = event.target.closest('.orderList');
+  orderList.remove();
+  await Api.delete('/api/product', orderIdToDelete);
 
   // 전역변수 초기화
   orderIdToDelete = '';
-});
+};
