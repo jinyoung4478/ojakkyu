@@ -1,64 +1,78 @@
+import * as Api from '/utils/api.js';
 import {
+  checkLogin,
   renderClientSideComponent,
-  addCommas,
-} from '../utils/useful-functions.js';
+} from '/utils/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const checkUserOrder = document.querySelector('#checkUserOrder');
-const cancelOrder = document.querySelector('#submitButton');
+const deleteButton = document.querySelector(`#deleteButton-${_id}`);
 
+checkLogin();
 addAllElements();
 addAllEvents();
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-  // 컴포넌트 렌더링
+// 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+function addAllElements() {
   renderClientSideComponent();
-  // 해당 주문 정보 불러오기
-  orderData();
+  insertOrders();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  cancelOrder.addEventListener('click', deleteProductData);
+  deleteButton.addEventListener('click', deleteThisOrder);
 }
 
-// 주문내용 화면출력
-async function orderData() {
-  try {
-    const res = await fetch(`/api/product`);
-    const data = await res.json();
+// 페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함
+let orderIdToDelete;
+async function insertOrders() {
+  const res = await fetch('/api/product');
+  const orders = await res.json();
 
-    console.log(data);
+  for (const order of orders) {
+    const { _id, date, productTitle, price, productName } = order;
+    //const date = createdAt.split('T')[0];
 
-    checkUserOrder.innerHTML = data
-      .map((tem) => {
-        const date = tem.date;
-        const title = tem.productTitle;
-        const price = tem.price;
-        const state = tem.state;
+    console.log('id', order);
 
-        return `
-                    <ul class="orderList">
-                        <li>${date}</li>
-                        <li>${title} / ${price}</li>
-                        <li>${state}</li>
-                        <li><button class="submitBtn" id="submitButton">주문취소</button></li>
-                    </ul>
-            `;
-      })
-      .join('');
-  } catch (err) {
-    console.log(err);
+    checkUserOrder.insertAdjacentHTML(
+      'beforeend',
+      `
+        <ul class="orderList" id="order-${_id}">
+          <li>${date}</li>
+          <li>${productTitle} / ${price}</li>
+          <li>${productName}</li>
+          <li><button class="deleteButton" id="deleteButton-${_id}">주문취소</button></li>
+        </ul>
+      `,
+    );
+
+    //전역변수에 해당 주문의 id 할당
+    deleteButton.addEventListener('click', () => {
+      orderIdToDelete = _id;
+    });
   }
 }
 
-// 주문건별 삭제
-async function deleteProductData(e) {
+// db에서 주문정보 삭제
+async function deleteThisOrder(e) {
+  e.preventDefault();
+
   try {
-    e.preventDefault();
-    e.remove();
+    await Api.delete('/api/product', orderIdToDelete);
+
+    // 삭제 성공
+    alert('주문 정보가 삭제되었습니다.');
+
+    // 삭제한 아이템 화면에서 지우기
+    const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
+    deletedItem.remove();
+
+    // 전역변수 초기화
+    orderIdToDelete = '';
+
+    closeModal();
   } catch (err) {
-    console.log(err);
+    alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
   }
 }
