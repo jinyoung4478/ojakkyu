@@ -12,7 +12,7 @@ const checkUserOrder = document.querySelector('#checkUserOrder');
 let orderIdToDelete; // 주문 id
 
 // 주문 가져오기
-const res = await fetch('/api/orders/:userId');
+const res = await fetch('/api/orders/:orderId');
 const orders = await res.json();
 
 for (const order of orders) {
@@ -20,7 +20,7 @@ for (const order of orders) {
   orderIdToDelete = _id;
   //const date = createdAt.split('T')[0];
 
-  console.log('id', _id);
+  console.log('order', order);
   checkUserOrder.innerHTML += `
       <ul class="orderList" id="order-${_id}">
       <li>${date}</li>
@@ -32,14 +32,30 @@ for (const order of orders) {
 }
 
 // 주문 삭제
-checkUserOrder.onclick = function (event) {
-  if (event.target.className != 'deleteButton') return;
-  let orderList = event.target.closest('.orderList');
-  orderList.remove();
+// checkUserOrder.onclick = function (event) {
+//   if (event.target.className != 'deleteButton') return;
+//   let orderList = event.target.closest('.orderList');
+//   orderList.remove();
 
-  Api.delete('/api/product', orderIdToDelete);
+//   Api.delete('/api/orders/:orderId', orderIdToDelete);
+//   alert('주문 정보가 삭제되었습니다.');
+
+//   // 전역변수 초기화
+//   orderIdToDelete = '';
+// };
+
+try {
+  //const userToDelete = await Api.get('/api/users/myInfo');
+  const { _id } = await Api.get('/api/orders/:orderId');
+
+  // 삭제 진행
+  await Api.delete('/api/orders', _id);
+
+  // 삭제 성공
   alert('주문 정보가 삭제되었습니다.');
 
-  // 전역변수 초기화
-  orderIdToDelete = '';
-};
+  window.location.href = '/account-order';
+} catch (err) {
+  alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+  closeModal();
+}
