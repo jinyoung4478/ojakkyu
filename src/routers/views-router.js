@@ -15,6 +15,9 @@ viewsRouter.use('/order-complete', serveStatic('order-complete'));
 viewsRouter.use('/info', serveStatic('account-info')); // 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요
 viewsRouter.use('/account/signout', serveStatic('account-signout'));
 viewsRouter.use('/account', serveStatic('account'));
+viewsRouter.use('/birthstone', serveStatic('birthstone'));
+viewsRouter.use('/about-us', serveStatic('about-us'));
+viewsRouter.use('/about-co', serveStatic('about-co'));
 
 // 제품 페이지 라우팅
 viewsRouter.use('/product/add', serveStatic('product-add'));
@@ -23,11 +26,6 @@ viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
 viewsRouter.use('/product/edit/:product_id', serveStatic('product-edit'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/not-found', serveStatic('error'));
-
-// 메뉴
-viewsRouter.use('/birthstone', serveStatic('birthstone'));
-viewsRouter.use('/about-us', serveStatic('about-us'));
-viewsRouter.use('/about-co', serveStatic('about-co'));
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));

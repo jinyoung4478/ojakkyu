@@ -7,38 +7,37 @@
 
 body {
   text-align: center;
+  background-image: url(https://plus.unsplash.com/premium_photo-1661440002597-21a6d30a88f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
+  background-size: cover;
 }
 
 .title {
-  padding-top: 160px;
-  margin: 0 auto 10px auto;
+  padding-top: 120px;
+  margin: 0 auto 40px auto;
   max-width: 1105px;
-
-  font-weight: bold;
-  color: rgba(70, 30, 105, 0.4);
-  text-shadow: 1px 1px 1px rgb(165, 165, 165);
-
-  background-image: url(https://images.unsplash.com/photo-1587593692659-38c32c496642?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fGpld2Vscnl8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60);
-  background-size: contain;
 
   position: relative;
 }
 
 h2 {
-  padding-top: 60px;
+  padding-top: 28px;
   margin-bottom: 10px;
 
-  font-size: 4em;
+  font-size: 6em;
+  font-weight: bold;
+  color: #e9b7b8;
+  text-shadow: 1px 1px 1px white;
 
   position: absolute;
-  top: -10px;
+  top: -19px;
   left: 50%;
-  margin-left: -232px;
+  margin-left: -340px;
 }
 
 .design {
   margin-bottom: 8px;
   color: white;
+  text-shadow: 1px 1px 1px gray;
 }
 
 .line {
@@ -46,7 +45,7 @@ h2 {
 
   height: 1px;
   width: 100px;
-  background-color: rgba(70, 30, 105, 0.4);
+  background-color: #e9b7b8;
 }
 
 .description {
@@ -56,19 +55,19 @@ h2 {
 }
 
 .subtitle {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 
   color: white;
-  text-shadow: 1px 1px 1px rgb(165, 165, 165);
 }
 
 .contents {
   margin-bottom: 100px;
   max-width: 800px;
-  height: 400px;
+  height: 550px;
 
   color: rgb(109, 99, 85);
   font-size: 1.2em;
+  text-shadow: 1px 1px 1px rgb(228, 228, 228);
   line-height: 2em;
 
   position: relative;
@@ -77,7 +76,7 @@ h2 {
 
 .contentsIn {
   max-width: 800px;
-  height: 600px;
+  height: 400px;
 
   position: absolute;
   left: 50%;
@@ -85,18 +84,7 @@ h2 {
 
   animation-name: moveUp;
   animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: 20s;
-}
-
-@keyframes moveUp {
-  0% {
-    top: 120%;
-  }
-
-  100% {
-    top: -200%;
-  }
+  animation-duration: 4s;
 }
 
 .topContents {

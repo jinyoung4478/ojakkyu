@@ -1,15 +1,36 @@
 import * as Api from '/utils/api.js';
 import { renderClientSideComponent } from '/utils/useful-functions.js';
-const detailWrap = document.querySelector(".detailWrap")
-const productImg = document.querySelector(".productImg");
-const productDetail = document.querySelector(".productDetail");
 
+const detailWrap = document.querySelector('.detailWrap');
+const productImg = document.querySelector('.productImg');
+const productDetail = document.querySelector('.productDetail');
+
+const editProduct = document.querySelector('.editProduct');
+const purchaseButton = document.querySelector('#purchaseButton');
+const adCartButton = document.querySelector('#adCartButton');
 const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
-const productCount = 0;
+let productCount = 0;
+let data;
+// 페이지 렌더링
+renderElements();
+addAllEvents();
+
+function renderElements() {
+  renderClientSideComponent();
+  drawDetail();
+}
+
+function addAllEvents() {
+  purchaseButton.addEventListener('click', handlePurchase);
+  adCartButton.addEventListener('click', handleProductToCart);
+  // 관리자 전용
+  editProduct.addEventListener('click', handleEditProduct);
+}
 
 async function drawDetail() {
-    try {
+  try {
+    data = await Api.get('/api/product', productId);
 
         const data = await Api.get('/api/product', productId);
         // const { productId, image, description, price, productName, productTitle, stoneType} = data;
@@ -25,25 +46,21 @@ async function drawDetail() {
                 <figure>
                     <img src="${img}"/>
                 </figure>
-            `
+            `;
 
-
-        productDetail.innerHTML = ` 
+    productDetail.innerHTML = ` 
                 <ul class="productDesc">
                     <li><h1>${title}</h1></li>
                     <li>${name}</li>
                     <li>판매가 <span>${price}</span></li>
                     <li>${description}</li>
-                    
                     <li>
                         <select>
                             <label>-[필수]옵션을 선택해 주세요-</label>
                             <option>원석: ${type}</option>
                         </select>
                     </li>
-
                     <li><strong>최소주문수량 1개 이상</strong></li>
-
                     <li>
                         <table>
                             <thead>
@@ -55,23 +72,11 @@ async function drawDetail() {
                             </thead>
                         </table>
                     </li>
-
                     <li>
                         <p>Total : ${price}<span>(${productCount}개)</span></p>
                     </li>
-
-                    <li>
-                        <figuare class="routeBtn">
-                            <button type="button" class="moveOrder">구매하기</button>
-                            <button type="button" class="moveCart">장바구니</button>
-                            <button type="button">관심상품</button>
-                            <button type="button" class="editProduct" data-id="${id}">상품수정</button>
-                            <button type="button" class="deleteProduct" data-id="${id}">상품삭제</button>
-                        </figuare>  
-                    </li>
-                    
                 </ul>
-            `
+            `;
 
     // 어드민 제품 수정
     const editProduct = document.querySelector(".editProduct");
@@ -97,9 +102,45 @@ async function drawDetail() {
   }
 }
 
-async function start() {
-    await renderClientSideComponent();
-    await drawDetail();
+function handlePurchase(e) {
+  e.preventDefault();
+  const orderData = JSON.stringify({
+    product: [
+      {
+        id: data.productId,
+        name: data.productName,
+        quantity: 1,
+        price: data.price,
+      },
+    ],
+  });
+  sessionStorage.setItem('order', orderData);
+  location.href = `/order`;
 }
 
-start();
+function handleProductToCart() {
+  // 기존 장바구니 목록 데이터
+  let exData = sessionStorage.getItem('cart');
+  exData = JSON.parse(exData).product;
+
+  // data = 기존 데이터 + 새로운 데이터
+  const data1 = JSON.stringify({
+    product: [
+      ...exData,
+      {
+        id: data.productId,
+        name: data.productName,
+        price: data.price,
+        quantity: 1,
+      },
+    ],
+  });
+
+  sessionStorage.setItem('cart', data1);
+  //location.href = '/cart';
+}
+
+function handleEditProduct() {
+  const pareLi = e.target;
+  location.href = `/product/edit/${pareLi.dataset.id}`;
+}

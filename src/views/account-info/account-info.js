@@ -77,22 +77,22 @@ function addAllEvents() {
   saveCompleteButton.addEventListener('click', updateUserData);
 }
 
+const toggleTargets = {
+  nameToggle: [nameInput],
+  passwordToggle: [passwordInput, passwordConfirmInput],
+  addressToggle: [
+    postalCodeInput,
+    addressInput,
+    addressDetailInput,
+    searchAddressButton,
+  ],
+  phoneNumberToggle: [phoneNumberInput],
+};
+
 // 토글 버튼 기능 동작
 function handleToggleButton(e) {
-  const toggleTargets = {
-    nameToggle: [nameInput],
-    passwordToggle: [passwordInput, passwordConfirmInput],
-    addressToggle: [
-      postalCodeInput,
-      addressInput,
-      addressDetailInput,
-      searchAddressButton,
-    ],
-    phoneNumberToggle: [phoneNumberInput],
-  };
   const isChecked = e.target.checked;
   const targets = toggleTargets[e.target.id];
-  console.log(targets);
   targets.forEach((target, index) => {
     if (isChecked) {
       target.removeAttribute('disabled');
