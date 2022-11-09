@@ -10,7 +10,7 @@ const orderRouter = Router();
 
 // 전체 주문 내역 보기, /api/orders/all
 // adminRequired
-orderRouter.get("/all", async (req, res, next) => {
+orderRouter.get("/all", adminRequired, async (req, res, next) => {
   try {
     const orders = await orderService.getOrders();
 
@@ -22,7 +22,7 @@ orderRouter.get("/all", async (req, res, next) => {
 
 // orderId에 해당하는 주문 내역 보기, /api/orders/:orderId
 // loginRequired
-orderRouter.get("/:orderId", async (req, res, next) => {
+orderRouter.get("/:orderId", loginRequired, async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const order = await orderService.getOrder(orderId);
@@ -35,7 +35,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 
 // userId에 해당하는 주문 내역 보기, /api/orders/:userId
 // loginRequired
-orderRouter.get("/:userId", async (req, res, next) => {
+orderRouter.get("/:userId", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const orders = await orderService.getOrdersByUserId(userId);
@@ -48,7 +48,7 @@ orderRouter.get("/:userId", async (req, res, next) => {
 
 // productId에 해당하는 주문 내역 보기, /api/orders/:productId
 // loginRequired
-orderRouter.get("/:productId", async (req, res, next) => {
+orderRouter.get("/:productId", loginRequired, async (req, res, next) => {
   try {
     const productId = req.params.productId;
     const orders = await orderService.getOrdersByProductId(productId);
@@ -61,7 +61,7 @@ orderRouter.get("/:productId", async (req, res, next) => {
 
 // (사용자) 주문 추가, /api/orders
 // loginRequired
-orderRouter.post("/", async (req, res, next) => {
+orderRouter.post("/", loginRequired, async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -91,7 +91,7 @@ orderRouter.post("/", async (req, res, next) => {
 
 // (주문/결제) 주문 추가, /api/orders/payment
 // loginRequired
-orderRouter.post("/payment", async (req, res, next) => {
+orderRouter.post("/payment", loginRequired, async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -102,15 +102,14 @@ orderRouter.post("/payment", async (req, res, next) => {
     }
     
     const userId = req.currentUserId;
-    const itemIitle = req.body.itemIitle;
-    const quantity = req.body.quantity;
+    const summaryTitle = req.body.summaryTitle;
     const status = req.body.status;
     const totalPrice = req.body.totalPrice;
     const address = req.body.address;
     
     const newOrder = await orderService.addOrder({
       userId,
-      itemIitle,
+      summaryTitle,
       quantity,
       status,
       totalPrice,
@@ -125,7 +124,7 @@ orderRouter.post("/payment", async (req, res, next) => {
 
 // (사용자) 주문 변경, /api/orders/:orderId
 // adminRequired
-orderRouter.patch("/:orderId", async (req, res, next) => {
+orderRouter.patch("/:orderId", adminRequired, async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -154,7 +153,7 @@ orderRouter.patch("/:orderId", async (req, res, next) => {
 
 // (주문/결제) 주문 변경, /api/orders/payment/:orderId
 // loginRequired
-orderRouter.patch("/payment/:orderId", async (req, res, next) => {
+orderRouter.patch("/payment/:orderId", loginRequired, async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -185,7 +184,7 @@ orderRouter.patch("/payment/:orderId", async (req, res, next) => {
 
 // 주문 삭제, /api/orders/:orderId
 // loginRequired
-orderRouter.delete("/:orderId", async (req, res, next) => {
+orderRouter.delete("/:orderId", loginRequired, async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const deletedOrder = await orderService.deleteOrder(orderId);
