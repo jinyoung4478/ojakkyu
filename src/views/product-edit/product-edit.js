@@ -13,7 +13,8 @@ const descriptionInput = document.querySelector('#description');
 const priceInput = document.querySelector('#price');
 const stoneTypeInput = document.querySelector('#stoneType');
 const categoryInput = document.querySelector('#category');
-const submitButton = document.querySelector('#submitButton');
+const editButton = document.querySelector('#editButton');
+const deleteButton = document.querySelector('#deleteButton');
 
 
 // 기존 정보를 불러와서 입력란에 선 기입
@@ -48,7 +49,7 @@ writeOriginalData();
 
 
 // 제품 수정
-async function handleSubmit(e) {
+async function handleEdit(e) {
     e.preventDefault();
 
     const productImage = productImageInput.value;
@@ -86,4 +87,26 @@ async function handleSubmit(e) {
         alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
     }
 }
-submitButton.addEventListener("click", handleSubmit)
+
+//상품 삭제하기
+async function handleDelete(e) {
+    e.preventDefault();
+
+    //상품을 삭제하시겠습니까???
+    try {
+        const delConfirm = confirm('상품을 삭제하시겠습니까?');
+        if (delConfirm) {
+            await Api.delete('/api/product', `${productId}`, { productId });
+            // 홈페이지로 이동
+            window.location.href = `/`;
+            alert('삭제되었습니다.');
+        }
+    } catch (err) {
+        console.error(err.stack);
+        alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    }
+}
+
+
+editButton.addEventListener("click", handleEdit)
+deleteButton.addEventListener("click", handleDelete)
