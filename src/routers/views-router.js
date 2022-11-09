@@ -9,16 +9,14 @@ const viewsRouter = express.Router();
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
-viewsRouter.use('/cart', serveStatic('cart'));
-viewsRouter.use('/admin-order', serveStatic('admin-order'));
+viewsRouter.use('/about-us', serveStatic('about-us'));
+viewsRouter.use('/birthstone', serveStatic('birthstone'));
 viewsRouter.use('/account-order', serveStatic('account-order'));
 viewsRouter.use('/order-complete', serveStatic('order-complete'));
-viewsRouter.use('/info', serveStatic('account-info')); // 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요
+viewsRouter.use('/info', serveStatic('account-info'));
+viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/account/signout', serveStatic('account-signout'));
 viewsRouter.use('/account', serveStatic('account'));
-viewsRouter.use('/birthstone', serveStatic('birthstone'));
-viewsRouter.use('/about-us', serveStatic('about-us'));
-viewsRouter.use('/about-us', serveStatic('about-us'));
 
 // 제품 페이지 라우팅
 viewsRouter.use('/product/add', serveStatic('product-add'));

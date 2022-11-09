@@ -25,7 +25,7 @@ for (const order of orders) {
       <li>${date}</li>
       <li>${productTitle} / ${price}</li>
       <li>${productName}</li>
-      <li><button class="deleteButton" id="${_id}">제품삭제</button></li>
+      <li><button class="deleteButton" id="${_id}">주문 취소</button></li>
       </ul>
       `;
 }
