@@ -214,7 +214,7 @@ async function handlePurchase(e) {
     // 성공 시 sessionStorage 데이터 제거
     sessionStorage.removeItem(type);
 
-    //window.location.replace(`/order-complete`);
+    window.location.replace(`/order-complete`);
   } catch (err) {
     return alert(`Error: ${err}`);
   }
