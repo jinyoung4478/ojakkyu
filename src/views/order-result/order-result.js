@@ -37,7 +37,7 @@ checkUserOrder.onclick = function (event) {
   let orderList = event.target.closest('.orderList');
   orderList.remove();
 
-  Api.delete('/api/product', orderIdToDelete);
+  Api.delete('/api/product', `order-${orderIdToDelete}`);
   alert('주문 정보가 삭제되었습니다.');
 
   // 전역변수 초기화
