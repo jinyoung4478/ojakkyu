@@ -76,7 +76,14 @@ async function drawDetail() {
                     </li>
                 </ul>
             `;
-            
+
+    // 상품 수정하기 버튼 클릭 시 어떤 아이템인지 인지할 수 있게 하는 설정
+    editProduct.setAttribute("data-id", `${productId}`)
+
+    // 제품 데이터 로컬스토리지에 담기
+    localStorage.setItem('product', JSON.stringify(data));
+
+    // [ 관리자 권한 ] 제품 수정하기 버튼클릭 시 제품 수정페이지로 이동
   } catch (err) {
     console.log(err);
   }
@@ -100,7 +107,6 @@ function handlePurchase(e) {
 
 function handleProductToCart() {
 
-    console.log(data,"asdasd")
 
     // 기존 장바구니 목록 데이터
     let cartData = [];

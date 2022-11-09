@@ -1,13 +1,12 @@
 import { renderClientSideComponent } from '/utils/useful-functions.js';
-import * as Api from "/utils/api.js";
+import * as Api from '/utils/api.js';
 
-const product = document.querySelector(".product");
-const moveDetail = document.querySelector(".product");
+const product = document.querySelector('.product');
+const moveDetail = document.querySelector('.product');
 
 async function drawProduct() {
   try {
     const res = await Api.get("/api/product");
-    console.log(res)
 
     product.innerHTML = res.map((tem) => {
 
@@ -39,12 +38,9 @@ async function start() {
 
 start();
 
-
 // 상세페이지 이동
 moveDetail.addEventListener("click", (e) => {
   const pareLi = e.target.closest(".productEvent");
   location.href = `/product/${pareLi.dataset.id}`
 })
-
-
 
