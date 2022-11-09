@@ -12,11 +12,7 @@ let orderIdToDelete;
 
 checkLogin();
 addAllElements();
-
-// 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllElements() {
-  renderClientSideComponent();
-}
+renderClientSideComponent();
 
 // 주문 가져오기
 const res = await fetch('/api/product');
@@ -38,6 +34,7 @@ for (const order of orders) {
       `;
 }
 
+// 주문 삭제
 checkUserOrder.onclick = async function (event) {
   if (event.target.className != 'deleteButton') return;
 
