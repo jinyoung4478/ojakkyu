@@ -20,7 +20,7 @@ export class ProductModel {
 
     async findByExistedId(productId) {
         const product = await Product.find({ productId: productId })
-        const existed = false;
+        let existed = false;
         if (product.length > 1) {
             existed = true;
         }
