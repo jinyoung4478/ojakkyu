@@ -18,6 +18,26 @@ export class ProductModel {
         return product;
     }
 
+    async findByExistedId(productId) {
+        const product = await Product.find({ productId: productId })
+        const existed = false;
+        if (product.length > 1) {
+            existed = true;
+        }
+        console.log("findById를 사용했습니다.")
+        return existed;
+    }
+
+    async findByExistedName(productName) {
+        const product = await Product.find({ productName: productName })
+        let existed = false;
+        if (product.length > 1) {
+            existed = true;
+        }
+        console.log("findById를 사용했습니다.")
+        return existed;
+    }
+
     async findByName(productName) {
         const product = await Product.findOne({ productName: productName })
         return product;
