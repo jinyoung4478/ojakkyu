@@ -42,6 +42,7 @@ async function drawCategory() {
             <li><a href="/birthstone">내 탄생석은?</a></li>
         `;
 
+
   const gnbLiContents = document.querySelectorAll('.gnbContents li');
   function moveCategory() {
     Array.prototype.forEach.call(gnbLiContents, function (e) {
