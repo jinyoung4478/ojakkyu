@@ -38,6 +38,7 @@ checkUserOrder.onclick = function (event) {
 
   const { target: button } = event;
   console.log(button['id']);
+
   Api.delete('/api/product', button['id']);
   alert('주문 정보가 삭제되었습니다.');
 
