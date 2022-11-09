@@ -29,7 +29,8 @@ for (const order of orders) {
       </ul>
       `;
 }
-
+let getproductId = orders.flat(2);
+console.log(getproductId);
 // 주문 삭제
 checkUserOrder.onclick = async function (event) {
   if (event.target.className != 'deleteButton') return;
