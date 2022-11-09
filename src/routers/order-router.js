@@ -72,13 +72,11 @@ orderRouter.post('/', loginRequired, async (req, res, next) => {
 
     const orderId = req.body.orderId;
     const productId = req.body.productId;
-    const quantity = req.body.quantity;
     const totalPrice = req.body.totalPrice;
 
     const newOrder = await orderService.addOrder({
       orderId,
       productId,
-      quantity,
       totalPrice,
     });
 
@@ -90,7 +88,7 @@ orderRouter.post('/', loginRequired, async (req, res, next) => {
 
 // (주문/결제) 주문 추가, /api/orders/payment
 // loginRequired
-orderRouter.post('/payment', loginRequired, async (req, res, next) => {
+orderRouter.post('/payment', async (req, res, next) => {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -102,6 +100,7 @@ orderRouter.post('/payment', loginRequired, async (req, res, next) => {
 
     const userId = req.currentUserId;
     const summaryTitle = req.body.summaryTitle;
+    const quantity = req.body.quantity;
     const status = req.body.status;
     const totalPrice = req.body.totalPrice;
     const address = req.body.address;

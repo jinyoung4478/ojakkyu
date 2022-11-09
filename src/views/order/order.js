@@ -1,5 +1,6 @@
 import * as Api from '../utils/api.js';
 import {
+  checkLogin,
   renderClientSideComponent,
   addCommas,
   validatePhoneNumber,
@@ -18,9 +19,9 @@ const purchaseButton = document.querySelector('#purchaseButton');
 
 // 직전 페이지 url
 const exUrl = new URL(document.referrer).pathname;
+let type = 'order';
 let userData;
 let orderData;
-let isCartOrder = false;
 
 // 상품페이지에서 접근했는지, 장바구니에서 접근했는지 구분하기
 checkOrderType();
@@ -42,17 +43,14 @@ function renderElements() {
 function checkOrderType() {
   // 장바구니 페이지에서 유입되었을 경우
   if (exUrl === '/cart/') {
-    isCartOrder = true;
+    type = 'cart';
   }
 }
 
 // 주문 목록 제품 리스트 렌더링
 function renderOrderList() {
   // 주문 목록 데이터 불러오기
-  let type = 'order';
-  if (isCartOrder) {
-    type = 'cart';
-  }
+
   try {
     orderData = JSON.parse(sessionStorage.getItem(type)).product;
   } catch (err) {
@@ -154,6 +152,14 @@ function handlePhoneNumberInput() {
 
 async function handlePurchase(e) {
   e.preventDefault();
+
+  // 로그인 요구
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    alert('주문 시 로그인은 필수입니다.');
+    return checkLogin();
+  }
+
   const postalCode = postalCodeInput.value;
   const address1 = addressInput.value;
   const address2 = addressDetailInput.value;
@@ -179,8 +185,13 @@ async function handlePurchase(e) {
   }
 
   // order api 요청
+
   const currentUserId = userData._id;
-  const summaryTitle = ''; // 미구현
+
+  const summaryTitle = orderData.reduce(
+    (acc, item) => acc + `${item.name} / ${item.quantity}개\n`,
+    '',
+  );
   const status = '상품 준비 중';
   const address = {
     postalCode,
@@ -194,12 +205,20 @@ async function handlePurchase(e) {
     currentUserId,
     summaryTitle,
     address,
-    quantity: 1,
     status,
     totalPrice,
   };
-  const jsonData = JSON.stringify(data);
 
-  const result = await Api.post('/api/orders/payment', jsonData);
-  console.log(result);
+  try {
+    const result = await Api.post('/api/orders/payment', data);
+    console.log(result);
+    alert('결제 및 주문이 정상적으로 완료되었습니다.');
+
+    // 성공 시 sessionStorage 데이터 제거
+    sessionStorage.removeItem(type);
+
+    window.location.replace(`/order-complete`);
+  } catch (err) {
+    return alert(`Error: ${err}`);
+  }
 }
