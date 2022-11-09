@@ -27,7 +27,7 @@ for (const order of orders) {
   orderIdToDelete = _id;
   //const date = createdAt.split('T')[0];
 
-  console.log('id', order);
+  console.log('id', _id);
   checkUserOrder.insertAdjacentHTML(
     'beforeend',
     `
