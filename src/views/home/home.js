@@ -53,18 +53,5 @@ moveDetail.addEventListener("click", (e) => {
   location.href = `/product/${pareLi.dataset.id}`
 })
 
-// 아까워서 안버리는중입니다.
-// const moveDetail = document.querySelectorAll(".newArrival .productWrap .product")[0].children;
-  // Array.from(moveDetail).forEach((tem, idx) => {
-  //   tem.addEventListener("click", function(e){
-  //     let temLength = tem.children.length;
-  //     let temChildren = tem.children
-  //     for(let i = 0; i < temLength; i++){
-  //       temChildren[i].addEventListener('click', (a) => a.stopPropagation());
-  //     }
-  //     location.href = `/product/${tem.dataset.id}`
-    
-  //   })
-  // })
 
 

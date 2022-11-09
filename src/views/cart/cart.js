@@ -5,45 +5,23 @@ import {
   checkLogin,
 } from '/utils/useful-functions.js';
 
-
-
+// 컴포넌틑 렌더링
 renderClientSideComponent();
 
 const productList = document.querySelector('.listItems');
-const cartWrap = document.querySelector(".cartWrap");
 const countDelete = document.querySelector(".countDelete");
-const totalPriceOrder = document.querySelector(".totalPriceOrder");
-
-const countProduct = document.getElementById('countAllItem');
-const PRICCE_TOTAL = document.getElementById('priceTotal');
-const BTN_PERCHASE = document.getElementById('btnPurchase');
-const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
-
-
-console.log(productList)
-
-// function ddd(data){
-//   const productkeys = Object.keys(data);
-// const productk = [];
-  
-//   productkeys.forEach((el) => {
-//     productk.push(JSON.parse(localStorage.getItem(el)));
-//   });
-//   console.log(productk)
-
-//   return productk;
-// }
 
 
 
 async function drawProduct() {
   const data = JSON.parse(sessionStorage.getItem('cart'));
+  console.log(data.product)
 
   productList.innerHTML = "";
 
   try {
 
-    countDelete.innerHTML = `
+  countDelete.innerHTML = `
       <p class="productCount">
         총&nbsp;
         <span id="countAllItem">3</span>
@@ -56,27 +34,9 @@ async function drawProduct() {
       </p>
     `
 
-    totalPriceOrder.innerHTML = `
-      <div class="priceWrap">
-        <div>
-          <h3 class="productCount">
-            총액:&nbsp;<span id="priceTotal" class="priceText"
-              >19,000</span
-            >&nbsp;원
-          </h3>
-          <p class="subtitle is-7"></p>
-        </div>
-        <a href="/order">
-          <button id="btnPurchase" class="orderBtn">
-            주문하기
-          </button>
-        </a>
-      </div>
-    
-    `
-
-    const insertList = data.map((tem) => {
-      const { image, price, description, productId, productTitle } = data;
+    const insertList = data.product.map((tem) => {
+      const { image, id, title, name, quantity, price, description} = tem;
+      console.log(tem)
 
       return `
 
@@ -91,7 +51,7 @@ async function drawProduct() {
             </figure>
             <div class="subWrap">
                 <h3 class="subTitle">
-                  ${productTitle}
+                  ${title}
                 </h3>
                 <p class="subText">
                   ${description}
@@ -102,16 +62,16 @@ async function drawProduct() {
               </div>
             </div>
 
-            <div class="priceInput">
-              <input type="hidden" value="${productId}">
+            <div class="quantityInput">
+              <input type="hidden" value="${id}">
               <input
                 id="countItem"
-                value="${productId}"
-                class="countItem input is-3 column mr-4 "
-                type="number"
+                value="${quantity}"
+                class="countItem"
+                type="text"
                 placeholder="0"
               />
-              <button id="btnDeleteItem" class="delete column"></button>
+              <button id="btnDeleteItem" class="deleteProduct"></button>
             </div>
           </div>
         </form>
@@ -121,10 +81,34 @@ async function drawProduct() {
 
     productList.innerHTML = insertList.join("");
 
+
+      // 개별 삭제
+
+    const deleteProduct = document.querySelector(".deleteProduct");
+
+    console.log(deleteProduct)
+
+    function deleteCart(e){
+      e.preventDefault();
+
+    }
+    deleteProduct.addEventListener("click", deleteCart)
+
   } catch(err){
     console.log(err)
   }
 }
+
+
+//       //delete: 장바구니 물건 개별 삭제
+//       //[221104 - 진행중: splice를 사용하면 순차적 삭제시 4번 이후로 삭제가 어렵습니다.]
+//       const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
+//       const PERCHAISING = document.querySelector('#perchasing');
+//       for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
+//         let btndel = BTN_DEL_ITEMS[i];
+//         btndel.addEventListener('click', (e) => {
+//           e.preventDefault();
+
 
 drawProduct()
 
