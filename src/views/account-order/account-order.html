@@ -17,7 +17,13 @@
       defer
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
-    ></script>  
+    ></script>
+
+    <!-- bulma css 관련 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="account-order.css" />
@@ -27,21 +33,24 @@
     <!-- 헤더 -->
     <div id="header"></div>
     <!-- 바디 -->
-    <main role="main" id="mainWrap" class="container is-max-desktop">
-      <section id="orderContainer">
-        <div class="orderWrap">
-          <h2><strong>주문조회</strong></h2>
-          <ul class="orderSubtitles">
-            <li class="subtitle1">날짜</li>
-            <li class="subtitle2">주문정보</li>
-            <li class="subtitle3">상태</li>
-            <li class="subtitle4">신청</li>
-          </ul>
-          <form class="formWrap" id="checkUserOrder">
-
-          </form>
+    <section class="section">
+      <div class="container orders-container">
+        <div class="block account-header">
+          <h1 class="subtitle is-4">주문 조회</h1>
         </div>
-    </main>
+        <div class="container orders-container" id="ordersContainer">
+          <div
+            class="columns notification is-info is-light is-mobile orders-top"
+          >
+            <div class="column is-2">날짜</div>
+            <div class="column is-6">주문정보</div>
+            <div class="column is-2">상태</div>
+            <div class="column is-2">신청</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 푸터 -->
     <div id="footer"></div>
   </body>

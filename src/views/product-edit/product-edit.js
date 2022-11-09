@@ -52,9 +52,9 @@ writeOriginalData();
 async function handleEdit(e) {
     e.preventDefault();
 
-    const productImage = productImageInput.value;
-    const productId = productIdInput.value;
-    const productName = productNameInput.value;
+    const image = productImageInput.value;
+    const editproductId = productIdInput.value;
+    const editproductName = productNameInput.value;
     const productTitle = productTitleInput.value;
     const description = descriptionInput.value;
     const price = priceInput.value;
@@ -65,9 +65,9 @@ async function handleEdit(e) {
     // 상품 수정 API 요청
     try {
         const data = {
-            "image": productImage,
-            productId,
-            productName,
+            image,
+            editproductId,
+            editproductName,
             productTitle,
             description,
             price,
@@ -76,12 +76,13 @@ async function handleEdit(e) {
             likes,
             "availability": true,
         };
+        console.log(productId);
         await Api.put('/api/product', `${productId}`, data);
 
         alert(`정상적으로 상품이 수정되었습니다.`);
 
-        // 로그인 페이지 이동
-        window.location.href = `/product/${productId}`;
+        // 수정된 페이지로이동
+        window.location.href = `/product/${editproductId}`;
     } catch (err) {
         console.error(err.stack);
         alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);

@@ -55,6 +55,8 @@ export class ProductModel {
     }
 
     async update({ productId, updateContent }) {
+        console.log(`${productId}를 업데이트 합니다.`)
+        console.dir(updateContent);
         const findProduct = { productId: productId };
         const option = { returnOriginal: false };
         const updatedProduct = await Product.findOneAndUpdate(findProduct, updateContent, option)
