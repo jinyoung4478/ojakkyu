@@ -11,7 +11,6 @@ const checkUserOrder = document.querySelector('#checkUserOrder');
 let orderIdToDelete;
 
 checkLogin();
-addAllElements();
 renderClientSideComponent();
 
 // 주문 가져오기
