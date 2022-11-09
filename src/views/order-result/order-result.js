@@ -28,23 +28,22 @@ for (const order of orders) {
   //const date = createdAt.split('T')[0];
 
   console.log('id', _id);
-  checkUserOrder.insertAdjacentHTML(
-    'beforeend',
-    `
+  checkUserOrder.innerHTML += `
       <ul class="orderList" id="order-${_id}">
       <li>${date}</li>
       <li>${productTitle} / ${price}</li>
       <li>${productName}</li>
       <li><button class="deleteButton" id="deleteButton-${_id}">주문취소</button></li>
       </ul>
-      `,
-  );
+      `;
 }
 
-//전역변수에 해당 주문의 id 할당
+// 전역변수에 해당 주문의 id 할당
 const deleteButton = document.querySelector(`#deleteButton-${orderIdToDelete}`);
-deleteButton.addEventListener('click', () => {
-  Api.delete('/api/product', orderIdToDelete);
+
+// issue!!마지막 order만 삭제되는 문제 해결 필요
+deleteButton.addEventListener('click', async () => {
+  await Api.delete('/api/product', orderIdToDelete);
 
   // 삭제 성공
   alert('주문 정보가 삭제되었습니다.');
