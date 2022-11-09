@@ -27,6 +27,7 @@ viewsRouter.use('/not-found', serveStatic('error'));
 // 메뉴
 viewsRouter.use('/birthstone', serveStatic('birthstone'));
 viewsRouter.use('/about-us', serveStatic('about-us'));
+viewsRouter.use('/about-co', serveStatic('about-co'));
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
