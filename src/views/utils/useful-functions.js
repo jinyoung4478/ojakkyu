@@ -101,7 +101,18 @@ export const renderClientSideComponent = () => {
           script.type = 'module';
           script.src = '/components/header.js';
           document.body.appendChild(script);
-        });
+      });
+    }
+      
+    if(footerId){
+      const footer = fetch("/components/footer.html");
+      footer.then((res) => res.text()).then((text) => {
+        document.querySelector("#footer").innerHTML = text;
+        let script = document.createElement("script");
+        script.type = "module";
+        script.src = "https://kit.fontawesome.com/9daa42bcef.js";
+        this.document.body.appendChild(script);
+      })
     }
 
     if (footerId) {
