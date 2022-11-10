@@ -1,34 +1,41 @@
 @charset "utf-8";
-@import "/styles/reset.css";
-
+@import '/styles/reset.css';
 
 /* 레이아웃 */
-.categoryWrap{
-    width: 1280px;
-    margin: 0 auto;
+.categoryWrap {
+  width: 1280px;
+  margin: 0 auto;
 }
 
-.categoryTitle{
-    padding: 4% 0;
+.categoryTitle {
+  padding: 4% 0;
 }
 
-.categoryTitle h1{
-    font-size: 1.4em;
-    font-weight: 400;
+.categoryTitle h1 {
+  font-size: 1.4em;
+  font-weight: 400;
 }
 
-.product{
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 4%;
-    gap: 20px;
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 4%;
+  gap: 20px;
 }
 
-.product .productEvent{
-    width: 300px;
+.product .productEvent {
+  width: 300px;
 }
 
-.product .productEvent img{
-    width: 300px;
-    height: 300px;
+.product .productEvent img {
+  width: 300px;
+  height: 300px;
+}
+.productEvent {
+  cursor: pointer;
+}
+
+.productEvent:hover {
+  transform: scale(1.05);
+  transition: all 0.4s;
 }
