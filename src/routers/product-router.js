@@ -93,7 +93,7 @@ productRouter.post("/productDetail", async (req, res, next) => {
 })
 
 //상품 수정
-productRouter.put("productDetail/:productId", async (req, res, next) => {
+productRouter.put("/productDetail/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
 
@@ -129,7 +129,7 @@ productRouter.put("productDetail/:productId", async (req, res, next) => {
     }
 })
 //상품 삭제
-productRouter.delete("productDetail/:productId", async (req, res, next) => {
+productRouter.delete("/productDetail/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
         await productService.deleteProduct(productId)
