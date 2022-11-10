@@ -19,7 +19,7 @@ const deleteButton = document.querySelector('#deleteButton');
 
 // 기존 정보를 불러와서 입력란에 선 기입
 async function writeOriginalData() {
-  const product = await Api.get('/api/product', productId);
+  const product = await Api.get('/api/product/productDetail', productId);
   console.log(product);
   const productName = product.productName;
   const productTitle = product.productTitle;
