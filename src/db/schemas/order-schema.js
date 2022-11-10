@@ -38,6 +38,9 @@ const OrderSchema = new Schema(
       type: String,
       default: "상품 준비중",
     },
+    initial: {
+      type: String,
+    },
   },
   {
     collection: "orders",

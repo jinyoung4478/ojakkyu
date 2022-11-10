@@ -23,23 +23,11 @@ userRouter.post("/login", async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    // 쿠키 설정
-    //res.cookie("token", userToken).cookie("login", "true")
     res.status(200).json(userToken);
   } catch (error) {
     next(error);
   }
 });
-
-// 로그아웃
-// 쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
-// userRouter.get("/logout", async function (req, res, next) {
-//   try { 
-//     res.clearCookie("token").clearCookie("login").redirect("/");
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users/register 로 요청해야 함.)
 userRouter.post("/", async (req, res, next) => {
