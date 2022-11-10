@@ -34,9 +34,12 @@ productRouter.get("/newProducts", async (req, res, next) => {
 productRouter.get("/category/:categoryId", async (req, res, next) => {
     try {
         const category = req.params.categoryId;
+        const page = (req.query.page.split('/'))[0];
+        console.log("router page", page)
 
-        const products = await productService.getProductsByCategory(category)
-        res.status(200).json(products)
+        const { totalPage, products }
+            = await productService.getProductsByCategory(category, page)
+        res.status(200).json({ totalPage, products })
     }
     catch (error) {
         next(error)
