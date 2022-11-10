@@ -18,7 +18,6 @@ function renderElements() {
 async function drawCategoryProducts() {
   try {
     const data = await Api.get(`/api/product/category/${categoryType}`);
-
     productWrapper.innerHTML = data.reduce(
       (acc, item) =>
         acc +
@@ -27,7 +26,7 @@ async function drawCategoryProducts() {
             <img src=${item.image}>
             <p>${item.description}</p>
             <p>${item.price}</p>
-            <p>${item.name}</p>
+            <p>${item.productName}</p>
             <p>${item.productTitle}</p>
         </li>
         `,
