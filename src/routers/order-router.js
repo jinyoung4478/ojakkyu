@@ -97,8 +97,9 @@ orderRouter.post('/payment', async (req, res, next) => {
       );
     }
 
-    const userId = req.body.currentUserId;
+    const userId = req.currentUserId;
     const summaryTitle = req.body.summaryTitle;
+    const initial = req.body.initial;
     const status = req.body.status;
     const totalPrice = req.body.totalPrice;
     const address = req.body.address;
@@ -106,6 +107,7 @@ orderRouter.post('/payment', async (req, res, next) => {
     const newOrder = await orderService.addOrder({
       userId,
       summaryTitle,
+      initial,
       status,
       totalPrice,
       address,
