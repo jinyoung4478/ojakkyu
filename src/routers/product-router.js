@@ -43,7 +43,7 @@ productRouter.get("/category/:categoryId", async (req, res, next) => {
     }
 })
 //상품 상세조회
-productRouter.get("productDetail/:productId", async (req, res, next) => {
+productRouter.get("/productDetail/:productId", async (req, res, next) => {
     try {
         const { productId } = req.params
         console.log(productId)
