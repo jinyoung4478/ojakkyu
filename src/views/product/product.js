@@ -18,6 +18,14 @@ function renderElements() {
 async function drawCategoryProducts() {
   try {
     const data = await Api.get(`/api/product/category/${categoryType}`);
+    const categoryTitle = document.querySelector(".categoryTitle h1");
+
+
+    if(categoryType === "bracelet") categoryTitle.innerText = "팔찌";
+    if(categoryType === "ring") categoryTitle.innerText = "반지";
+    if(categoryType === "necklace") categoryTitle.innerText = "목걸이";
+
+
     productWrapper.innerHTML = data.reduce(
       (acc, item) =>
         acc +

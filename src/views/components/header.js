@@ -1,4 +1,4 @@
-
+import * as Api from "/utils/api.js";
 
 // login
 const utilContents = document.querySelector('.utilContents');
@@ -6,6 +6,8 @@ const token = sessionStorage.getItem('token');
 
 // gnb
 const gnbContents = document.querySelector('.gnbContents');
+
+await drawCategory();
 
 async function drawCategory() {
 
@@ -17,8 +19,19 @@ async function drawCategory() {
         `;
   }
 
+  let isAdmin = false;
   if (token) {
+    try{
+      const { role } = await Api.get('/api/users/myInfo');
+      if (role === 'admin-user') isAdmin = true;
+    }catch(err){
+      alert(`Error: ${err}`);
+    }
+    
     utilContents.innerHTML = `
+            <li id="adminAdd">
+              ${ isAdmin ? `<a href="/product/add">상품 추가하기</a>` : ``}
+            </li>
             <li class="logout">로그아웃</li>
             <li><a href="/account">마이페이지</a></li>
             <li><a href="/cart">장바구니</a></li>
@@ -41,17 +54,36 @@ async function drawCategory() {
         `;
 
 
-  function moveCategory(e) {
-
-    if(e.target.tagName === "LI"){
-      if(e.target.innerText === "팔찌") location.href = `/product/category/bracelet`;
-      if(e.target.innerText === "반지") location.href = `/product/category/ring`;
-      if(e.target.innerText === "목걸이") location.href = `/product/category/necklace`;
-    }
-  
-  }
-  gnbContents.addEventListener("click", moveCategory)
+ 
 
 }
 
-drawCategory();
+function moveCategory(e) {
+
+  if(e.target.tagName === "LI"){
+    if(e.target.innerText === "팔찌") location.href = `/product/category/bracelet`;
+    if(e.target.innerText === "반지") location.href = `/product/category/ring`;
+    if(e.target.innerText === "목걸이") location.href = `/product/category/necklace`;
+  }
+
+}
+gnbContents.addEventListener("click", moveCategory)
+
+
+const adminAdd = document.querySelector("#adminAdd");
+let toggleBoolean = true;
+
+
+
+window.setInterval(function(){
+  
+
+  toggleBoolean ? (
+      adminAdd.classList.toggle("rotate"),
+      toggleBoolean = !toggleBoolean
+    ) : (
+      adminAdd.classList.toggle("rotate"),
+      toggleBoolean = !toggleBoolean
+      )
+
+}, 4000)

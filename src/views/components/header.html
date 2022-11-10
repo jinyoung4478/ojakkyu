@@ -52,7 +52,6 @@
       .util ul li a:hover{
         color: coral;
       }
-      
 
       /* GNB */
       .gnb {
@@ -75,6 +74,29 @@
       .gnb ul li:hover{
         color: coral;
       }
+
+      .gnb ul li a:hover{
+        color: coral;
+      }
+
+      /* 어드민 */
+      #adminAdd a{
+        color: green;
+      }
+
+      #adminAdd.rotate{
+        transition: all 0.4s;
+        animation: rotateTurn 0.4s;
+      }
+
+      @keyframes rotateTurn {
+        0% { transform: translateX(-300%) scale(0.3) rotate(0deg); opacity: 0; }
+        50% { transform: translateX(0) scale(1.0) rotate(0deg); opacity: 0.5; }
+        100% { transform: translateX(0) scale(1.0) rotate(740deg); opacity: 1;}
+      }
+
+
+
       
     </style>
   </head>

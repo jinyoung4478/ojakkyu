@@ -1,8 +1,6 @@
-import * as Api from '/utils/api.js';
 import {
   addCommas,
   renderClientSideComponent,
-  checkLogin,
 } from '/utils/useful-functions.js';
 
 // dom 요소
@@ -18,18 +16,21 @@ function renderElements() {
 }
 
 // 총 개수 세기
-// totalProductItems();
 
-// function totalProductItems(){
-//   const countAllItem = document.querySelector(".countAllItem");
-//   const productCount = document.querySelector(".productCount");
-//   console.log(data.length)
-//   if(data.length === 0) {
-//     productCount.innerText = "장바구니가 비어있습니다.";
-//     sessionStorage.clear(); 
-//   }
-//   else countAllItem.innerText = data.length;
-// }
+function totalProductItems(){
+  const countAllItem = document.querySelector(".countAllItem");
+  const productCount = document.querySelector(".productCount");
+  console.log(data.length)
+
+    if(data.length === null) {
+      productCount.innerText = "0";
+      sessionStorage.clear(); 
+    }
+    else countAllItem.innerText = data.length;
+ 
+}
+
+totalProductItems();
 
 
 
@@ -38,62 +39,74 @@ async function drawProduct() {
   productList.innerHTML = "";
   try {
     console.log(data)
-    const insertList = data.map((tem,idx) => {
-    const { image, id, title, name, quantity, price, description, initial, _id} = tem;
 
-      return `
-
-        <form class="cartForm">
-          <div class="cartInfo">
-            <p class="checkBox"><input type="checkbox" name="cart" class="checkCart" data-id="${_id}"/></p>
-            <figure class="innerImg">
-              <img
-                src=${image}
-              />
-            </figure>
-            <div class="subWrap">
-                <h3 class="subTitle">
-                  ${title}
-                </h3>
-                <span class="nameText">${name}</span>
-                <p class="descText">
-                  ${description}
-                </p>
-                <p class="totalPrice">
-                  <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
-                </p>
+    if(data !== null && data.length !== 0){
+      const insertList = data.map((tem,idx) => {
+        const { image, id, title, name, quantity, price, description, initial, _id} = tem;
+    
+          return `
+            <section class="cartForm">
+              <div class="cartInfo">
+                <p class="checkBox"><input type="checkbox" name="cart" class="checkCart" data-id="${_id}"/></p>
+                <figure class="innerImg">
+                  <img
+                    src=${image}
+                  />
+                </figure>
+                <div class="subWrap">
+                    <h3 class="subTitle">
+                      ${title}
+                    </h3>
+                    <span class="nameText">${name}</span>
+                    <p class="descText">
+                      ${description}
+                    </p>
+                    <p class="totalPrice">
+                      <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
+                    </p>
+                  </div>
+                </div>
+    
+                <div class="initialWrap">
+                ${initial ? 
+                (
+                  `
+                  <label>각인될 문구: 
+                      <span>${initial}</span> 
+                  </label>
+                  `
+                ) : (
+                  `<label>입력하신 문구가 없습니다.</label>`
+                )}   
+                </div>
+    
+                <div class="quantityInput" key=${idx}>
+                  <input
+                    value="${quantity}"
+                    class="countItem"
+                    type="text"
+                    placeholder="0"
+                    disabled = "true"
+                  />
+                  <button tpye="button" data-id="${id}" class="deleteProduct"></button>
+                </div>
               </div>
-            </div>
+            </section>
+            `
+        })
+      productList.innerHTML = insertList.join("");
 
-            <div class="initialWrap">
-            ${initial ? 
-            (
-              `
-              <label>각인될 문구: 
-                  <span>${initial}</span> 
-              </label>
-              `
-            ) : (
-              `<label>입력하신 문구가 없습니다.</label>`
-            )}   
-            </div>
+    }else{
+      const container = document.querySelector(".container");
+      const mark = `
+        <div class="emptyCart">
+          <h1>장바구니가 비었습니다.</h1>
+        </div>
+      `
+      container.innerHTML = mark;
+    }
+   
 
-            <div class="quantityInput" key=${idx}>
-              <input
-                value="${quantity}"
-                class="countItem"
-                type="text"
-                placeholder="0"
-                disabled = "true"
-              />
-              <button tpye="button" data-id="${id}" class="deleteProduct"></button>
-            </div>
-          </div>
-        </form>
-        `
-    })
-
-    productList.innerHTML = insertList.join("");
 
   } catch(err){
     console.log(err)
@@ -135,32 +148,53 @@ renderTotalPrice();
 const checkCart = document.querySelectorAll(".checkCart");
 const listItems = document.querySelector(".listItems");
 const quantityInput = document.querySelectorAll(".quantityInput");
-const ar = Array.from(quantityInput).map(e => e.attributes[1].value)
-console.log(ar)
+// 체크된 인풋
+const checkValue = Array.from(quantityInput).map(e => e.attributes[1].value)
 
-function deleteChoice(e){
+const checkLen = Array.from(checkCart).filter(e => e.checked === true).length;
+console.log(checkLen)
 
-  if(e.target.className === "deleteProduct"){
-    e.preventDefault();
-
-    const local = data.filter( a => (a.id != e.target.dataset.id));
-  
-    checkCart.forEach((c,idx) => {
-      if(c.checked){
-          e.target.closest(".cartForm").remove(),
-          sessionStorage.setItem("cart",JSON.stringify(local))
-      }else{
-          // alert("품목을 선택해주세요.")
-      }
-      
-    })
+function checkDelete(e){
+  if(checkLen){
+    
   }
 
 }
-listItems.addEventListener("click", deleteChoice);
+
+// const newCartList = cartList.filter(({ productId }) => checked.indexOf(productId) === -1);
+
+
+// function deleteChoice(e){
+
+//   if(e.target.className === "deleteProduct"){
+//     e.preventDefault();
+
+//     const local = data.filter( a => (a.id != e.target.dataset.id));
+  
+//     checkCart.forEach((c,idx) => {
+//       if(c.checked){
+//           e.target.closest(".cartForm").remove(),
+//           sessionStorage.setItem("cart",JSON.stringify(local))
+//       }else{
+//           // alert("품목을 선택해주세요.")
+//       }
+      
+//     })
+//     const totalPrice = data.reduce(
+//       (acc, item) => acc + Number(item.price),
+//       0,
+//     );
+//     priceText.innerText = renderTotalPrice(totalPrice)
+//   }
+
+// }
+// listItems.addEventListener("click", deleteChoice);
+
+
 
 // 체크 품목 결제페이지로 넘기기
-const orderBtn = document.querySelector(".orderBtn");
+
+
 const priceWrap = document.querySelector(".priceWrap");
 
 function checkedOrder(e){
@@ -179,21 +213,5 @@ function checkedOrder(e){
   }
 
 }
-// orderBtn.addEventListener("click", checkedOrder);
 priceWrap.addEventListener("click", checkedOrder)
 
-
-
-async function renderAdminComponents() {
-  
-  // const initialElem = {
-  //   initial
-  // }
-  
-  `
-  <button type="button" data-id="${productId}" id="editProductButton">
-    상품수정
-  </button>
-  `;
-  // quantityInput.insertAdjacentHTML('afterbegin', initialElem);
-}
