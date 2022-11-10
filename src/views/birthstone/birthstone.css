@@ -6,7 +6,9 @@ body {
 }
 
 main {
-  padding: 10px;
+  margin: 0 auto;
+  width: 1280px;
+  padding: 40px 10px 10px 10px;
 }
 
 main ul {

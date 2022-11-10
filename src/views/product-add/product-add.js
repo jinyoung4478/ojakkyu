@@ -1,4 +1,6 @@
 import * as Api from '/utils/api.js';
+import { renderClientSideComponent } from '/utils/useful-functions.js';
+renderClientSideComponent();
 
 // 요소(element), input 혹은 상수
 const productImageInput = document.querySelector('#productImage');
@@ -12,41 +14,40 @@ const categoryInput = document.querySelector('#category');
 const submitButton = document.querySelector('#submitButton');
 // 회원가입 진행
 async function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const productImage = productImageInput.value;
-    const productId = productIdInput.value;
-    const productName = productNameInput.value;
-    const productTitle = productTitleInput.value;
-    const description = descriptionInput.value;
-    const price = priceInput.value;
-    const stoneType = stoneTypeInput.value;
-    const category = categoryInput.value;
+  const productImage = productImageInput.value;
+  const productId = productIdInput.value;
+  const productName = productNameInput.value;
+  const productTitle = productTitleInput.value;
+  const description = descriptionInput.value;
+  const price = priceInput.value;
+  const stoneType = stoneTypeInput.value;
+  const category = categoryInput.value;
 
+  // 회원가입 api 요청
+  try {
+    const data = {
+      productId,
+      productName,
+      productTitle,
+      description,
+      price,
+      stoneType,
+      category,
+      image: productImage,
+      availability: true,
+      likes: 0,
+    };
+    await Api.post('/api/product', data);
 
-    // 회원가입 api 요청
-    try {
-        const data = {
-            productId,
-            productName,
-            productTitle,
-            description,
-            price,
-            stoneType,
-            category,
-            "image": productImage,
-            "availability": true,
-            "likes": 0
-        };
-        await Api.post('/api/product', data);
+    alert(`정상적으로 상품이 등록되었습니다.`);
 
-        alert(`정상적으로 상품이 등록되었습니다.`);
-
-        // 로그인 페이지 이동
-        window.location.href = '/product/category/All';
-    } catch (err) {
-        console.error(err.stack);
-        alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-    }
+    // 로그인 페이지 이동
+    window.location.href = '/product/category/All';
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
 }
-submitButton.addEventListener("click", handleSubmit)
+submitButton.addEventListener('click', handleSubmit);
