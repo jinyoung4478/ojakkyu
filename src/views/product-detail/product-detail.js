@@ -105,64 +105,6 @@ function handlePurchase(e) {
         location.href = `/order`;
     }
 
-function handleProductToCart() {
-
-
-    // 기존 장바구니 목록 데이터
-    let cartData = [];
-    // try{
-    //     cartData = sessionStorage.getItem('cart');
-    //     cartData = JSON.parse(cartData).product;
-    //     console.log(cartData)
-    // }catch(err){
-    //     console.log(err)
-    // }
-    
-    // data = 기존 데이터 + 새로운 데이터
-    // let cartDataStr;
-
-    //     if (cartData) {
-    //         cartDataStr = JSON.stringify({
-    //         product: [
-    //             ...cartData,
-    //             {
-    //                 description: data.description,
-    //                 title: data.productTitle,
-    //                 image: data.image,
-    //                 id: data.productId,
-    //                 name: data.productName,
-    //                 price: data.price,
-    //                 quantity: 1,
-    //             },
-    //         ],
-                // if(isTrue){
-            //     alert("이미 장바구니에 담긴 제품입니다.");
-            //     return;
-            // }
-    //     });
-    //     }else{
-    //         cartDataStr = JSON.stringify({
-    //         product: [
-    //             {
-    //             description: data.description,
-    //             title: data.productTitle,
-    //             image: data.image,
-    //             id: data.productId,
-    //             name: data.productName,
-    //             price: data.price,
-    //             quantity: 1,
-    //             },
-    //         ],
-    //     });   
-    // }
-
-
-    // sessionStorage.setItem('cart', cartDataStr);
-    // alert("성공적으로 장바구니에 담겼습니다.")
-    // location.href = '/cart';
-    
-}
-
 function addCart(){ 
     let isTrue = false;
 

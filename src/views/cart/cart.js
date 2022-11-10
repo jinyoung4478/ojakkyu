@@ -7,8 +7,10 @@ import {
 
 // dom 요소
 const productList = document.querySelector('.listItems');
-const countDelete = document.querySelector(".countDelete");
 const data = JSON.parse(sessionStorage.getItem("cart"));
+
+
+
 
 
 renderElements();
@@ -43,7 +45,6 @@ async function drawProduct() {
     const insertList = data.map((tem) => {
     const { image, id, title, name, quantity, price, description} = tem;
 
-      console.log(tem)
       return `
 
         <form class="cartForm">
@@ -72,8 +73,10 @@ async function drawProduct() {
               <input
                 value="${quantity}"
                 class="countItem"
-                type="number"
+                type="text"
                 placeholder="0"
+                onchange=${changeItemCount(value)}
+
               />
               <button tpye="button" data-id="${id}" class="deleteProduct"></button>
             </div>
@@ -88,6 +91,13 @@ async function drawProduct() {
     console.log(err)
   }
 }
+
+const countItem = document.querySelector(".countItem");
+function changeItemCount(val){
+  console.dir(countItem.value)
+
+}
+changeItemCount()
 
 // 전체삭제
 const allDelete = document.querySelector(".deleteBtn");
@@ -129,10 +139,15 @@ function deleteChoice(e){
 listItems.addEventListener("click", deleteChoice);
 
 
+// 총액 구하기
+const priceText = document.querySelector(".priceText");
+function renderTotalPrice() {
+  const totalPrice = data.reduce(
+    (acc, item) => acc + Number(item.price),
+    0,
+  );
+  priceText.innerText = addCommas(totalPrice);
+}
 
-  
-
-
-
-
+renderTotalPrice();
 
