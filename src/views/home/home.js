@@ -6,13 +6,13 @@ const moveDetail = document.querySelector('.product');
 
 async function drawProduct() {
   try {
-    const res = await Api.get("/api/product");
+    const res = await Api.get("/api/product/newProducts");
 
     product.innerHTML = res.map((tem) => {
 
       const { image, description, price, productName, productTitle, stoneType, productId } = tem;
 
-      return`
+      return `
             <li data-id="${productId}" class="productEvent">
                 <img src=${image}>
                 <p>${description}</p>
