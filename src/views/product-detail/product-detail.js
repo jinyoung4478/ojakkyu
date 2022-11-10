@@ -36,6 +36,8 @@ async function renderElements() {
   // admin 계정일 경우 어드민 UI 렌더링
   if (isAdmin) {
     await renderAdminComponents();
+      // 관리자 전용
+    buttonWrapper.addEventListener('click', handleEditProduct);
   }
 }
 
@@ -107,8 +109,7 @@ function addAllEvents() {
   moveCart.addEventListener('click', addCart);
   //   adCartButton.addEventListener('click', handleProductToCart);
 
-  // 관리자 전용
-  buttonWrapper.addEventListener('click', handleEditProduct);
+
 }
 
 // 해당 제품 바로 구매하기
