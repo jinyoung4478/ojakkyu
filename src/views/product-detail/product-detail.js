@@ -36,18 +36,17 @@ async function renderElements() {
   // admin 계정일 경우 어드민 UI 렌더링
   if (isAdmin) {
     await renderAdminComponents();
-      // 관리자 전용
+    // 관리자 전용
     buttonWrapper.addEventListener('click', handleEditProduct);
   }
 }
 
 async function drawDetail() {
-
   try {
     data = await Api.get('/api/product/productDetail', productId);
-    const { image, description, price, productName, productTitle, stoneType } = data;
-    console.log(data)
-
+    const { image, description, price, productName, productTitle, stoneType } =
+      data;
+    console.log(data);
 
     productImg.innerHTML = `
                 <figure>
@@ -69,7 +68,6 @@ async function drawDetail() {
         </li>
     `;
     productDesc.insertAdjacentHTML('afterbegin', productDataElem);
-    
   } catch (err) {
     alert(err);
   }
@@ -90,7 +88,7 @@ async function checkAdminUser() {
     }
     return;
   } catch (err) {
-    alert(`Error: ${err}`);
+    alert(`잘못된 토큰입니다. ${err}`);
   }
   return;
 }
@@ -155,8 +153,13 @@ function addCart() {
     return;
   } else {
     // 이니셜 입력 체크
-    if(initial === "") {
-      if(window.confirm("이니셜 문구가 입력되지 않았습니다. 계속 진행 하시겠습니까?")) location.href = "/cart";
+    if (initial === '') {
+      if (
+        window.confirm(
+          '이니셜 문구가 입력되지 않았습니다. 계속 진행 하시겠습니까?',
+        )
+      )
+        location.href = '/cart';
       else return;
     }
     alert('제품을 성공적으로 담았습니다.');
@@ -164,7 +167,6 @@ function addCart() {
     sessionStorage.setItem('cart', JSON.stringify(baskets));
     location.href = '/cart';
   }
-
 }
 
 function handleEditProduct(e) {
