@@ -40,6 +40,7 @@ function renderElements() {
   insertUserData();
 }
 
+// 장바구니에서 주문 페이지로 왔는지 판별
 function checkOrderType() {
   // 장바구니 페이지에서 유입되었을 경우
   if (exUrl === '/cart/') {
@@ -52,7 +53,7 @@ function renderOrderList() {
   // 주문 목록 데이터 불러오기
 
   try {
-    orderData = JSON.parse(sessionStorage.getItem(type)).product;
+    orderData = JSON.parse(sessionStorage.getItem(type));
   } catch (err) {
     alert('주문 목록이 없습니다.');
     location.href = exUrl;
@@ -76,6 +77,7 @@ function renderOrderList() {
   listItems.innerHTML += `<ul>${elementOfProducts}</ul>`;
 }
 
+// 주문 총액 표시하기
 function renderTotalPrice() {
   const totalPrice = orderData.reduce(
     (acc, item) => acc + Number(item.price),
@@ -84,6 +86,7 @@ function renderTotalPrice() {
   priceTotalSpan.innerText = addCommas(totalPrice);
 }
 
+// 로그인된 사용자의 경우 해당 유저 데이터 자동 입력
 async function insertUserData() {
   // 로그인 여부 판별
   const token = sessionStorage.getItem('token');
@@ -106,12 +109,14 @@ async function insertUserData() {
   phoneNumberInput.value = phoneNumber;
 }
 
+// 모든 이벤트 바인딩
 function addAllEvents() {
   searchAddressButton.addEventListener('click', searchAddress);
   purchaseButton.addEventListener('click', handlePurchase);
   phoneNumberInput.addEventListener('input', handlePhoneNumberInput);
 }
 
+// 다음 주소 API를 활용한 주소 검색 기능
 function searchAddress(e) {
   e.preventDefault();
   new daum.Postcode({
@@ -150,6 +155,7 @@ function handlePhoneNumberInput() {
   phoneNumberInput.value = formatPhoneNumber(this.value);
 }
 
+// 결제하기 버튼 클릭 서비스
 async function handlePurchase(e) {
   e.preventDefault();
 
@@ -186,7 +192,8 @@ async function handlePurchase(e) {
 
   const currentUserId = userData._id;
   const summaryTitle = orderData.reduce(
-    (acc, item) => acc + `${item.name} / ${item.quantity}개\n`,
+    (acc, item) =>
+      acc + `${item.name} / ${item.quantity}개 / 이니셜: ${item.initial}\n`,
     '',
   );
 
@@ -203,7 +210,6 @@ async function handlePurchase(e) {
     status: '상품 준비 중',
     totalPrice,
   };
-
   try {
     // order api 요청
     await Api.post('/api/orders/payment', data);
