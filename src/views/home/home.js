@@ -7,7 +7,7 @@ start();
 
 async function drawProduct() {
   try {
-    const data = await Api.get('/api/product');
+    const data = await Api.get('/api/product/newProducts');
 
     product.innerHTML = data
       .map((tem) => {

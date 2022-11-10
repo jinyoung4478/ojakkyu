@@ -7,7 +7,7 @@ async function drawCategory() {
 
   // gnb
   const gnbContents = document.querySelector('.gnbContents');
-  const res = await fetch('/api/product');
+  const res = await fetch('/api/product/allProducts');
   const data = await res.json();
   const categoryType = data.map((e) => e.category);
 

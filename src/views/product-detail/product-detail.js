@@ -40,9 +40,9 @@ function addAllEvents() {
 
 async function drawDetail() {
   try {
-    data = await Api.get('/api/product', productId);
-    const { image, description, price, productName, productTitle, stoneType } =
-      data;
+
+    data = await Api.get('/api/product/productDetail', productId);
+    const { image, description, price, productName, productTitle, stoneType } = data;
 
     productImg.innerHTML = `
                 <figure>
