@@ -57,7 +57,7 @@ productRouter.get("/productDetail/:productId", async (req, res, next) => {
 
 
 //상품 등록
-productRouter.post("/", async (req, res, next) => {
+productRouter.post("/productDetail", async (req, res, next) => {
     try {
         console.log("router")
         const {
