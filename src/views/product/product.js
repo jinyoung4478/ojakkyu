@@ -49,11 +49,12 @@ async function drawCategoryProducts(page) {
     let result;
     if (nowStone === 'all') {
       result = await Api.get(
-        `/api/product/category/${categoryType}?page=${page}`,
+        `/api/product/category/${categoryType}/all/?page=${page}`,
       );
     } else {
+      // 탄생석별 API 요청
       result = await Api.get(
-        `/api/product/category/${categoryType}/all/?stone=${nowStone}?page=${page}`,
+        `/api/product/category/${categoryType}/${nowStone}?page=${page}?`,
       );
     }
 
@@ -76,7 +77,7 @@ async function drawCategoryProducts(page) {
         `,
       '',
     );
-
+    pagelist.innerHTML = '';
     // 페이지 리스트 렌더링
     for (let i = 1; i <= totalPage; i++) {
       if (i == page) {
