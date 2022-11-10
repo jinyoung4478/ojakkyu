@@ -21,8 +21,8 @@
 }
 
 /* 제품 설명 */
-.productDetail{
-    width: 100%;
+.productDetail {
+  width: 100%;
 }
 
 .productDesc {
@@ -41,12 +41,12 @@
   font-size: 2em;
 }
 
-.routeBtn {
+.buttonWrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.routeBtn button {
+.buttonWrapper button {
   border: none;
   padding: 20px 60px;
   cursor: pointer;
