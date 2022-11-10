@@ -3,18 +3,21 @@ import { renderClientSideComponent } from '/utils/useful-functions.js';
 
 const productWrapper = document.querySelector('#productWrapper');
 const pagelist = document.querySelector('#pagelist');
+
 const categoryUrl = window.location.pathname.split('/');
 const categoryType =
   categoryUrl[categoryUrl.findIndex((a) => a == 'category') + 1];
 const pageUrl = window.location.search;
 const page = Number(pageUrl.split('?page=')[1] || 1);
-let totalPage;
-let products;
+
 const categoryToKorean = {
   bracelet: '팔찌',
   ring: '반지',
   necklace: '목걸이',
 };
+let totalPage;
+let products;
+
 let nowStone = 'all';
 
 // 페이지 렌더링
@@ -50,9 +53,10 @@ async function drawCategoryProducts(page) {
       );
     } else {
       result = await Api.get(
-        `/api/product/category/${categoryType}?stone=${nowStone}?page=${page}`,
+        `/api/product/category/${categoryType}/all/?stone=${nowStone}?page=${page}`,
       );
     }
+
     // 총 페이지 수
     totalPage = result.totalPage;
     // 현재 페이지 제품 데이터
