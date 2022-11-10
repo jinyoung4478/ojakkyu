@@ -116,7 +116,7 @@ adminRouter.get("/orders", async (req, res, next) => {
 });
 
 // 주문 취소
-adminRouter.delete("orders/:orderId", async (req, res, next) => {
+adminRouter.delete("/:orderId", async (req, res, next) => {
   try {
     const { orderId } = req.params;
     const deleteOrder = await orderService.deleteOrder(orderId);
