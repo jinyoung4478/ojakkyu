@@ -12,6 +12,14 @@ export class ProductModel {
         return products;
     }
 
+    async findByNewArrival() {
+        const products = await Product.aggregate([
+            { $sort: { createdAt: -1 } },
+            { $limit: 8 }
+        ])
+        return products
+    }
+
     async findById(productId) {
         const product = await Product.findOne({ productId: productId })
         console.log("findById를 사용했습니다.")

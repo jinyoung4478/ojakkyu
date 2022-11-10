@@ -7,10 +7,22 @@ const productRouter = Router();
 // 현재 url 경로 : api/product/..
 
 //모든 상품조회
-productRouter.get("/", async (req, res, next) => {
+productRouter.get("/allProducts", async (req, res, next) => {
     try {
         console.log("get all router 실행")
         const products = await productService.getProductsAll()
+        res.status(200).json(products)
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
+//신규 상품조회
+productRouter.get("/newProducts", async (req, res, next) => {
+    try {
+        console.log("get newProduct router 실행")
+        const products = await productService.getProductsNewArrival()
         res.status(200).json(products)
     }
     catch (error) {
@@ -31,7 +43,7 @@ productRouter.get("/category/:categoryId", async (req, res, next) => {
     }
 })
 //상품 상세조회
-productRouter.get("/:productId", async (req, res, next) => {
+productRouter.get("/productDetail/:productId", async (req, res, next) => {
     try {
         const { productId } = req.params
         console.log(productId)
@@ -45,7 +57,7 @@ productRouter.get("/:productId", async (req, res, next) => {
 
 
 //상품 등록
-productRouter.post("/", async (req, res, next) => {
+productRouter.post("/productDetail", async (req, res, next) => {
     try {
         console.log("router")
         const {
@@ -81,7 +93,7 @@ productRouter.post("/", async (req, res, next) => {
 })
 
 //상품 수정
-productRouter.put("/:productId", async (req, res, next) => {
+productRouter.put("/productDetail/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
 
@@ -117,7 +129,7 @@ productRouter.put("/:productId", async (req, res, next) => {
     }
 })
 //상품 삭제
-productRouter.delete("/:productId", async (req, res, next) => {
+productRouter.delete("/productDetail/:productId", async (req, res, next) => {
     try {
         const productId = req.params.productId
         await productService.deleteProduct(productId)

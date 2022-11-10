@@ -1,5 +1,9 @@
 import * as Api from '/utils/api.js';
 import { renderClientSideComponent } from '/utils/useful-functions.js';
+
+// admin 유저 판별
+checkAdminUser();
+
 renderClientSideComponent();
 
 const productUrl = window.location.pathname.split('/');
@@ -19,8 +23,7 @@ const deleteButton = document.querySelector('#deleteButton');
 
 // 기존 정보를 불러와서 입력란에 선 기입
 async function writeOriginalData() {
-  const product = await Api.get('/api/product', productId);
-  console.log(product);
+  const product = await Api.get('/api/product/productDetail', productId);
   const productName = product.productName;
   const productTitle = product.productTitle;
   const description = product.description;
@@ -43,6 +46,27 @@ async function writeOriginalData() {
   //availabilityInput.value = availability;
 }
 writeOriginalData();
+
+async function checkAdminUser() {
+  // 로그인 여부 확인
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    const path = window.location.pathname;
+    const search = window.location.search;
+    // 로그인 후 다시 지금 페이지로 자동으로 돌아가도록 하기 위한 준비작업
+    window.location.replace(`/login?previouspage=${path + search}`);
+  }
+  try {
+    // 로그인 상태일 경우 어드민 여부 확인
+    const { role } = await Api.get('/api/users/myInfo');
+    if (role === 'admin-user') {
+      return;
+    }
+  } catch (err) {
+    alert(`Error: ${err}`);
+  }
+  window.location.replace('/');
+}
 
 // 제품 수정
 async function handleEdit(e) {
@@ -73,12 +97,12 @@ async function handleEdit(e) {
       availability: true,
     };
     console.log(productId);
-    await Api.put('/api/product', `${productId}`, data);
+    await Api.put('/api/product/productDetail', `${productId}`, data);
 
     alert(`정상적으로 상품이 수정되었습니다.`);
 
     // 수정된 페이지로이동
-    window.location.href = `/product/${editproductId}`;
+    window.location.href = `/product/productDetail/${editproductId}`;
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
@@ -93,7 +117,9 @@ async function handleDelete(e) {
   try {
     const delConfirm = confirm('상품을 삭제하시겠습니까?');
     if (delConfirm) {
-      await Api.delete('/api/product', `${productId}`, { productId });
+      await Api.delete('/api/product/productDetail', `${productId}`, {
+        productId,
+      });
       // 홈페이지로 이동
       window.location.href = `/`;
       alert('삭제되었습니다.');
