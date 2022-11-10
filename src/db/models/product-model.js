@@ -20,6 +20,10 @@ export class ProductModel {
     //     return products
     // }
 
+    async findByStonetype(stoneType) {
+        const products = await Product.find({ stoneType })
+        return products;
+    }
 
     async findByNewArrival() {
         const products = await Product.find({})
