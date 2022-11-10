@@ -45,6 +45,20 @@ productRouter.get("/category/:categoryId", async (req, res, next) => {
         next(error)
     }
 })
+
+//탄생석별 조회
+productRouter.get("/stoneType/:stoneType", async (req, res, next) => {
+    try {
+        const category = req.params.stoneType;
+        const products
+            = await productService.getProductsByStonetype(category, page)
+        res.status(200).json(products)
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 //상품 상세조회
 productRouter.get("/productDetail/:productId", async (req, res, next) => {
     try {

@@ -35,6 +35,15 @@ class ProductService {
         return products;
     }
 
+    async getProductsByStonetype(stoneType) {
+        const products = await this.productModel.findAll({ stoneType });
+        if (!products) {
+            throw new Error("전체 상품리스트를 불러올 수 없습니다.")
+        }
+        return products;
+    }
+
+
     async getProductsNewArrival() {
         const products = await this.productModel.findByNewArrival();
         if (!products) {
