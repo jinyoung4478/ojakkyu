@@ -51,9 +51,10 @@ productRouter.get("/category/:categoryId/:stoneType", async (req, res, next) => 
     try {
         const category = req.params.categoryId;
         const stoneType = req.params.stoneType;
-        const products
-            = await productService.getProductsByStonetype(stoneType, category)
-        res.status(200).json(products)
+        const page = (req.query.page.split('/'))[0];
+        const { totalPage, products }
+            = await productService.getProductsByStonetype(stoneType, category, page)
+        res.status(200).json({ totalPage, products })
     }
     catch (error) {
         next(error)
