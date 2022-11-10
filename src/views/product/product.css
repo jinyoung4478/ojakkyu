@@ -56,3 +56,16 @@
   height: 50px;
   margin: 0 10px;
 }
+
+.pageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  font-size: 22px;
+}
+
+.pageWrapper ul li {
+  margin: 0 10px;
+  float: left;
+}
