@@ -23,7 +23,7 @@ function renderElements() {
 async function drawCategoryProducts(page) {
   try {
     const { totalPage, products }
-      = await Api.get(`/api/product/category/${categoryType}?page=${page}`);
+      = await Api.get(`/api/product/category/all/${categoryType}?page=${page}`);
     productWrapper.innerHTML = products.reduce(
       (acc, item) =>
         acc +
