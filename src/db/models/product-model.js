@@ -12,11 +12,19 @@ export class ProductModel {
         return products;
     }
 
+    // async findByNewArrival() {
+    //     const products = await Product.aggregate([
+    //         { $sort: { createdAt: -1 } },
+    //         { $limit: 8 }
+    //     ])
+    //     return products
+    // }
+
+
     async findByNewArrival() {
-        const products = await Product.aggregate([
-            { $sort: { createdAt: -1 } },
-            { $limit: 8 }
-        ])
+        const products = await Product.find({})
+            .sort({ createdAt: -1 })
+            .limit(8)
         return products
     }
 
@@ -53,6 +61,7 @@ export class ProductModel {
 
     async findByCategoty(category) {
         const products = await Product.find({ category: category })
+            .sort({ productId: 1 })
         return products;
     }
 
