@@ -1,9 +1,10 @@
 @charset "utf-8";
 @import "/styles/reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 /* 전체 레이아웃 */
 .container{
-  width: 980px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -71,6 +72,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 50%;
 }
 
 .innerImg{
@@ -78,14 +80,21 @@
 }
 
 .subWrap{
-  width: 400px;
   line-height: 1.6;
 }
 
 .subTitle{
   color: #363636;
-  font-size: 2rem;
+  font-size: 1.8em;
   font-weight: 600;
+}
+
+.nameText{
+  font-size: 16px;
+}
+
+.descText{
+  font-size: 14px;
 }
 
 .totalPrice{
@@ -93,11 +102,26 @@
   color: #3850b7;
   text-align: center;
   max-width: 80px;
+  font-size: 14px;
 }
 
 .innerImg img{
   width: 128px;
   height: 128px;
+}
+
+.initialWrap{
+  width: 16%;
+}
+
+.initialWrap label{
+  font-weight: 600;
+}
+
+.initialWrap label span{
+  font-size: 20px;
+  color: coral;
+  font-family: 'Great Vibes', cursive;
 }
 
 .quantityInput{
@@ -186,7 +210,7 @@
   cursor: pointer;
 }
 
-.orderBtn:hover, .orderBtn:focus{
+.orderBtn:hover{
   background-color: #f14668;
   border-color: #f14668;
   color: #fff;

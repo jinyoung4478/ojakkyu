@@ -25,6 +25,7 @@ addAllEvents();
 function renderElements() {
   renderClientSideComponent();
   drawDetail();
+
   // admin 계정일 경우 상품 수정 버튼 렌더링
   //renderAdminComponents();
 }
@@ -38,23 +39,24 @@ function addAllEvents() {
 }
 
 async function drawDetail() {
+
   try {
     data = await Api.get('/api/product', productId);
-    const { image, description, price, productName, productTitle, stoneType } =
-      data;
-
+    const { image, description, price, productName, productTitle, stoneType } = data;
+    console.log(data)
     productImg.innerHTML = `
                 <figure>
                     <img src="${image}"/>
                 </figure>
             `;
+
     const productDataElem = `
         <li><h1>${productTitle}</h1></li>
         <li>제품명 : ${productName}</li>
         <li>판매가: ${addCommas(price)}원</li>
         <li><label>제품 설명 : ${description}</label></li>
         <li>
-        <label>원석: ${stoneType}</label>
+          <label>원석: ${stoneType}</label>
         </li>
         
         <li>
@@ -91,12 +93,13 @@ function handlePurchase(e) {
   location.href = `/order`;
 }
 
-
+// 장바구니에 제품 추가
 function addCart() {
   let isTrue = false;
   const initial = initialInput.value;
 
   const cartObj = JSON.stringify({
+    _id: data._id,
     description: data.description,
     title: data.productTitle,
     image: data.image,
@@ -107,6 +110,12 @@ function addCart() {
     initial,
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+  // 이니셜 입력 체크
+  if(initial === "" || initial.length < 3) {
+    alert("이니셜을 입력해주세요. 최소 3글자를 입력해야 합니다.");
+    return;
+  }
 
   // 중복 제품 걸러줌
   baskets.filter((e) => {
@@ -122,6 +131,10 @@ function addCart() {
     sessionStorage.setItem('cart', JSON.stringify(baskets));
     location.href = '/cart';
   }
+  baskets.push(JSON.parse(cartObj));
+  sessionStorage.setItem('cart', JSON.stringify(baskets));
+  alert('제품을 성공적으로 담았습니다.');
+  location.href = '/cart';
 }
 
 function handleEditProduct(e) {

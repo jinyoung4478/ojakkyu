@@ -41,6 +41,6 @@ start();
 // 상세페이지 이동
 moveDetail.addEventListener("click", (e) => {
   const pareLi = e.target.closest(".productEvent");
-  location.href = `/product/${pareLi.dataset.id}`
+  location.href = `/product/${pareLi.dataset.id}`;
 })
 

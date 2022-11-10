@@ -9,10 +9,6 @@ import {
 const productList = document.querySelector('.listItems');
 const data = JSON.parse(sessionStorage.getItem("cart"));
 
-
-
-
-
 renderElements();
 
 // 엘리먼트 렌더링
@@ -42,8 +38,8 @@ async function drawProduct() {
   productList.innerHTML = "";
   try {
     console.log(data)
-    const insertList = data.map((tem) => {
-    const { image, id, title, name, quantity, price, description} = tem;
+    const insertList = data.map((tem,idx) => {
+    const { image, id, title, name, quantity, price, description, initial, _id} = tem;
 
       return `
 
@@ -59,26 +55,33 @@ async function drawProduct() {
                 <h3 class="subTitle">
                   ${title}
                 </h3>
-                <p class="subText">
+                <span class="nameText">${name}</span>
+                <p class="descText">
                   ${description}
                 </p>
                 <p class="totalPrice">
-                  <span id="pricePerItem">${price}</span>&nbsp;원
+                  <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
                 </p>
               </div>
             </div>
 
-            <div class="quantityInput">
-              <input type="hidden" value="${id}">
+            <div class="initialWrap">
+              <label>각인될 문구: 
+                <i class="fa-solid fa-bracket-square"></i>
+                  <span>${initial}</span> 
+                <i class="fa-solid fa-bracket-square"></i>
+              </label>
+            </div>
+
+            <div class="quantityInput" key=${idx}>
               <input
                 value="${quantity}"
                 class="countItem"
                 type="text"
                 placeholder="0"
-                onchange=${changeItemCount()}
-
+                disabled = "true"
               />
-              <button tpye="button" data-id="${id}" class="deleteProduct"></button>
+              <button tpye="button" data-id="${id}" data-key="${idx}" data-initial="${initial}" class="deleteProduct"></button>
             </div>
           </div>
         </form>
@@ -92,11 +95,6 @@ async function drawProduct() {
   }
 }
 
-const countItem = document.querySelector(".countItem");
-function changeItemCount(){
-  console.log("asd")
-}
-changeItemCount()
 
 // 전체삭제
 const allDelete = document.querySelector(".deleteBtn");
@@ -115,29 +113,6 @@ function allDeleteCart(){
 
 allDelete.addEventListener("click", allDeleteCart)
 
-
-// 개별 삭제
-const checkCart = document.querySelectorAll(".checkCart");
-const listItems = document.querySelector(".listItems");
-
-function deleteChoice(e){
-  if(e.target.className === "deleteProduct"){
-    e.preventDefault();
-    const local = data.filter( a => a.id != e.target.dataset.id);
-
-    checkCart.forEach((c) => {
-      c.checked ? (
-        e.target.closest(".cartForm").remove(),
-        sessionStorage.setItem("cart",JSON.stringify(local))
-      ) : (
-          ""
-      )
-    })
-  }
-}
-listItems.addEventListener("click", deleteChoice);
-
-
 // 총액 구하기
 const priceText = document.querySelector(".priceText");
 function renderTotalPrice() {
@@ -150,3 +125,49 @@ function renderTotalPrice() {
 
 renderTotalPrice();
 
+
+// 개별 삭제
+const checkCart = document.querySelectorAll(".checkCart");
+const listItems = document.querySelector(".listItems");
+const quantityInput = document.querySelectorAll(".quantityInput");
+const ar = Array.from(quantityInput).map(e => e.attributes[1].value)
+console.log(ar)
+
+function deleteChoice(e){
+  if(e.target.className === "deleteProduct"){
+    e.preventDefault();
+
+    const local = data.filter( a => (a.id != e.target.dataset.id));
+    
+    // console.log( e.target.closest(".checkCart"),e.target)
+    // console.log(local,"asdasd")
+    checkCart.forEach((c,idx) => {
+      // console.log(c,idx, "asd" , ar[idx])
+      if(c.checked){
+          e.target.closest(".cartForm").remove(),
+          sessionStorage.setItem("cart",JSON.stringify(local))
+      }else{
+          // alert("품목을 선택해주세요.")
+      }
+      
+    })
+  }
+
+}
+listItems.addEventListener("click", deleteChoice);
+
+
+
+
+// 체크 품목 결제페이지로 넘기기
+const orderBtn = document.querySelector(".orderBtn");
+
+function checkedOrder(e){
+  e.preventDefault();
+  checkCart.forEach(c => {
+    if(!c.checked) alert("제품을 선택해주세요.");
+
+  })
+
+}
+// orderBtn.addEventListener("click", checkedOrder);
