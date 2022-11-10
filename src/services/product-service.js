@@ -51,6 +51,7 @@ class ProductService {
         return product
     }
 
+    // 값이 없을 때  걸러내는 로직  필요함
     async editProduct(productId, productInfo) {
         const { editproductId, editproductName } = productInfo;
         const existedId = await this.productModel.findByExistedId(editproductId)
@@ -89,8 +90,8 @@ class ProductService {
         await this.productModel.delete(productInfo)
     }
 
-    async getProductsByCategory(category) {
-        const products = await this.productModel.findByCategoty(category)
+    async getProductsByCategory(category, page) {
+        const products = await this.productModel.findByCategory(category, page)
         if (!products) {
             throw new Error("카테고리별 상품을 불러올 수 없습니다. 관리자에게 문의하세요.")
         }

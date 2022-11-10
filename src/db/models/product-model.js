@@ -59,10 +59,20 @@ export class ProductModel {
         return product;
     }
 
-    async findByCategoty(category) {
-        const products = await Product.find({ category: category })
-            .sort({ productId: 1 })
-        return products;
+    async findByCategory(category, page) {
+
+        const [total, products] = await Promise.all([
+            Product.countDocuments({ category }),
+            Product.find({ category })
+                .sort({ createdAt: -1 })
+                .skip(12 * (page - 1))
+                .limit(12),
+        ]);
+        console.log("model page", (page))
+        const totalPage = Math.ceil(total / 12);
+        // const products = await Product.find({ category: category })
+        //     .sort({ productId: 1 })
+        return { totalPage, products };
     }
 
     async create(productInfo) {
