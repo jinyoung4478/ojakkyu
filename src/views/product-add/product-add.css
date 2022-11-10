@@ -8,16 +8,18 @@ main {
 }
 
 h2 {
-  margin-bottom: 46 px;
+  margin-bottom: 40px;
 
   text-align: center;
+  font-size: 2em;
+  font-weight: bold;
   color: rgb(87, 86, 86);
 }
 
 .formInputs {
   display: grid;
   justify-content: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(400px, auto) minmax(400px, auto);
   gap: 20px;
 }
 
@@ -31,7 +33,7 @@ input::placeholder {
 
 input {
   margin-bottom: 6px;
-  padding: 20px 40px;
+  padding: 30px 40px;
   width: 100%;
   box-sizing: border-box;
 
@@ -55,8 +57,8 @@ button:hover {
 }
 
 button {
-  margin-top: 40px;
-  padding: 20px 0;
+  margin-top: 60px;
+  padding: 30px 0;
   width: 100%;
 
   color: #f24f70;

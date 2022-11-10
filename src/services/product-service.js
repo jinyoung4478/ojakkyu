@@ -35,6 +35,14 @@ class ProductService {
         return products;
     }
 
+    async getProductsNewArrival() {
+        const products = await this.productModel.findByNewArrival();
+        if (!products) {
+            throw new Error("신규 상품리스트를 불러올 수 없습니다.")
+        }
+        return products;
+    }
+
     async getProduct(productInfo) {
         const product = await this.productModel.findById(productInfo)
         if (!product) {

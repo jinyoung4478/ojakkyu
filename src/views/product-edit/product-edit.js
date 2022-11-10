@@ -19,7 +19,7 @@ const deleteButton = document.querySelector('#deleteButton');
 
 // 기존 정보를 불러와서 입력란에 선 기입
 async function writeOriginalData() {
-  const product = await Api.get('/api/product', productId);
+  const product = await Api.get('/api/product/productDetail', productId);
   console.log(product);
   const productName = product.productName;
   const productTitle = product.productTitle;
@@ -70,15 +70,15 @@ async function handleEdit(e) {
       stoneType,
       category,
       likes,
-      availability: true,
+      "availability": true,
     };
     console.log(productId);
-    await Api.put('/api/product', `${productId}`, data);
+    await Api.put('/api/product/productDetail', `${productId}`, data);
 
     alert(`정상적으로 상품이 수정되었습니다.`);
 
     // 수정된 페이지로이동
-    window.location.href = `/product/${editproductId}`;
+    window.location.href = `/product/productDetail/${editproductId}`;
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
@@ -93,7 +93,7 @@ async function handleDelete(e) {
   try {
     const delConfirm = confirm('상품을 삭제하시겠습니까?');
     if (delConfirm) {
-      await Api.delete('/api/product', `${productId}`, { productId });
+      await Api.delete('/api/product/productDetail', `${productId}`, { productId });
       // 홈페이지로 이동
       window.location.href = `/`;
       alert('삭제되었습니다.');

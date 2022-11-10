@@ -97,7 +97,7 @@ orderRouter.post('/payment', async (req, res, next) => {
       );
     }
 
-    const userId = req.currentUserId;
+    const userId = req.body.currentUserId;
     const summaryTitle = req.body.summaryTitle;
     const initial = req.body.initial;
     const status = req.body.status;
