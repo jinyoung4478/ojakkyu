@@ -192,7 +192,8 @@ async function handlePurchase(e) {
 
   const currentUserId = userData._id;
   const summaryTitle = orderData.reduce(
-    (acc, item) => acc + `${item.name} / ${item.quantity}개\n`,
+    (acc, item) =>
+      acc + `${item.name} / ${item.quantity}개 / 이니셜: ${item.initial}\n`,
     '',
   );
 
@@ -209,7 +210,6 @@ async function handlePurchase(e) {
     status: '상품 준비 중',
     totalPrice,
   };
-
   try {
     // order api 요청
     await Api.post('/api/orders/payment', data);
@@ -220,7 +220,7 @@ async function handlePurchase(e) {
     // 성공 시 sessionStorage 데이터 제거
     sessionStorage.removeItem(type);
 
-    //window.location.replace(`/order-complete`);
+    window.location.replace(`/order-complete`);
   } catch (err) {
     return alert(`Error: ${err}`);
   }

@@ -26,6 +26,7 @@ function renderElements() {
   renderClientSideComponent();
   drawDetail();
   // admin 계정일 경우 상품 수정 버튼 렌더링
+  //renderAdminComponents();
 }
 
 function addAllEvents() {
@@ -79,12 +80,14 @@ async function drawDetail() {
 // 해당 제품 바로 구매하기
 function handlePurchase(e) {
   e.preventDefault();
+  const initial = initialInput.value;
   const orderData = [
     {
       id: data.productId,
       name: data.productName,
       quantity: 1,
       price: data.price,
+      initial,
     },
   ];
   // 현재 상품으로 session Storage의 order 덮어쓰기
@@ -94,7 +97,8 @@ function handlePurchase(e) {
 
 function addCart() {
   let isTrue = false;
-  const initail = initialInput.value;
+  const initial = initialInput.value;
+
   const cartObj = JSON.stringify({
     description: data.description,
     title: data.productTitle,
@@ -103,7 +107,7 @@ function addCart() {
     name: data.productName,
     price: data.price,
     quantity: 1,
-    initail,
+    initial,
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
 
