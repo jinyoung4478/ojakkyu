@@ -14,7 +14,7 @@ export class ProductModel {
 
     async findByNewArrival() {
         const products = await Product.aggregate([
-            { $sort: { timestamp: -1 } },
+            { $sort: { createdAt: -1 } },
             { $limit: 8 }
         ])
         return products
