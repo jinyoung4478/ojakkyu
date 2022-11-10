@@ -15,35 +15,35 @@ const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
 const moveCart = document.querySelector('.moveCart');
 const initialInput = document.querySelector('#initialInput');
+const buttonWrapper = document.querySelector('#buttonWrapper');
 
 let data;
+let isAdmin = false;
 
-// 페이지 렌더링
+// 페이지 렌더링 함수 바인딩
 renderElements();
+// 이벤트 함수 바인딩
 addAllEvents();
 
-function renderElements() {
+async function renderElements() {
+  // 헤더, 푸터 컴포넌트 렌더링
   renderClientSideComponent();
+  // 상품 정보 렌더링
   drawDetail();
-  // admin 계정일 경우 상품 수정 버튼 렌더링
-  //renderAdminComponents();
-}
 
-function addAllEvents() {
-  purchaseButton.addEventListener('click', handlePurchase);
-  moveCart.addEventListener('click', addCart);
-  //   adCartButton.addEventListener('click', handleProductToCart);
-
-  // 관리자 전용
-  editProduct.addEventListener('click', handleEditProduct);
+  // 접속 계정 확인
+  await checkAdminUser();
+  // admin 계정일 경우 어드민 UI 렌더링
+  if (isAdmin) {
+    await renderAdminComponents();
+  }
 }
 
 async function drawDetail() {
   try {
-
     data = await Api.get('/api/product/productDetail', productId);
-    const { image, description, price, productName, productTitle, stoneType } = data;
-
+    const { image, description, price, productName, productTitle, stoneType } =
+      data;
     productImg.innerHTML = `
                 <figure>
                     <img src="${image}"/>
@@ -62,19 +62,48 @@ async function drawDetail() {
             <p>Total : ${addCommas(price)}원</p>
         </li>
     `;
-
     productDesc.insertAdjacentHTML('afterbegin', productDataElem);
-
-    // 상품 수정하기 버튼 클릭 시 어떤 아이템인지 인지할 수 있게 하는 설정
-    editProduct.setAttribute('data-id', `${productId}`);
-
-    // 제품 데이터 로컬스토리지에 담기
-    localStorage.setItem('product', JSON.stringify(data));
-
-    // [ 관리자 권한 ] 제품 수정하기 버튼클릭 시 제품 수정페이지로 이동
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
+}
+
+// 관리자 계정 여부 확인
+async function checkAdminUser() {
+  // 로그인 여부 확인
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    return;
+  }
+  try {
+    // 로그인 상태일 경우 어드민 여부 확인
+    const { role } = await Api.get('/api/users/myInfo');
+    if (role === 'admin-user') {
+      isAdmin = true;
+    }
+    return;
+  } catch (err) {
+    alert(`Error: ${err}`);
+  }
+  return;
+}
+
+async function renderAdminComponents() {
+  const adminEditButtonElem = `
+  <button type="button" data-id="${productId}" id="editProductButton">
+    상품수정
+  </button>
+  `;
+  buttonWrapper.insertAdjacentHTML('beforeend', adminEditButtonElem);
+}
+
+function addAllEvents() {
+  purchaseButton.addEventListener('click', handlePurchase);
+  moveCart.addEventListener('click', addCart);
+  //   adCartButton.addEventListener('click', handleProductToCart);
+
+  // 관리자 전용
+  buttonWrapper.addEventListener('click', handleEditProduct);
 }
 
 // 해당 제품 바로 구매하기
@@ -128,6 +157,6 @@ function addCart() {
 }
 
 function handleEditProduct(e) {
-  const pareLi = e.target;
+  const pareLi = e.target.closest('#editProductButton');
   location.href = `/product/edit/${pareLi.dataset.id}`;
 }
