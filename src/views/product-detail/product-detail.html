@@ -18,23 +18,27 @@
         <div class="productImg"></div>
 
         <div>
-          <div class="productDetail"></div>
+          <div class="productDetail" id="productDetail">
+            <ul class="productDesc" id="productDesc">
+              <li>
+                <label>이니셜 각인 : </label>
+                <input type="text" maxlength="8" id="initialInput" />
+                <label>최대 8글자</label>
+              </li>
+            </ul>
+          </div>
           <li>
-            <figuare class="routeBtn">
+            <div class="buttonWrapper" id="#buttonWrapper">
               <button type="button" id="purchaseButton" class="moveOrder">
                 구매하기
               </button>
               <button type="button" id="adCartButton" class="moveCart">
-                장바구니
+                장바구니 추가하기
               </button>
-              <button
-                type="button"
-                id="editProductButton"
-                class="editProduct"
-              >
+              <button type="button" id="editProductButton" class="editProduct">
                 상품수정
               </button>
-            </figuare>
+            </div>
           </li>
         </div>
       </article>
