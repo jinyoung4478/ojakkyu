@@ -29,7 +29,6 @@ function renderElements() {
 function addAllEvents() {
   purchaseButton.addEventListener('click', handlePurchase);
   moveCart.addEventListener('click', addCart)
-  //   adCartButton.addEventListener('click', handleProductToCart);
 
   // 관리자 전용
   editProduct.addEventListener('click', handleEditProduct);
@@ -80,10 +79,7 @@ async function drawDetail() {
     // 상품 수정하기 버튼 클릭 시 어떤 아이템인지 인지할 수 있게 하는 설정
     editProduct.setAttribute("data-id", `${productId}`)
 
-    // 제품 데이터 로컬스토리지에 담기
-    localStorage.setItem('product', JSON.stringify(data));
 
-    // [ 관리자 권한 ] 제품 수정하기 버튼클릭 시 제품 수정페이지로 이동
   } catch (err) {
     console.log(err);
   }

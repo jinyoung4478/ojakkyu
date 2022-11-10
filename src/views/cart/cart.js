@@ -75,7 +75,7 @@ async function drawProduct() {
                 class="countItem"
                 type="text"
                 placeholder="0"
-                onchange=${changeItemCount(value)}
+                onchange=${changeItemCount()}
 
               />
               <button tpye="button" data-id="${id}" class="deleteProduct"></button>
@@ -93,9 +93,8 @@ async function drawProduct() {
 }
 
 const countItem = document.querySelector(".countItem");
-function changeItemCount(val){
-  console.dir(countItem.value)
-
+function changeItemCount(){
+  console.log("asd")
 }
 changeItemCount()
 
