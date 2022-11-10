@@ -31,7 +31,7 @@ productRouter.get("/newProducts", async (req, res, next) => {
 })
 
 //카테고리별 상품 조회
-productRouter.get("/category/:categoryId", async (req, res, next) => {
+productRouter.get("/category/:categoryId/all", async (req, res, next) => {
     try {
         const category = req.params.categoryId;
         const page = (req.query.page.split('/'))[0];
@@ -47,11 +47,12 @@ productRouter.get("/category/:categoryId", async (req, res, next) => {
 })
 
 //탄생석별 조회
-productRouter.get("/stoneType/:stoneType", async (req, res, next) => {
+productRouter.get("/category/:categoryId/:stoneType", async (req, res, next) => {
     try {
-        const category = req.params.stoneType;
+        const category = req.params.categoryId;
+        const stoneType = req.params.stoneType;
         const products
-            = await productService.getProductsByStonetype(category, page)
+            = await productService.getProductsByStonetype(stoneType, category)
         res.status(200).json(products)
     }
     catch (error) {
