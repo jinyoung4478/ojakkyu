@@ -107,9 +107,6 @@ async function renderAdminComponents() {
 function addAllEvents() {
   purchaseButton.addEventListener('click', handlePurchase);
   moveCart.addEventListener('click', addCart);
-  //   adCartButton.addEventListener('click', handleProductToCart);
-
-
 }
 
 // 해당 제품 바로 구매하기
@@ -148,12 +145,6 @@ function addCart() {
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
 
-  // 이니셜 입력 체크
-  if(initial === "" || initial.length < 3) {
-    alert("이니셜을 입력해주세요. 최소 3글자를 입력해야 합니다.");
-    return;
-  }
-
   // 중복 제품 걸러줌
   baskets.filter((e) => {
     if (e.id === data.productId) isTrue = true;
@@ -163,6 +154,11 @@ function addCart() {
     alert('이미 장바구니에 담긴 제품입니다.');
     return;
   } else {
+    // 이니셜 입력 체크
+    if(initial === "") {
+      if(window.confirm("이니셜 문구가 입력되지 않았습니다. 계속 진행 하시겠습니까?")) location.href = "/cart";
+      else return;
+    }
     alert('제품을 성공적으로 담았습니다.');
     baskets.push(JSON.parse(cartObj));
     sessionStorage.setItem('cart', JSON.stringify(baskets));

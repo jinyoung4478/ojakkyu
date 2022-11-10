@@ -1,15 +1,13 @@
-// import * as Api from "/utils/api.js";
+
+
+// login
+const utilContents = document.querySelector('.utilContents');
+const token = sessionStorage.getItem('token');
+
+// gnb
+const gnbContents = document.querySelector('.gnbContents');
 
 async function drawCategory() {
-  // login
-  const utilContents = document.querySelector('.utilContents');
-  const token = sessionStorage.getItem('token');
-
-  // gnb
-  const gnbContents = document.querySelector('.gnbContents');
-  const res = await fetch('/api/product/allProducts');
-  const data = await res.json();
-  const categoryType = data.map((e) => e.category);
 
   if (!token) {
     utilContents.innerHTML = `
@@ -43,28 +41,17 @@ async function drawCategory() {
         `;
 
 
-  const gnbLiContents = document.querySelectorAll('.gnbContents li');
-  function moveCategory() {
-    Array.prototype.forEach.call(gnbLiContents, function (e) {
-      e.addEventListener('click', function () {
-        if (e.innerText === '팔찌') {
-          const typeId = categoryType.find((e) => e === 'bracelet');
-          location.href = `/product/category/${typeId}`;
-        }
+  function moveCategory(e) {
 
-        if (e.innerText === '반지') {
-          const typeId = categoryType.find((e) => e === 'ring');
-          location.href = `/product/category/${typeId}`;
-        }
-
-        if (e.innerText === '목걸이') {
-          const typeId = categoryType.find((e) => e === 'necklace');
-          location.href = `/product/category/${typeId}`;
-        }
-      });
-    });
+    if(e.target.tagName === "LI"){
+      if(e.target.innerText === "팔찌") location.href = `/product/category/bracelet`;
+      if(e.target.innerText === "반지") location.href = `/product/category/ring`;
+      if(e.target.innerText === "목걸이") location.href = `/product/category/necklace`;
+    }
+  
   }
-  moveCategory();
+  gnbContents.addEventListener("click", moveCategory)
+
 }
 
 drawCategory();
