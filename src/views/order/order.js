@@ -44,14 +44,13 @@ function renderElements() {
 function checkOrderType() {
   // 장바구니 페이지에서 유입되었을 경우
   if (exUrl === '/cart/') {
-    type = 'cart';
+    type = 'item';
   }
 }
 
 // 주문 목록 제품 리스트 렌더링
 function renderOrderList() {
   // 주문 목록 데이터 불러오기
-
   try {
     orderData = JSON.parse(sessionStorage.getItem(type));
   } catch (err) {

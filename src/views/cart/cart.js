@@ -45,7 +45,7 @@ async function drawProduct() {
 
         <form class="cartForm">
           <div class="cartInfo">
-            <p class="checkBox"><input type="checkbox" name="cart" class="checkCart"/></p>
+            <p class="checkBox"><input type="checkbox" name="cart" class="checkCart" data-id="${_id}"/></p>
             <figure class="innerImg">
               <img
                 src=${image}
@@ -66,11 +66,16 @@ async function drawProduct() {
             </div>
 
             <div class="initialWrap">
+            ${initial ? 
+            (
+              `
               <label>각인될 문구: 
-                <i class="fa-solid fa-bracket-square"></i>
                   <span>${initial}</span> 
-                <i class="fa-solid fa-bracket-square"></i>
               </label>
+              `
+            ) : (
+              `<label>입력하신 문구가 없습니다.</label>`
+            )}   
             </div>
 
             <div class="quantityInput" key=${idx}>
@@ -81,7 +86,7 @@ async function drawProduct() {
                 placeholder="0"
                 disabled = "true"
               />
-              <button tpye="button" data-id="${id}" data-key="${idx}" data-initial="${initial}" class="deleteProduct"></button>
+              <button tpye="button" data-id="${id}" class="deleteProduct"></button>
             </div>
           </div>
         </form>
@@ -134,15 +139,13 @@ const ar = Array.from(quantityInput).map(e => e.attributes[1].value)
 console.log(ar)
 
 function deleteChoice(e){
+
   if(e.target.className === "deleteProduct"){
     e.preventDefault();
 
     const local = data.filter( a => (a.id != e.target.dataset.id));
-    
-    // console.log( e.target.closest(".checkCart"),e.target)
-    // console.log(local,"asdasd")
+  
     checkCart.forEach((c,idx) => {
-      // console.log(c,idx, "asd" , ar[idx])
       if(c.checked){
           e.target.closest(".cartForm").remove(),
           sessionStorage.setItem("cart",JSON.stringify(local))
@@ -156,18 +159,41 @@ function deleteChoice(e){
 }
 listItems.addEventListener("click", deleteChoice);
 
-
-
-
 // 체크 품목 결제페이지로 넘기기
 const orderBtn = document.querySelector(".orderBtn");
+const priceWrap = document.querySelector(".priceWrap");
 
 function checkedOrder(e){
-  e.preventDefault();
-  checkCart.forEach(c => {
-    if(!c.checked) alert("제품을 선택해주세요.");
+  const checkItem = [];
+  const checkConfirm = Array.from(checkCart).map(e => {
+      if(e.checked === true) return e.dataset.id
+  });
+  const orderItem = data.filter((a, idx) => a._id == checkConfirm[idx])
+  checkItem.push(orderItem)
+  sessionStorage.setItem("item", JSON.stringify(orderItem))
 
-  })
+  if(e.target.className === "orderBtn"){
+    e.preventDefault();
+    location.href = "/order";
+
+  }
 
 }
 // orderBtn.addEventListener("click", checkedOrder);
+priceWrap.addEventListener("click", checkedOrder)
+
+
+
+async function renderAdminComponents() {
+  
+  // const initialElem = {
+  //   initial
+  // }
+  
+  `
+  <button type="button" data-id="${productId}" id="editProductButton">
+    상품수정
+  </button>
+  `;
+  // quantityInput.insertAdjacentHTML('afterbegin', initialElem);
+}
