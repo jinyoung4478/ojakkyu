@@ -8,7 +8,7 @@ start();
 async function drawProduct() {
   try {
     const data = await Api.get('/api/product/newProducts');
-
+    console.log(data)
     product.innerHTML = data
       .map((tem) => {
         const {
@@ -46,7 +46,8 @@ async function start() {
 }
 
 // 상세페이지 이동
-product.addEventListener('click', (e) => {
-  const pareLi = e.target.closest('.productEvent');
+product.addEventListener("click", (e) => {
+  const pareLi = e.target.closest(".productEvent");
   location.href = `/product/${pareLi.dataset.id}`;
-});
+})
+

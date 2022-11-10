@@ -36,26 +36,32 @@ async function renderElements() {
   // admin 계정일 경우 어드민 UI 렌더링
   if (isAdmin) {
     await renderAdminComponents();
+      // 관리자 전용
+    buttonWrapper.addEventListener('click', handleEditProduct);
   }
 }
 
 async function drawDetail() {
+
   try {
     data = await Api.get('/api/product/productDetail', productId);
-    const { image, description, price, productName, productTitle, stoneType } =
-      data;
+    const { image, description, price, productName, productTitle, stoneType } = data;
+    console.log(data)
+
+
     productImg.innerHTML = `
                 <figure>
                     <img src="${image}"/>
                 </figure>
             `;
+
     const productDataElem = `
         <li><h1>${productTitle}</h1></li>
         <li>제품명 : ${productName}</li>
         <li>판매가: ${addCommas(price)}원</li>
         <li><label>제품 설명 : ${description}</label></li>
         <li>
-        <label>원석: ${stoneType}</label>
+          <label>원석: ${stoneType}</label>
         </li>
         
         <li>
@@ -63,6 +69,7 @@ async function drawDetail() {
         </li>
     `;
     productDesc.insertAdjacentHTML('afterbegin', productDataElem);
+    
   } catch (err) {
     alert(err);
   }
@@ -102,8 +109,7 @@ function addAllEvents() {
   moveCart.addEventListener('click', addCart);
   //   adCartButton.addEventListener('click', handleProductToCart);
 
-  // 관리자 전용
-  buttonWrapper.addEventListener('click', handleEditProduct);
+
 }
 
 // 해당 제품 바로 구매하기
@@ -124,11 +130,13 @@ function handlePurchase(e) {
   location.href = `/order`;
 }
 
+// 장바구니에 제품 추가
 function addCart() {
   let isTrue = false;
   const initial = initialInput.value;
 
   const cartObj = JSON.stringify({
+    _id: data._id,
     description: data.description,
     title: data.productTitle,
     image: data.image,
@@ -139,6 +147,12 @@ function addCart() {
     initial,
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+  // 이니셜 입력 체크
+  if(initial === "" || initial.length < 3) {
+    alert("이니셜을 입력해주세요. 최소 3글자를 입력해야 합니다.");
+    return;
+  }
 
   // 중복 제품 걸러줌
   baskets.filter((e) => {
@@ -154,6 +168,7 @@ function addCart() {
     sessionStorage.setItem('cart', JSON.stringify(baskets));
     location.href = '/cart';
   }
+
 }
 
 function handleEditProduct(e) {
