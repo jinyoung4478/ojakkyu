@@ -1,16 +1,20 @@
 import * as Api from '/utils/api.js';
-import { renderClientSideComponent } from '/utils/useful-functions.js';
+import {
+  renderClientSideComponent,
+  addCommas,
+} from '/utils/useful-functions.js';
 
 // DOM
 const productImg = document.querySelector('.productImg');
-const productDetail = document.querySelector('.productDetail');
-
+const productDetail = document.querySelector('#productDetail');
+const productDesc = document.querySelector('#productDesc');
 const editProduct = document.querySelector('.editProduct');
 const purchaseButton = document.querySelector('#purchaseButton');
 const adCartButton = document.querySelector('#adCartButton');
 const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
 const moveCart = document.querySelector('.moveCart');
+const initialInput = document.querySelector('#initialInput');
 
 let data;
 
@@ -21,6 +25,7 @@ addAllEvents();
 function renderElements() {
   renderClientSideComponent();
   drawDetail();
+  // admin 계정일 경우 상품 수정 버튼 렌더링
 }
 
 function addAllEvents() {
@@ -43,36 +48,21 @@ async function drawDetail() {
                     <img src="${image}"/>
                 </figure>
             `;
+    const productDataElem = `
+        <li><h1>${productTitle}</h1></li>
+        <li>제품명 : ${productName}</li>
+        <li>판매가: ${addCommas(price)}원</li>
+        <li><label>제품 설명 : ${description}</label></li>
+        <li>
+        <label>원석: ${stoneType}</label>
+        </li>
+        
+        <li>
+            <p>Total : ${addCommas(price)}원</p>
+        </li>
+    `;
 
-    productDetail.innerHTML = ` 
-                <ul class="productDesc">
-                    <li><h1>${productTitle}</h1></li>
-                    <li>${productName}</li>
-                    <li>판매가 <span>${price}</span></li>
-                    <li>${description}</li>
-                    <li>
-                        <select>
-                            <label>-[필수]옵션을 선택해 주세요-</label>
-                            <option>원석: ${stoneType}</option>
-                        </select>
-                    </li>
-                    <li><strong>최소주문수량 1개 이상</strong></li>
-                    <li>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>상품명</th>
-                                    <th>상품수</th>
-                                    <th>가격</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </li>
-                    <li>
-                        <p>Total : ${price}<span>(${0}개)</span></p>
-                    </li>
-                </ul>
-            `;
+    productDesc.insertAdjacentHTML('afterbegin', productDataElem);
 
     // 상품 수정하기 버튼 클릭 시 어떤 아이템인지 인지할 수 있게 하는 설정
     editProduct.setAttribute('data-id', `${productId}`);
@@ -104,7 +94,7 @@ function handlePurchase(e) {
 
 function addCart() {
   let isTrue = false;
-
+  const initail = initialInput.value;
   const cartObj = JSON.stringify({
     description: data.description,
     title: data.productTitle,
@@ -113,6 +103,7 @@ function addCart() {
     name: data.productName,
     price: data.price,
     quantity: 1,
+    initail,
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
 
