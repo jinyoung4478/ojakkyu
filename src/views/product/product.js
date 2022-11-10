@@ -33,7 +33,10 @@ async function drawCategoryProducts(page) {
     if (categoryType === 'ring') categoryTitle.innerText = '반지';
     if (categoryType === 'necklace') categoryTitle.innerText = '목걸이';
 
-    productWrapper.innerHTML = data.reduce(
+    const { totalPage, products } = await Api.get(
+      `/api/product/category/${categoryType}?page=${page}`,
+    );
+    productWrapper.innerHTML = products.reduce(
       (acc, item) =>
         acc +
         `
