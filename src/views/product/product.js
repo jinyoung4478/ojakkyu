@@ -15,15 +15,6 @@ function renderElements() {
   drawCategoryProducts();
 }
 
-function addAllEvents() {
-  productWrapper.addEventListener('click', (e) => {
-    const pareLi = e.target.closest('.productEvent');
-    if (pareLi) {
-      location.href = `/product/${pareLi.dataset.id}`;
-    }
-  });
-}
-
 async function drawCategoryProducts() {
   try {
     const data = await Api.get(`/api/product/category/${categoryType}`);
@@ -46,4 +37,13 @@ async function drawCategoryProducts() {
     alert(`Error: ${err}`);
     location.href = '/';
   }
+}
+
+function addAllEvents() {
+  productWrapper.addEventListener('click', (e) => {
+    const pareLi = e.target.closest('.productEvent');
+    if (pareLi) {
+      location.href = `/product/${pareLi.dataset.id}`;
+    }
+  });
 }
