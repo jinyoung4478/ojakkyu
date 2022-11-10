@@ -7,9 +7,9 @@ start();
 
 async function drawProduct() {
   try {
-    const res = await Api.get('/api/product');
+    const data = await Api.get('/api/product');
 
-    product.innerHTML = res
+    product.innerHTML = data
       .map((tem) => {
         const {
           image,
