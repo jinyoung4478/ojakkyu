@@ -69,7 +69,9 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
 
     // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
+    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, {
+      expiresIn: "1m" // (ex: 1s(second), m(minute), h(hour), d(day))
+    });
 
     return { token };
   }
