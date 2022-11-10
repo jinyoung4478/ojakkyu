@@ -42,9 +42,11 @@ async function renderElements() {
 async function drawDetail() {
 
   try {
-    data = await Api.get('/api/product', productId);
+    data = await Api.get('/api/product/productDetail', productId);
     const { image, description, price, productName, productTitle, stoneType } = data;
     console.log(data)
+
+
     productImg.innerHTML = `
                 <figure>
                     <img src="${image}"/>
@@ -165,10 +167,7 @@ function addCart() {
     sessionStorage.setItem('cart', JSON.stringify(baskets));
     location.href = '/cart';
   }
-  baskets.push(JSON.parse(cartObj));
-  sessionStorage.setItem('cart', JSON.stringify(baskets));
-  alert('제품을 성공적으로 담았습니다.');
-  location.href = '/cart';
+
 }
 
 function handleEditProduct(e) {
