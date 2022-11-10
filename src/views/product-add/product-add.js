@@ -25,6 +25,7 @@ async function handleSubmit(e) {
   const stoneType = stoneTypeInput.value;
   const category = categoryInput.value;
 
+
   // 회원가입 api 요청
   try {
     const data = {
@@ -35,11 +36,11 @@ async function handleSubmit(e) {
       price,
       stoneType,
       category,
-      image: productImage,
-      availability: true,
-      likes: 0,
+      "image": productImage,
+      "availability": true,
+      "likes": 0
     };
-    await Api.post('/api/product', data);
+    await Api.post('/api/product/productDetail', data);
 
     alert(`정상적으로 상품이 등록되었습니다.`);
 
