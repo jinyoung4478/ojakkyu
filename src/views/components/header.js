@@ -58,7 +58,7 @@ async function drawCategory() {
         }
 
         if (e.innerText === '목걸이') {
-          const typeId = categoryType.find((e) => e === 'neckless');
+          const typeId = categoryType.find((e) => e === 'necklace');
           location.href = `/product/category/${typeId}`;
         }
       });
