@@ -1,2 +1,68 @@
 @charset "utf-8";
 @import '/styles/reset.css';
+
+main {
+  padding-top: 40px;
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+h2 {
+  margin-bottom: 46 px;
+
+  text-align: center;
+  color: rgb(87, 86, 86);
+}
+
+.formInputs {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+label {
+  color: #4e84b1;
+}
+
+input::placeholder {
+  color: rgb(196, 195, 195);
+}
+
+input {
+  margin-bottom: 6px;
+  padding: 20px 40px;
+  width: 100%;
+  box-sizing: border-box;
+
+  background-color: #eff5fb;
+
+  border: 1px solid #4e84b1;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+
+  color: white;
+
+  border-color: #f24f70;
+  background-color: #f24f70;
+}
+
+button {
+  margin-top: 40px;
+  padding: 20px 0;
+  width: 100%;
+
+  color: #f24f70;
+
+  border: 1px solid #f24f70;
+  border-radius: 5px;
+
+  background-color: transparent;
+}
