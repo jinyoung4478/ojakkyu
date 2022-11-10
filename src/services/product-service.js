@@ -73,18 +73,13 @@ class ProductService {
             likes,
         } = productInfo
 
-        const changedInfo = {
-            productId: editproductId,
-            productName: editproductName,
-            ...productInfo
-        }
-
-        console.dir(changedInfo)
-
-
         const product = await this.productModel.update({
-            productId: productId,
-            updateContent: changedInfo
+            productId,
+            updateContent: {
+                productId: editproductId,
+                productName: editproductName,
+                ...productInfo
+            }
         }
         )
         return product
