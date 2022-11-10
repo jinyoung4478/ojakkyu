@@ -36,7 +36,7 @@ class ProductService {
     }
 
     async getProductsByStonetype(stoneType, category) {
-        const products = await this.productModel.findByStonetype(stoneType, category);
+        const products = await this.productModel.findByStonetype(stoneType, category, page);
         if (!products) {
             throw new Error("전체 상품리스트를 불러올 수 없습니다.")
         }

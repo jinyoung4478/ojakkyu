@@ -24,7 +24,16 @@ export class ProductModel {
         console.log(stoneType, "", category)
         const products = await Product.find({ category })
         const filteredProducts = products.filter(a => a.stoneType == stoneType);
-        return filteredProducts;
+
+        const [total, products] = await Promise.all([
+            filteredProducts.length,
+            filteredProducts
+                .sort({ createdAt: -1 })
+                .skip(12 * (page - 1))
+                .limit(12),
+        ]);
+        const totalPage = Math.ceil(total / 12);
+        return { totalPage, products };
     }
 
     async findByNewArrival() {
