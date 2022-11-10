@@ -2,17 +2,26 @@ import { renderClientSideComponent } from '/utils/useful-functions.js';
 import * as Api from '/utils/api.js';
 
 const product = document.querySelector('.product');
-const moveDetail = document.querySelector('.product');
+
+start();
 
 async function drawProduct() {
   try {
-    const res = await Api.get("/api/product/newProducts");
+    const data = await Api.get('/api/product/newProducts');
 
-    product.innerHTML = res.map((tem) => {
+    product.innerHTML = data
+      .map((tem) => {
+        const {
+          image,
+          description,
+          price,
+          productName,
+          productTitle,
+          stoneType,
+          productId,
+        } = tem;
 
-      const { image, description, price, productName, productTitle, stoneType, productId } = tem;
-
-      return `
+        return `
             <li data-id="${productId}" class="productEvent">
                 <img src=${image}>
                 <p>${description}</p>
@@ -22,11 +31,11 @@ async function drawProduct() {
                 <p>${productTitle}</p>
                 <p>${stoneType}</p>
             </li>
-          `
-    }).join("");
-
+          `;
+      })
+      .join('');
   } catch (err) {
-    console.log(err);
+    alert(`Error: ${err}`);
   }
 }
 
@@ -36,11 +45,8 @@ async function start() {
   await drawProduct();
 }
 
-start();
-
 // 상세페이지 이동
-moveDetail.addEventListener("click", (e) => {
-  const pareLi = e.target.closest(".productEvent");
-  location.href = `/product/${pareLi.dataset.id}`
-})
-
+product.addEventListener('click', (e) => {
+  const pareLi = e.target.closest('.productEvent');
+  location.href = `/product/${pareLi.dataset.id}`;
+});
