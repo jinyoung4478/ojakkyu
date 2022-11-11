@@ -85,7 +85,7 @@ export const blockIfLogin = () => {
 
 // 클라이언트 사이드 컴포넌트 렌더링
 export const renderClientSideComponent = () => {
-  window.addEventListener('load', function () {
+  
     const headerId = document.querySelector('#header');
     const footerId = document.querySelector('#footer');
 
@@ -119,19 +119,10 @@ export const renderClientSideComponent = () => {
           let script = document.createElement('script');
           script.type = 'module';
           script.src = 'https://kit.fontawesome.com/9daa42bcef.js';
-          this.document.body.appendChild(script);
+          document.body.appendChild(script);
         });
     }
 
-    if (footerId) {
-      const footer = fetch('/components/footer.html');
-      footer
-        .then((res) => res.text())
-        .then((text) => {
-          document.querySelector('#footer').innerHTML = text;
-        });
-    }
-  });
 };
 
 // 폰 번호 형식 자동 포맷
