@@ -15,7 +15,7 @@
   }
 
 .headerTop img {
-  width: 210px;
+  width: 180px;
   height: 100%;
 }
 
@@ -74,7 +74,7 @@
 
 /* 어드민 */
 #adminAdd a{
-  color: green;
+  color: black;
 }
 
 #adminAdd.rotate{

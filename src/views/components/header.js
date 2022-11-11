@@ -53,9 +53,6 @@ async function drawCategory() {
             <li><a href="/birthstone">내 탄생석은?</a></li>
         `;
 
-
- 
-
 }
 
 function moveCategory(e) {

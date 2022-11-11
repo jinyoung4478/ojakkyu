@@ -21,9 +21,42 @@
     <header id="header"></header>
 
     <!-- 비주얼 배너 -->
-    <article class="visualBanner">
-      <img src="/images/visualBanner1.png" alt="visulaImage" />
-    </article>
+
+    <section class="bannerContainer">
+      <article class="bannerWrap">
+        <div class="slideWrap">
+            <input type="radio" name="slide" id="slide01" checked />
+            <input type="radio" name="slide" id="slide02" />
+            <input type="radio" name="slide" id="slide03" />
+
+          <ul class="slideList">
+            <li>
+              <a>
+                <label for="slide03" class="left"></label>
+                <img src="/images/visualBanner1.png" alt="bg01"/>
+                <label for="slide02" class="right"></label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <label for="slide01" class="left"></label>
+                <img src="/images/visualBanner2.jpg" alt="bg02"/>
+                <label for="slide03" class="right"></label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <label for="slide02" class="left"></label>
+                <img src="/images/visualBanner3.jpg" alt="bg03"/>
+                <label for="slide01" class="right"></label>
+              </a>
+            </li>
+ 
+          </ul>
+         
+        </div>
+      </article>
+    </section>
 
     <!-- 메인 -->
     <main role="main" id="mainWrap">
