@@ -95,6 +95,10 @@ export const renderClientSideComponent = () => {
         .then((res) => res.text())
         .then((text) => {
           document.querySelector('#header').innerHTML = text;
+          let style = document.createElement("link");
+          style.href = '/components/header.css';
+          style.rel = 'stylesheet'
+          document.head.appendChild(style);
           let script = document.createElement('script');
           script.type = 'module';
           script.src = '/components/header.js';
@@ -108,6 +112,10 @@ export const renderClientSideComponent = () => {
         .then((res) => res.text())
         .then((text) => {
           document.querySelector('#footer').innerHTML = text;
+          let style = document.createElement("link");
+          style.href = '/components/footer.css';
+          style.rel = 'stylesheet'
+          document.head.appendChild(style);
           let script = document.createElement('script');
           script.type = 'module';
           script.src = 'https://kit.fontawesome.com/9daa42bcef.js';

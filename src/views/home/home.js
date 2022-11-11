@@ -1,4 +1,4 @@
-import { renderClientSideComponent } from '/utils/useful-functions.js';
+import { renderClientSideComponent, addCommas } from '/utils/useful-functions.js';
 import * as Api from '/utils/api.js';
 
 const product = document.querySelector('.product');
@@ -15,21 +15,20 @@ async function drawProduct() {
           image,
           description,
           price,
-          productName,
           productTitle,
-          stoneType,
           productId,
         } = tem;
 
         return `
-            <li data-id="${productId}" class="productEvent">
-                <img src=${image}>
-                <p>${description}</p>
-                <p>${price}</p>
-                <p>${productId}</p>
-                <p>${productName}</p>
-                <p>${productTitle}</p>
-                <p>${stoneType}</p>
+            <li class="productList">
+                <h2><img src=${image} data-id="${productId}" class="productEvent"></h2>
+                <dl>
+                  <dt><strong>${productTitle}</strong></dt>
+                  <dd><span>${description}</span></dd>
+                  <dd><small>${addCommas(price)}</small></dd>
+                </dl>
+                
+                
             </li>
           `;
       })

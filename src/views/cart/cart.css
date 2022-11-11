@@ -1,6 +1,6 @@
 @charset "utf-8";
 @import "/styles/reset.css";
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 
 /* 전체 레이아웃 */
 .container{
@@ -214,4 +214,21 @@
   background-color: #f14668;
   border-color: #f14668;
   color: #fff;
+}
+
+/* 빈 카트 */
+.emptyCart{
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+  color: #4a4a4a;
+  padding: 4em;
+  width: 1080px;
+  height: 600px;
+  margin: 4% auto 0;
+  text-align: center;
+}
+
+.emptyCart h1{
+  font-size: 4rem;
 }
