@@ -26,7 +26,7 @@ async function renderOrderList() {
   // 로그인된 유저 id 불러오기
   const { _id } = await Api.get('/api/users/myInfo');
   // 로그인된 유저의 주문 목록 불러오기
-  const orderList = await Api.get('/api/orders/all', _id);
+  const orderList = await Api.get('/api/orders', _id);
   orderList.forEach((item) => {
     // 각 항목 HTML 요소 추가
     const orderElem = `
