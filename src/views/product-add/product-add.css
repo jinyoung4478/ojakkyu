@@ -24,7 +24,7 @@ h2 {
 }
 
 label {
-  color: rgb(148, 143, 143);
+  color: #198e21;
 }
 
 input::placeholder {
@@ -39,7 +39,7 @@ input {
 
   background-color: white;
 
-  border: 1px solid #e9b7b8;
+  border: 1px solid #198e21;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
