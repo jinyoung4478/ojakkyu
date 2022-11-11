@@ -76,17 +76,6 @@ userRouter.get("/", adminRequired, async function (req, res, next) {
   }
 });
 
-// 사용자 정보 조회
-// userRouter.get("/:userId", async (req, res, next) => {
-//   try {
-//     const { userId } = req.params;
-//     const userData = await userService.getUser(userId);
-//     res.status(200).json(userData);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
