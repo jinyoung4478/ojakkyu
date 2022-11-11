@@ -6,6 +6,7 @@ const token = sessionStorage.getItem('token');
 
 // gnb
 const gnbContents = document.querySelector('.gnbContents');
+let isAdmin = false;
 
 await drawCategory();
 
@@ -19,7 +20,6 @@ async function drawCategory() {
         `;
   }
 
-  let isAdmin = false;
   if (token) {
     try{
       const { role } = await Api.get('/api/users/myInfo');
@@ -74,16 +74,18 @@ const adminAdd = document.querySelector("#adminAdd");
 let toggleBoolean = true;
 
 
-
-window.setInterval(function(){
+if(isAdmin){
+  window.setInterval(function(){
   
 
-  toggleBoolean ? (
-      adminAdd.classList.toggle("rotate"),
-      toggleBoolean = !toggleBoolean
-    ) : (
-      adminAdd.classList.toggle("rotate"),
-      toggleBoolean = !toggleBoolean
-      )
-
-}, 4000)
+    toggleBoolean ? (
+        adminAdd.classList.toggle("rotate"),
+        toggleBoolean = !toggleBoolean
+      ) : (
+        adminAdd.classList.toggle("rotate"),
+        toggleBoolean = !toggleBoolean
+        )
+  
+  }, 4000)
+  
+}
