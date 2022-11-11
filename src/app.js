@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { viewsRouter, userRouter, productRouter, orderRouter } from "./routers";
+import { viewsRouter, userRouter, productRouter, orderRouter, notFoundRouter } from "./routers";
 import { errorHandler } from "./middlewares";
 
 const app = express();
@@ -27,6 +27,7 @@ app.use("/api/orders", orderRouter);
 
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
 // 그래야, 에러가 났을 때 next(error) 했을 때 여기로 오게 됨
+app.use("/*", notFoundRouter)
 app.use(errorHandler);
 
 export { app };
