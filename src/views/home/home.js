@@ -1,4 +1,7 @@
-import { renderClientSideComponent, addCommas } from '/utils/useful-functions.js';
+import {
+  renderClientSideComponent,
+  addCommas,
+} from '/utils/useful-functions.js';
 import * as Api from '/utils/api.js';
 
 const product = document.querySelector('.product');
@@ -8,16 +11,9 @@ start();
 async function drawProduct() {
   try {
     const data = await Api.get('/api/product/newProducts');
-    console.log(data)
     product.innerHTML = data
       .map((tem) => {
-        const {
-          image,
-          description,
-          price,
-          productTitle,
-          productId,
-        } = tem;
+        const { image, description, price, productTitle, productId } = tem;
 
         return `
             <li class="productList">
@@ -43,8 +39,7 @@ async function start() {
 }
 
 // 상세페이지 이동
-product.addEventListener("click", (e) => {
-  const pareLi = e.target.closest(".productEvent");
+product.addEventListener('click', (e) => {
+  const pareLi = e.target.closest('.productEvent');
   location.href = `/product/${pareLi.dataset.id}`;
-})
-
+});
