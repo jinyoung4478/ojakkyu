@@ -1,0 +1,78 @@
+@charset "utf-8";
+@import "/styles/reset.css";
+
+/* what's new */
+.whatInner {
+    margin: 0 auto;
+    width: 1040px;
+    padding-top: 60px;
+  }
+  
+  .titleWrap {
+    margin: 40px 0;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+  }
+  
+  .titleWrap strong {
+    font-size: 40px;
+    color: #272830;
+    font-weight: 900;
+  }
+  
+  .titleWrap .subTitle {
+    font-size: 20px;
+    font-weight: 300;
+    color: #272830;
+  }
+  
+  .line1 {
+    position: absolute;
+    width: 360px;
+    height: 1px;
+    background-color: black;
+    top: 20px;
+    left: 0;
+  }
+  
+  .line2 {
+    position: absolute;
+    width: 360px;
+    height: 1px;
+    background-color: black;
+    top: 20px;
+    right: 10px;
+  }
+  
+  /* 이미지 박스 */
+  .innerImg ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .imgBox {
+    width: 300px;
+    height: 300px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 20px 0;
+  }
+
+
+  
+  .innerContent {
+    padding: 20px 0;
+    line-height: 22px;
+  }
+  
+  .fir {
+    text-align: center;
+    font-size: 2em;
+    padding-top: 40%;
+  }
+
+  .fir:hover{
+    opacity: 0.5;
+  }
