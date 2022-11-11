@@ -117,8 +117,8 @@ productRouter.put("/productDetail/:productId", async (req, res, next) => {
         const productId = req.params.productId
 
         const {
-            editproductId,
             image,
+            editproductId,
             editproductName,
             productTitle,
             description,

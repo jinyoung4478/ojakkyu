@@ -163,13 +163,15 @@
 
 .productWrap {
   padding-top: 4%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .product {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6%;
+  gap: 40px;
 }
 
 .product li {
