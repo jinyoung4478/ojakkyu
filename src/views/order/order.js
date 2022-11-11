@@ -17,14 +17,8 @@ const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const priceTotalSpan = document.querySelector('#priceTotalSpan');
 const purchaseButton = document.querySelector('#purchaseButton');
 
-// 직전 페이지 url
-const exUrl = new URL(document.referrer).pathname;
-let type = 'order';
 let userData;
 let orderData;
-
-// 상품페이지에서 접근했는지, 장바구니에서 접근했는지 구분하기
-checkOrderType();
 
 // 페이지 렌더링
 renderElements();
@@ -40,22 +34,14 @@ function renderElements() {
   insertUserData();
 }
 
-// 장바구니에서 주문 페이지로 왔는지 판별
-function checkOrderType() {
-  // 장바구니 페이지에서 유입되었을 경우
-  if (exUrl === '/cart/') {
-    type = 'item';
-  }
-}
-
 // 주문 목록 제품 리스트 렌더링
 function renderOrderList() {
   // 주문 목록 데이터 불러오기
   try {
-    orderData = JSON.parse(sessionStorage.getItem(type));
+    orderData = JSON.parse(sessionStorage.getItem('order'));
   } catch (err) {
     alert('주문 목록이 없습니다.');
-    location.href = exUrl;
+    location.href = '/';
     return;
   }
 
@@ -217,7 +203,7 @@ async function handlePurchase(e) {
     alert('결제 및 주문이 정상적으로 완료되었습니다.');
 
     // 성공 시 sessionStorage 데이터 제거
-    sessionStorage.removeItem(type);
+    sessionStorage.removeItem('order');
 
     window.location.replace(`/order-complete`);
   } catch (err) {

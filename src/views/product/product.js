@@ -1,5 +1,5 @@
 import * as Api from '/utils/api.js';
-import { renderClientSideComponent } from '/utils/useful-functions.js';
+import { renderClientSideComponent, addCommas } from '/utils/useful-functions.js';
 
 const productWrapper = document.querySelector('#productWrapper');
 const pagelist = document.querySelector('#pagelist');
@@ -39,7 +39,7 @@ function renderTitle() {
   if (nowStone === 'all') {
     category.innerText = categoryToKorean[categoryType];
   } else {
-    category.innerText = `${categoryToKorean[categoryType]} - ${nowStone}`;
+    category.innerHTML = `${categoryToKorean[categoryType]} - <span>${nowStone}</span>`;
   }
 }
 
@@ -67,12 +67,13 @@ async function drawCategoryProducts(page) {
       (acc, item) =>
         acc +
         `
-        <li class="productEvent" data-id="${item.productId}">
-            <img src=${item.image}>
-            <p>${item.description}</p>
-            <p>${item.price}</p>
-            <p>${item.productName}</p>
-            <p>${item.productTitle}</p>
+        <li class="categoryList">
+            <h2><img src=${item.image} class="productEvent" data-id="${item.productId}"></h2>
+            <dl>
+                  <dt><strong>${item.productTitle}</strong></dt>
+                  <dd><span>${item.description}</span></dd>
+                  <dd><small>${addCommas(item.price)}</small></dd>
+            </dl>
         </li>
         `,
       '',
@@ -115,8 +116,8 @@ function handleBirthStoneFilter(e) {
 
 // 제품 클릭 시 해당 상세 페이지로 이동
 function handleToProductDetail(e) {
-  const pareLi = e.target.closest('.productEvent');
-  if (pareLi) {
-    location.href = `/product/${pareLi.dataset.id}`;
+  const pareImg = e.target.closest('.productEvent');
+  if (pareImg) {
+    location.href = `/product/${pareImg.dataset.id}`;
   }
 }

@@ -1,87 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>헤더</title>
 
-    <style>
-      /* 헤더 레이아웃 */
-      #headerWrap {
-        max-width: 100%;
-      }
-
-      /* 헤더 */
-      .headerTop {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        height: 100px;
-        background: #fff;
-        }
-
-      .headerTop img {
-        width: 240px;
-        height: 100%;
-      }
-
-      .headerTop h1 {
-        font-size: 2em;
-        color: #000;
-        font-family: "OKDDUNG";
-
-        }
-
-      .util ul {
-        display: flex;
-        gap: 20px;
-      }
-
-      .util ul .logout{
-        color: #000;
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      .util ul li a {
-        color: #000;
-        font-weight: 600;
-      }
-
-      .util ul li a:hover{
-        color: coral;
-      }
-      
-
-      /* GNB */
-      .gnb {
-        background-color: #fff;
-        padding: 20px 0;
-        border-bottom: 2px solid #20002c;
-      }
-
-      .gnb ul {
-        display: flex;
-        justify-content: space-evenly;
-      }
-
-      .gnb ul li{
-        cursor: pointer;
-        font-weight: 600;
-
-      }
-
-      .gnb ul li:hover{
-        color: coral;
-      }
-      
-    </style>
-  </head>
-
-  <body>
     <!-- 헤더 -->
-    <header id="headerWrap">
+    <section id="headerWrap">
       <nav>
         <div class="headerTop">
           <img src="#" alt="logo" class="hidden"/>
@@ -100,6 +19,4 @@
           </ul>
         </div>
       </nav>
-    </header>
-  </body>
-</html>
+    </section>

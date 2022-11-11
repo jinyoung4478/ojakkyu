@@ -1,199 +1,160 @@
-import * as Api from '/utils/api.js';
 import {
   addCommas,
   renderClientSideComponent,
-  checkLogin,
 } from '/utils/useful-functions.js';
 
 // dom 요소
+const listItems = document.querySelector('.listItems');
 const productList = document.querySelector('.listItems');
-const data = JSON.parse(sessionStorage.getItem("cart"));
+const allDelete = document.querySelector('.deleteBtn');
+const totalPriceLabel = document.querySelector('#totalPriceLabel');
+const purchaseButton = document.querySelector('#purchaseButton');
+let cartData;
 
 renderElements();
+addAllEvents();
 
 // 엘리먼트 렌더링
 function renderElements() {
   renderClientSideComponent();
-  drawProduct();
+  renderCartList();
 }
 
-// 총 개수 세기
-// totalProductItems();
+// 전체 이벤트 바인딩
+function addAllEvents() {
+  allDelete.addEventListener('click', deleteAllProducts);
+  listItems.addEventListener('click', deleteProduct);
+  purchaseButton.addEventListener('click', purchaseCartProducts);
+}
 
-// function totalProductItems(){
-//   const countAllItem = document.querySelector(".countAllItem");
-//   const productCount = document.querySelector(".productCount");
-//   console.log(data.length)
-//   if(data.length === 0) {
-//     productCount.innerText = "장바구니가 비어있습니다.";
-//     sessionStorage.clear(); 
-//   }
-//   else countAllItem.innerText = data.length;
-// }
-
-
-
-async function drawProduct() {
-
-  productList.innerHTML = "";
-  try {
-    console.log(data)
-    const insertList = data.map((tem,idx) => {
-    const { image, id, title, name, quantity, price, description, initial, _id} = tem;
-
-      return `
-
-        <form class="cartForm">
+// 장바구니 항목 렌더링
+async function renderCartList() {
+  cartData = JSON.parse(sessionStorage.getItem('cart'));
+  if (cartData === null) {
+    productList.innerHTML = '<h1>텅</h1>';
+  } else {
+    const cartListElem = cartData.reduce((acc, item) => {
+      return (
+        acc +
+        `
+      <form class="cartForm">
           <div class="cartInfo">
-            <p class="checkBox"><input type="checkbox" name="cart" class="checkCart" data-id="${_id}"/></p>
-            <figure class="innerImg">
-              <img
-                src=${image}
+            <p class="checkBox">
+              <input 
+                type="checkbox" 
+                name="${item._id}"
+                class="checkCart"
+                id="checkbox-${item.id}"
+                data-id="${item._id}"
+                ${item.selected ? 'checked' : ''}
               />
+            </p>
+            <figure class="innerImg">
+              <img src=${item.image} />
             </figure>
             <div class="subWrap">
-                <h3 class="subTitle">
-                  ${title}
-                </h3>
-                <span class="nameText">${name}</span>
-                <p class="descText">
-                  ${description}
-                </p>
-                <p class="totalPrice">
-                  <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
-                </p>
-              </div>
-            </div>
-
-            <div class="initialWrap">
-            ${initial ? 
-            (
-              `
-              <label>각인될 문구: 
-                  <span>${initial}</span> 
-              </label>
-              `
-            ) : (
-              `<label>입력하신 문구가 없습니다.</label>`
-            )}   
-            </div>
-
-            <div class="quantityInput" key=${idx}>
-              <input
-                value="${quantity}"
-                class="countItem"
-                type="text"
-                placeholder="0"
-                disabled = "true"
-              />
-              <button tpye="button" data-id="${id}" class="deleteProduct"></button>
+              <h3 class="subTitle">
+                ${item.title}
+              </h3>
+              <span class="nameText">${item.name}</span>
+              <p class="descText">
+                ${item.description}
+              </p>
+              <p class="totalPrice">
+                <span id="pricePerItem">${addCommas(item.price)}원</span>
+              </p>
             </div>
           </div>
-        </form>
-        `
-    })
-
-    productList.innerHTML = insertList.join("");
-
-  } catch(err){
-    console.log(err)
+          <div class="initialWrap">
+            <label>
+              ${item.initial ? `각인될 문구: ` : `입력하신 문구가 없습니다.`}
+              ${item.initial ? `<span>${item.initial}</span>` : ''}
+            </label>
+          </div>
+          <div class="quantityInput">
+            <input
+              value="${item.quantity}"
+              class="countItem"
+              type="text"
+              disabled = "true"
+            />
+            <button
+              type="button"
+              data-id="${item.id}" 
+              class="deleteProduct"
+              >
+            </button>
+          </div>
+        </div>
+      </form>
+      `
+      );
+    }, '');
+    productList.innerHTML = cartListElem;
+    renderTotalPrice();
   }
 }
-
 
 // 전체삭제
-const allDelete = document.querySelector(".deleteBtn");
-function allDeleteCart(){
-  if(window.confirm("정말 삭제 하시겠습니까?")) {
-    data.length ? (
-      productList.innerHTML = "",
-      sessionStorage.clear()
-    )
-    :
-    (
-      ""
-    )
+function deleteAllProducts() {
+  if (window.confirm('정말 삭제 하시겠습니까?')) {
+    cartData = [];
+    productList.innerHTML = '';
+    sessionStorage.removeItem('cart');
+    renderTotalPrice();
   }
 }
 
-allDelete.addEventListener("click", allDeleteCart)
+// 개별 삭제하기
+function deleteProduct(e) {
+  if (e.target.type === 'checkbox') {
+    cartData.filter((v) => v._id === e.target.name)[0].selected =
+      e.target.checked;
+    sessionStorage.setItem('cart', JSON.stringify(cartData));
+    renderTotalPrice();
+  }
+
+  if (e.target.type === 'button') {
+    cartData = cartData.filter((item) => item.id !== e.target.dataset.id);
+    sessionStorage.setItem('cart', JSON.stringify(cartData));
+    renderCartList();
+    renderTotalPrice();
+  }
+}
 
 // 총액 구하기
-const priceText = document.querySelector(".priceText");
 function renderTotalPrice() {
-  const totalPrice = data.reduce(
-    (acc, item) => acc + Number(item.price),
-    0,
-  );
-  priceText.innerText = addCommas(totalPrice);
+  const totalPrice = cartData.reduce((acc, item) => {
+    if (item.selected) {
+      return acc + Number(item.price);
+    } else {
+      return acc;
+    }
+  }, 0);
+  totalPriceLabel.innerText = addCommas(totalPrice);
 }
 
-renderTotalPrice();
+// 주문하기 버튼
+function purchaseCartProducts(e) {
+  e.preventDefault();
 
-
-// 개별 삭제
-const checkCart = document.querySelectorAll(".checkCart");
-const listItems = document.querySelector(".listItems");
-const quantityInput = document.querySelectorAll(".quantityInput");
-const ar = Array.from(quantityInput).map(e => e.attributes[1].value)
-console.log(ar)
-
-function deleteChoice(e){
-
-  if(e.target.className === "deleteProduct"){
-    e.preventDefault();
-
-    const local = data.filter( a => (a.id != e.target.dataset.id));
-  
-    checkCart.forEach((c,idx) => {
-      if(c.checked){
-          e.target.closest(".cartForm").remove(),
-          sessionStorage.setItem("cart",JSON.stringify(local))
-      }else{
-          // alert("품목을 선택해주세요.")
-      }
-      
-    })
+  const orderData = cartData.reduce((acc, item) => {
+    if (item.selected) {
+      acc.push({
+        id: item.id,
+        initial: item.initial,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      });
+    }
+    return acc;
+  }, []);
+  if (orderData.length === 0) {
+    alert('선택된 상품이 없습니다.');
+    return;
   }
-
-}
-listItems.addEventListener("click", deleteChoice);
-
-// 체크 품목 결제페이지로 넘기기
-const orderBtn = document.querySelector(".orderBtn");
-const priceWrap = document.querySelector(".priceWrap");
-
-function checkedOrder(e){
-  const checkItem = [];
-  const checkConfirm = Array.from(checkCart).map(e => {
-      if(e.checked === true) return e.dataset.id
-  });
-  const orderItem = data.filter((a, idx) => a._id == checkConfirm[idx])
-  checkItem.push(orderItem)
-  sessionStorage.setItem("item", JSON.stringify(orderItem))
-
-  if(e.target.className === "orderBtn"){
-    e.preventDefault();
-    location.href = "/order";
-
-  }
-
-}
-// orderBtn.addEventListener("click", checkedOrder);
-priceWrap.addEventListener("click", checkedOrder)
-
-
-
-async function renderAdminComponents() {
-  
-  // const initialElem = {
-  //   initial
-  // }
-  
-  `
-  <button type="button" data-id="${productId}" id="editProductButton">
-    상품수정
-  </button>
-  `;
-  // quantityInput.insertAdjacentHTML('afterbegin', initialElem);
+  // 현재 상품으로 session Storage의 order 덮어쓰기
+  sessionStorage.setItem('order', JSON.stringify(orderData));
+  location.href = '/order';
 }

@@ -5,72 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>장바구니</title>
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/images/facon.ico"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
 
     <script
       defer
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
-  
+
     <link rel="stylesheet" href="cart.css" />
     <script src="cart.js" type="module" defer></script>
   </head>
 
   <body>
     <!-- 헤더 -->
-    <div id="header"></div>
+    <header id="header"></header>
 
     <main role="main">
-
       <section class="container">
-
         <div class="cartWrap">
-          <h2 class="cartTitle">
-            장바구니
-          </h2>
+          <h2 class="cartTitle">장바구니</h2>
 
           <div class="countDelete">
-            <p class="productCount">
-              총 <span class="countAllItem"></span> 개
-            </p>
+            <p class="productCount">총 <span class="countAllItem"></span> 개</p>
             <p>
-              <button class="deleteBtn">
-                전체삭제
-              </button>
+              <button class="deleteBtn">전체삭제</button>
             </p>
           </div>
 
           <section class="listItems"></section>
         </div>
-  
-        
+
         <div class="totalPriceOrder">
           <div class="priceWrap">
             <div>
               <h3 class="productCount">
-                총액: <span class="priceText"></span> 원
+                총액: <span class="priceText" id="totalPriceLabel"></span> 원
               </h3>
             </div>
             <a>
-              <button id="btnPurchase" class="orderBtn">
-                주문하기
-              </button>
+              <button id="purchaseButton" class="orderBtn">주문하기</button>
             </a>
           </div>
         </div>
-        
       </section>
-
-      
     </main>
 
     <!-- 푸터 -->
-    <div id="footer"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

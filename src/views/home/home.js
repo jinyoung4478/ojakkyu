@@ -1,4 +1,7 @@
-import { renderClientSideComponent } from '/utils/useful-functions.js';
+import {
+  renderClientSideComponent,
+  addCommas,
+} from '/utils/useful-functions.js';
 import * as Api from '/utils/api.js';
 
 const product = document.querySelector('.product');
@@ -8,28 +11,18 @@ start();
 async function drawProduct() {
   try {
     const data = await Api.get('/api/product/newProducts');
-    console.log(data)
     product.innerHTML = data
       .map((tem) => {
-        const {
-          image,
-          description,
-          price,
-          productName,
-          productTitle,
-          stoneType,
-          productId,
-        } = tem;
+        const { image, description, price, productTitle, productId } = tem;
 
         return `
-            <li data-id="${productId}" class="productEvent">
-                <img src=${image}>
-                <p>${description}</p>
-                <p>${price}</p>
-                <p>${productId}</p>
-                <p>${productName}</p>
-                <p>${productTitle}</p>
-                <p>${stoneType}</p>
+            <li class="productList">
+                <h2><img src=${image} data-id="${productId}" class="productEvent"></h2>
+                <dl>
+                  <dt><strong>${productTitle}</strong></dt>
+                  <dd><span>${description}</span></dd>
+                  <dd><small>${addCommas(price)}</small></dd>
+                </dl>
             </li>
           `;
       })
@@ -46,8 +39,7 @@ async function start() {
 }
 
 // 상세페이지 이동
-product.addEventListener("click", (e) => {
-  const pareLi = e.target.closest(".productEvent");
+product.addEventListener('click', (e) => {
+  const pareLi = e.target.closest('.productEvent');
   location.href = `/product/${pareLi.dataset.id}`;
-})
-
+});
