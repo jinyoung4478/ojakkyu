@@ -6,7 +6,6 @@ const token = sessionStorage.getItem('token');
 
 // gnb
 const gnbContents = document.querySelector('.gnbContents');
-let isAdmin = false;
 
 await drawCategory();
 
@@ -21,17 +20,9 @@ async function drawCategory() {
   }
 
   if (token) {
-    try{
-      const { role } = await Api.get('/api/users/myInfo');
-      if (role === 'admin-user') isAdmin = true;
-    }catch(err){
-      alert(`Error: ${err}`);
-    }
     
     utilContents.innerHTML = `
-            <li id="adminAdd">
-              ${ isAdmin ? `<a href="/product/add">상품 추가하기</a>` : ``}
-            </li>
+ 
             <li><a href="/admin">페이지관리</a></li>
             <li class="logout">로그아웃</li>
             <li><a href="/account">마이페이지</a></li>
@@ -68,23 +59,3 @@ function moveCategory(e) {
 }
 gnbContents.addEventListener("click", moveCategory)
 
-
-const adminAdd = document.querySelector("#adminAdd");
-let toggleBoolean = true;
-
-
-if(isAdmin){
-  window.setInterval(function(){
-  
-
-    toggleBoolean ? (
-        adminAdd.classList.toggle("rotate"),
-        toggleBoolean = !toggleBoolean
-      ) : (
-        adminAdd.classList.toggle("rotate"),
-        toggleBoolean = !toggleBoolean
-        )
-  
-  }, 4000)
-  
-}
