@@ -105,7 +105,7 @@ export class ProductModel {
   }
 
   async delete(productId) {
-    return Product.findOneAndDelete(productId);
+    return Product.findOneAndDelete({ productId });
   }
 }
 

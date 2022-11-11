@@ -6,8 +6,11 @@ import {
 
 // DOM
 const productImg = document.querySelector('.productImg');
+const productDetail = document.querySelector('#productDetail');
 const productDesc = document.querySelector('#productDesc');
+const editProduct = document.querySelector('.editProduct');
 const purchaseButton = document.querySelector('#purchaseButton');
+const adCartButton = document.querySelector('#adCartButton');
 const productUrl = window.location.pathname.split('/');
 const productId = productUrl[productUrl.length - 2];
 const moveCart = document.querySelector('.moveCart');
@@ -29,13 +32,13 @@ async function renderElements() {
   drawDetail();
 
   // 접속 계정 확인
-  // await checkAdminUser();
-  // // admin 계정일 경우 어드민 UI 렌더링
-  // if (isAdmin) {
-  //   await renderAdminComponents();
-  //   // 관리자 전용
-  //   buttonWrapper.addEventListener('click', handleEditProduct);
-  // }
+  await checkAdminUser();
+  // admin 계정일 경우 어드민 UI 렌더링
+  if (isAdmin) {
+    await renderAdminComponents();
+    // 관리자 전용
+    buttonWrapper.addEventListener('click', handleEditProduct);
+  }
 }
 
 async function drawDetail() {
@@ -43,6 +46,7 @@ async function drawDetail() {
     data = await Api.get('/api/product/productDetail', productId);
     const { image, description, price, productName, productTitle, stoneType } =
       data;
+    console.log(data);
 
     productImg.innerHTML = `
                 <figure>
@@ -89,14 +93,14 @@ async function checkAdminUser() {
   return;
 }
 
-// async function renderAdminComponents() {
-//   const adminEditButtonElem = `
-//   <button type="button" data-id="${productId}" id="editProductButton">
-//     상품수정
-//   </button>
-//   `;
-//   buttonWrapper.insertAdjacentHTML('beforeend', adminEditButtonElem);
-// }
+async function renderAdminComponents() {
+  const adminEditButtonElem = `
+  <button type="button" data-id="${productId}" id="editProductButton">
+    상품수정
+  </button>
+  `;
+  buttonWrapper.insertAdjacentHTML('beforeend', adminEditButtonElem);
+}
 
 function addAllEvents() {
   purchaseButton.addEventListener('click', handlePurchase);
@@ -136,7 +140,6 @@ function addCart() {
     price: data.price,
     quantity: 1,
     initial,
-    selected: true,
   });
   const baskets = JSON.parse(sessionStorage.getItem('cart')) || [];
 
@@ -166,7 +169,7 @@ function addCart() {
   }
 }
 
-// function handleEditProduct(e) {
-//   const pareLi = e.target.closest('#editProductButton');
-//   location.href = `/product/edit/${pareLi.dataset.id}`;
-// }
+function handleEditProduct(e) {
+  const pareLi = e.target.closest('#editProductButton');
+  location.href = `/product/edit/${pareLi.dataset.id}`;
+}
