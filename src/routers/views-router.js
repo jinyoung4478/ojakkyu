@@ -26,6 +26,14 @@ viewsRouter.use('/product/edit/:product_id', serveStatic('product-edit'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/not-found', serveStatic('error'));
 
+
+// 어드민 페이지
+viewsRouter.use('/admin', serveStatic('admin'));
+viewsRouter.use('/admin-product', serveStatic('admin-product'));
+viewsRouter.use('/admin-category', serveStatic('admin-category'));
+viewsRouter.use('/admin-order', serveStatic('admin-order'));
+
+
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
 
