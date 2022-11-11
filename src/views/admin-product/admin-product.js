@@ -5,28 +5,25 @@ renderClientSideComponent();
 const product = document.querySelector('.product');
 
 async function drawProduct() {
-  const res = await Api.get('/api/product/allProducts');
-  product.innerHTML = res
-    .map((tem) => {
-      const { price, productTitle, createdAt, category, productId } = tem;
+    const res = await Api.get('/api/product/allProducts');
+    product.innerHTML = res
+        .map((tem) => {
+            const { price, productTitle, createdAt, category, productId } = tem;
 
-      return `
+            return `
             <ul style="display: flex; gap: 40px;" class="allProduct">
                 <li>${createdAt}</li>
                 <li>${category}</li>
                 <li>${price}</li>
                 <li>${productTitle}</li>
-                <li style="cursor:pointer;">
-                    <a href="/product/add" style="color: coral;">상품 추가</a>
-                </li>
                 <li cursor:pointer;">
                     <a href="/product/edit/${productId}" style="color: coral;">상품수정/삭제</a>
                 </li>
             </ul>
         
         `;
-    })
-    .join(' ');
+        })
+        .join(' ');
 }
 
 drawProduct();
