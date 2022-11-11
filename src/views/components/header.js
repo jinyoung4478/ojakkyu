@@ -17,25 +17,25 @@ async function drawCategory() {
             <li><a href="/register">회원가입</a></li>
             <li><a href="/cart">장바구니</a></li>
         `;
-  }
-
-  if (token) {
+  } else {
     try {
       const { role } = await Api.get('/api/users/myInfo');
       if (role === 'admin-user') isAdmin = true;
     } catch (err) {
-      alert(`Error: ${err}`);
+      alert(`${err}`);
     }
 
     utilContents.innerHTML = `
-            <li id="adminAdd">
-              ${isAdmin ? `<a href="/product/add">상품 추가하기</a>` : ``}
-            </li>
-            <li><a href="/admin">페이지관리</a></li>
-            <li class="logout">로그아웃</li>
-            <li><a href="/account">마이페이지</a></li>
-            <li><a href="/cart">장바구니</a></li>
-        `;
+              ${
+                isAdmin
+                  ? `<li id="adminAdd"><a href="/product/add">상품 추가하기</a></li>
+                  <li><a href="/admin">페이지관리</a></li>`
+                  : ``
+              }
+              <li class="logout"><a href="">로그아웃</a></li>
+              <li><a href="/account">마이페이지</a></li>
+              <li><a href="/cart">장바구니</a></li>
+              `;
 
     // 로그아웃
     const logout = document.querySelector('.logout');
