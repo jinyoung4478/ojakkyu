@@ -31,17 +31,36 @@ productRouter.get("/newProducts", async (req, res, next) => {
 })
 
 //카테고리별 상품 조회
-productRouter.get("/category/:categoryId", async (req, res, next) => {
+productRouter.get("/category/:categoryId/all", async (req, res, next) => {
     try {
         const category = req.params.categoryId;
+        const page = (req.query.page.split('/'))[0];
+        console.log("router page", page)
 
-        const products = await productService.getProductsByCategory(category)
-        res.status(200).json(products)
+        const { totalPage, products }
+            = await productService.getProductsByCategory(category, page)
+        res.status(200).json({ totalPage, products })
     }
     catch (error) {
         next(error)
     }
 })
+
+//탄생석별 조회
+productRouter.get("/category/:categoryId/:stoneType", async (req, res, next) => {
+    try {
+        const category = req.params.categoryId;
+        const stoneType = req.params.stoneType;
+        const page = (req.query.page.split('/'))[0];
+        const { totalPage, products }
+            = await productService.getProductsByStonetype(stoneType, category, page)
+        res.status(200).json({ totalPage, products })
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 //상품 상세조회
 productRouter.get("/productDetail/:productId", async (req, res, next) => {
     try {
