@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import "/styles/reset.css";
 
-
 /* 전체 레이아웃 */
 .container{
   max-width: 1280px;
@@ -11,11 +10,6 @@
 /* 타이틀 영역 */
 .checkBox{
   margin-right: 4%;  
-}
-
-.checkBox input[type="checkbox" i]{
-  width: 24px;
-  height: 24px;
 }
 
 .cartTitle{
@@ -30,7 +24,6 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-
 }
 
 .productCount{

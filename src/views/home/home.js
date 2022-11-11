@@ -23,8 +23,6 @@ async function drawProduct() {
                   <dd><span>${description}</span></dd>
                   <dd><small>${addCommas(price)}</small></dd>
                 </dl>
-                
-                
             </li>
           `;
       })
