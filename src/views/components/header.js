@@ -1,4 +1,4 @@
-import * as Api from "/utils/api.js";
+import * as Api from '/utils/api.js';
 
 // login
 const utilContents = document.querySelector('.utilContents');
@@ -10,7 +10,6 @@ const gnbContents = document.querySelector('.gnbContents');
 await drawCategory();
 
 async function drawCategory() {
-
   if (!token) {
     utilContents.innerHTML = `
             <li><a href="/login">로그인</a></li>
@@ -44,18 +43,16 @@ async function drawCategory() {
             <li>목걸이</li>
             <li><a href="/birthstone">내 탄생석은?</a></li>
         `;
-
 }
 
 function moveCategory(e) {
-
-  if(e.target.tagName === "LI"){
-    if(e.target.innerText === "팔찌") location.href = `/product/category/bracelet`;
-    if(e.target.innerText === "반지") location.href = `/product/category/ring`;
-    if(e.target.innerText === "목걸이") location.href = `/product/category/necklace`;
+  if (e.target.tagName === 'LI') {
+    if (e.target.innerText === '팔찌')
+      location.href = `/product/category/bracelet`;
+    if (e.target.innerText === '반지') location.href = `/product/category/ring`;
+    if (e.target.innerText === '목걸이')
+      location.href = `/product/category/necklace`;
   }
-
-  console.log(e.target)
 }
-gnbContents.addEventListener("click", moveCategory)
+gnbContents.addEventListener('click', moveCategory);
 

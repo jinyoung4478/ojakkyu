@@ -1,5 +1,8 @@
 import * as Api from '/utils/api.js';
-import { renderClientSideComponent, addCommas } from '/utils/useful-functions.js';
+import {
+  renderClientSideComponent,
+  addCommas,
+} from '/utils/useful-functions.js';
 
 const productWrapper = document.querySelector('#productWrapper');
 const pagelist = document.querySelector('#pagelist');
@@ -68,7 +71,9 @@ async function drawCategoryProducts(page) {
         acc +
         `
         <li class="categoryList">
-            <h2><img src=${item.image} class="productEvent" data-id="${item.productId}"></h2>
+            <h2><img src=${item.image} class="productEvent" data-id="${
+          item.productId
+        }"></h2>
             <dl>
                   <dt><strong>${item.productTitle}</strong></dt>
                   <dd><span>${item.description}</span></dd>
@@ -103,7 +108,7 @@ function addAllEvents() {
 function handleBirthStoneFilter(e) {
   const target = e.target.id;
   // 빈칸 클릭 방지
-  if (target === '') {
+  if (target === '' || target === 'birthStoneUl') {
     return;
   }
   // 선택된 탄생석으로 타이틀 변경
