@@ -102,7 +102,7 @@ async function handleEdit(e) {
     alert(`정상적으로 상품이 수정되었습니다.`);
 
     // 수정된 페이지로이동
-    window.location.href = `/product/productDetail/${editproductId}`;
+    window.location.href = `/product/${editproductId}`;
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);

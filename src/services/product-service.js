@@ -1,4 +1,4 @@
-import { productModel } from '../db';
+import { ProductModel, productModel } from '../db';
 
 class ProductService {
   // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
@@ -68,28 +68,20 @@ class ProductService {
   // 값이 없을 때  걸러내는 로직  필요함
   async editProduct(productId, productInfo) {
     const { editproductId, editproductName } = productInfo;
-    const existedId = await this.productModel.findByExistedId(editproductId);
-    const existedName = await this.productModel.findByExistedName(
-      editproductName,
-    );
-    if (existedId) {
-      throw new Error(' 입력한 상품 ID 가 이미 존재합니다.');
+    if (productId !== editproductId) {
+      const existedId = await this.productModel.findByExistedId(editproductId)
+      if (existedId) {
+        throw new Error(' 입력한 상품 ID 가 이미 존재합니다.');
+      }
     }
-    if (existedName) {
-      throw new Error('입력한 상품 명이 이미 존재합니다.');
+    if ((await this.productModel.findById(productId)).productName !== editproductName) {
+      const existedName = await this.productModel.findByExistedName(editproductName);
+      if (existedName) {
+        throw new Error('입력한 상품 명이 이미 존재합니다.');
+      }
     }
-    // 중복된 거 없으면 수정
-    const {
-      image,
-      productTitle,
-      description,
-      price,
-      stoneType,
-      category,
-      availability,
-      likes,
-    } = productInfo;
 
+    // 중복된 거 없으면 수정
     const product = await this.productModel.update({
       productId,
       updateContent: {
