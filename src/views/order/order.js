@@ -53,7 +53,7 @@ function renderOrderList() {
         <li>
             <p>${item.name}</p>
             <p>${item.quantity}</p>
-            <p>${item.price}</p>
+            <p>${addCommas(item.price * item.quantity)}원</p>
         </li>
         `,
     '',
@@ -65,7 +65,7 @@ function renderOrderList() {
 // 주문 총액 표시하기
 function renderTotalPrice() {
   const totalPrice = orderData.reduce(
-    (acc, item) => acc + Number(item.price),
+    (acc, item) => acc + Number(item.price) * Number(item.quantity),
     0,
   );
   priceTotalSpan.innerText = addCommas(totalPrice);

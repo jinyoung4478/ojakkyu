@@ -1,11 +1,10 @@
 @charset "utf-8";
-@import "/styles/reset.css";
-
+@import '/styles/reset.css';
 
 /* 비주얼 배너 */
 /* 슬라이드 */
 
-.slideWrap input[id*="slide"] {
+.slideWrap input[id*='slide'] {
   display: none;
 }
 
@@ -20,7 +19,7 @@
 
 .bannerWrap .slideList {
   white-space: nowrap;
-  font-size: 0; 
+  font-size: 0;
 }
 
 .bannerWrap .slideList > li {
@@ -51,25 +50,24 @@
 
 .bannerWrap .slideList .left {
   left: 30px;
-  background: url("../images/arrow_right.png") center center / 100% no-repeat;
+  background: url('../images/arrow_right.png') center center / 100% no-repeat;
   transform: rotate(180deg);
 }
 
 .bannerWrap .slideList .right {
   right: 35px;
-  background: url("../images/arrow_right.png") center center / 100% no-repeat;
+  background: url('../images/arrow_right.png') center center / 100% no-repeat;
 }
 
-.bannerWrap .slideWrap [id="slide01"]:checked ~ .slideList > li {
+.bannerWrap .slideWrap [id='slide01']:checked ~ .slideList > li {
   transform: translateX(0%);
 }
-.bannerWrap .slideWrap [id="slide02"]:checked ~ .slideList > li {
+.bannerWrap .slideWrap [id='slide02']:checked ~ .slideList > li {
   transform: translateX(-100%);
 }
-.bannerWrap .slideWrap [id="slide03"]:checked ~ .slideList > li {
+.bannerWrap .slideWrap [id='slide03']:checked ~ .slideList > li {
   transform: translateX(-200%);
 }
-
 
 /* 메인 */
 #mainWrap {
@@ -97,8 +95,20 @@
   gap: 20px;
 }
 
+.sideIframe {
+  width: 600px;
+  height: 400px;
+
+  overflow: hidden;
+}
+
+.sideIframe img {
+  width: 100%;
+  height: 100%;
+}
+
 .besideIframe {
-  background: url("../../images/milkway.png") no-repeat content-box;
+  background: url('../../images/milkway.png') no-repeat content-box;
   width: 600px;
 }
 
@@ -117,7 +127,7 @@
   font-weight: 600;
 }
 
-.besideIframe p .subText{
+.besideIframe p .subText {
   padding: 4% 0;
   display: block;
   color: rgb(82, 82, 82);
@@ -126,10 +136,10 @@
   line-height: 1.6;
 }
 
-.besideIframe p .subText strong{
+.besideIframe p .subText strong {
   display: block;
   text-indent: 40px;
-  color:rgb(82, 82, 82);
+  color: rgb(82, 82, 82);
 }
 
 /* 신상품 리스트 */
@@ -138,7 +148,7 @@
   text-align: center;
 }
 
-.arrivalTitle{
+.arrivalTitle {
   line-height: 1.4;
 }
 
@@ -147,7 +157,7 @@
   font-weight: 600;
 }
 
-.arrivalTitle p{
+.arrivalTitle p {
   color: #888;
 }
 
@@ -173,44 +183,39 @@
 
 /* 제품 li 리스트 */
 
-.productList h2{
+.productList h2 {
   overflow: hidden;
 }
 
-.productList dl{
+.productList dl {
   text-align: left;
   padding-top: 10px;
   line-height: 1.4;
 }
 
-.productList dl dt{
+.productList dl dt {
   padding-bottom: 0.25rem;
   border-bottom: 1px solid #d3d3d3;
   font-weight: 600;
 }
 
-.productList dl dd{
+.productList dl dd {
   font-size: 14px;
   color: #222;
 }
 
-.productList dl dd:first-of-type{
+.productList dl dd:first-of-type {
   padding-top: 0.5rem;
   padding-bottom: 0.2rem;
   font-size: 13px;
   color: #888;
 }
 
-.productEvent{
+.productEvent {
   cursor: pointer;
 }
 
-.productEvent:hover{
+.productEvent:hover {
   transform: scale(1.1);
   transition: all 0.4s;
 }
-
-
-
-
-

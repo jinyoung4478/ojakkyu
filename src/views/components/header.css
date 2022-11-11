@@ -1,4 +1,3 @@
-
 /* 헤더 레이아웃 */
 #headerWrap {
   max-width: 100%;
@@ -12,7 +11,7 @@
   align-items: center;
   height: 100px;
   background: #fff;
-  }
+}
 
 .headerTop img {
   width: 180px;
@@ -22,16 +21,15 @@
 .headerTop h1 {
   font-size: 2em;
   color: #000;
-  font-family: "OKDDUNG";
-
-  }
+  font-family: 'OKDDUNG';
+}
 
 .util ul {
   display: flex;
   gap: 20px;
 }
 
-.util ul .logout{
+.util ul .logout {
   color: #000;
   font-weight: 600;
   cursor: pointer;
@@ -42,7 +40,7 @@
   font-weight: 600;
 }
 
-.util ul li a:hover{
+.util ul li a:hover {
   color: coral;
 }
 
@@ -58,33 +56,20 @@
   justify-content: space-evenly;
 }
 
-.gnb ul li{
+.gnb ul li {
   cursor: pointer;
   font-weight: 600;
-
 }
 
-.gnb ul li:hover{
+.gnb ul li:hover {
   color: coral;
 }
 
-.gnb ul li a:hover{
+.gnb ul li a:hover {
   color: coral;
 }
 
 /* 어드민 */
-#adminAdd a{
+#adminAdd a {
   color: black;
 }
-
-#adminAdd.rotate{
-  transition: all 0.4s;
-  animation: rotateTurn 0.4s;
-}
-
-@keyframes rotateTurn {
-  0% { transform: translateX(-300%) scale(0.3) rotate(0deg); opacity: 0; }
-  50% { transform: translateX(0) scale(1.0) rotate(0deg); opacity: 0.5; }
-  100% { transform: translateX(0) scale(1.0) rotate(740deg); opacity: 1;}
-}
-

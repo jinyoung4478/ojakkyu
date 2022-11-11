@@ -29,13 +29,13 @@ async function renderElements() {
   drawDetail();
 
   // 접속 계정 확인
-  await checkAdminUser();
-  // admin 계정일 경우 어드민 UI 렌더링
-  if (isAdmin) {
-    await renderAdminComponents();
-    // 관리자 전용
-    buttonWrapper.addEventListener('click', handleEditProduct);
-  }
+  // await checkAdminUser();
+  // // admin 계정일 경우 어드민 UI 렌더링
+  // if (isAdmin) {
+  //   await renderAdminComponents();
+  //   // 관리자 전용
+  //   buttonWrapper.addEventListener('click', handleEditProduct);
+  // }
 }
 
 async function drawDetail() {
@@ -89,14 +89,14 @@ async function checkAdminUser() {
   return;
 }
 
-async function renderAdminComponents() {
-  const adminEditButtonElem = `
-  <button type="button" data-id="${productId}" id="editProductButton">
-    상품수정
-  </button>
-  `;
-  buttonWrapper.insertAdjacentHTML('beforeend', adminEditButtonElem);
-}
+// async function renderAdminComponents() {
+//   const adminEditButtonElem = `
+//   <button type="button" data-id="${productId}" id="editProductButton">
+//     상품수정
+//   </button>
+//   `;
+//   buttonWrapper.insertAdjacentHTML('beforeend', adminEditButtonElem);
+// }
 
 function addAllEvents() {
   purchaseButton.addEventListener('click', handlePurchase);
@@ -166,7 +166,7 @@ function addCart() {
   }
 }
 
-function handleEditProduct(e) {
-  const pareLi = e.target.closest('#editProductButton');
-  location.href = `/product/edit/${pareLi.dataset.id}`;
-}
+// function handleEditProduct(e) {
+//   const pareLi = e.target.closest('#editProductButton');
+//   location.href = `/product/edit/${pareLi.dataset.id}`;
+// }

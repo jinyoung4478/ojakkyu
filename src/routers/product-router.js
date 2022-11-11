@@ -9,7 +9,7 @@ const productRouter = Router();
 //모든 상품조회
 productRouter.get("/allProducts", async (req, res, next) => {
     try {
-        console.log("get all router 실행")
+        console.log("get all router 실행");
         const products = await productService.getProductsAll()
         res.status(200).json(products)
     }
