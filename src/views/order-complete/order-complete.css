@@ -25,7 +25,7 @@
 }
 
 .fa-solid {
-  color: #00d1b2;
+  color: #296fba;
 }
 
 .buttons {
@@ -35,7 +35,8 @@
 
 button:hover {
   cursor: pointer;
-  outline: 1px solid rgb(202, 202, 202);
+  color: white;
+  background-color: #296fba;
 }
 
 button {
@@ -52,7 +53,11 @@ button {
   -o-border-radius: 5px;
 }
 
-.buttons a:last-child button {
+.buttons a:last-child button:hover {
   color: white;
-  background-color: #00d1b2;
+  background-color: #296fba;
+}
+.buttons a:last-child button {
+  color: #296fba;
+  background-color: #eff5fb;
 }
