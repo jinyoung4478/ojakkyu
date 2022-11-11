@@ -5,6 +5,7 @@ import {
   addCommas,
   validatePhoneNumber,
   formatPhoneNumber,
+  convertToNumber,
 } from '../utils/useful-functions.js';
 
 const listItems = document.querySelector('#listItems');
@@ -156,8 +157,7 @@ async function handlePurchase(e) {
   const address2 = addressDetailInput.value;
   const receiverName = nameInput.value;
   const receiverPhoneNumber = phoneNumberInput.value;
-  const totalPrice = priceTotalSpan.value;
-
+  const totalPrice = convertToNumber(priceTotalSpan.innerText);
   // 구매자 데이터 입력이 잘 되었는지 검증
   if (!nameInput.value) {
     return alert('주문자 이름을 입력해주세요');
@@ -193,8 +193,9 @@ async function handlePurchase(e) {
       receiverPhoneNumber,
     },
     status: '상품 준비 중',
-    totalPrice,
+    totalPrice: Number(totalPrice),
   };
+  console.log(totalPrice);
   try {
     // order api 요청
     await Api.post('/api/orders/payment', data);
