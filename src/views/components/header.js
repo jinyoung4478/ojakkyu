@@ -46,7 +46,6 @@ async function drawCategory() {
   }
 
   gnbContents.innerHTML = `
-            <li><a href="/about-us">ABOUT US</a></li>
             <li>팔찌</li>
             <li>반지</li>
             <li>목걸이</li>            
