@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>주문/결제</title>
     <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/images/facon.ico"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
 
     <!-- bulma css -->
     <link
@@ -35,15 +30,14 @@
 
     <!-- 바디 -->
     <main role="main">
-      
-      <div class="orderWrap">
+      <div class="orderWrap p-6">
         <section class="title-sub mt-2">
           <h2 class="title mb-5 has-text-grey-dark has-text-centered">
             주문/결제
           </h2>
         </section>
 
-        <section id="listItems">
+        <section id="listItems" class="has-text-centered">
           <!-- innerHTML -->
           <ul>
             <li>상품정보</li>
@@ -69,7 +63,7 @@
           <!-- 주소 -->
           <div class="field">
             <label class="label" for="postalCodeInput">주소</label>
-            <div class="control">
+            <div class="control is-flex">
               <input
                 type="text"
                 class="input is-normal"
@@ -125,7 +119,7 @@
               </h3>
             </div>
             <button
-              class="subtitle button is-danger is-outlined py-5 mt-4 mb-6 is-fullwidth is-large"
+              class="subtitle button is-danger is-outlined py-5 mt-4 mb-2 is-fullwidth is-large"
               id="purchaseButton"
             >
               결제하기
