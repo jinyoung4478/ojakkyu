@@ -18,13 +18,14 @@
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <link rel="stylesheet" href="./register.css" />
     <script src="./register.js" type="module"></script>
   </head>
   <body>
     <!-- 헤더 -->
-    <div data-include-path="../components/header.html"></div>
+    <header id="header"></header>
 
     <!-- 회원가입 폼(Form) -->
     <section id="signupContainer">
@@ -32,20 +33,36 @@
         <h2><strong>SIGN UP</strong></h2>
 
         <form class="formWrap" id="registerUserForm">
-          <div class="paddingContent">
-            <p class="textLeft"><label for="idInput">아이디</label></p>
+          <!-- 이메일 -->
+          <div>
+            <p class="textLeft"><label for="emailInput">이메일</label></p>
             <div>
               <input
                 class="input"
-                id="idInput"
-                type="text"
-                placeholder="아이디"
+                id="emailInput"
+                type="email"
+                placeholder="email@example.com"
                 autocomplete="on"
               />
             </div>
           </div>
 
-          <div class="paddingContent">
+          <!-- 이름 -->
+          <div>
+            <p class="textLeft"><label for="fullNameInput">이름</label></p>
+            <div>
+              <input
+                class="input"
+                id="fullNameInput"
+                type="text"
+                placeholder="이름"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div>
             <p class="textLeft"><label for="passwordInput">비밀번호</label></p>
             <div>
               <input
@@ -58,7 +75,8 @@
             </div>
           </div>
 
-          <div class="paddingContent">
+          <!-- 비밀번호 확인 -->
+          <div>
             <p class="textLeft">
               <label for="passwordConfirmInput">비밀번호 확인</label>
             </p>
@@ -73,33 +91,29 @@
             </div>
           </div>
 
-          <div class="paddingContent">
-            <p class="textLeft"><label for="fullNameInput">이름</label></p>
+          <!-- 주소 -->
+          <div class="addressSection">
+            <p class="textLeft">
+              <label for="addressInput">주소</label>
+            </p>
+            <div class="postalCodeWrapper">
+              <input class="input" id="postalCodeInput" type="text" readonly />
+              <button id="searchAddressButton">주소 찾기</button>
+            </div>
+          </div>
+          <div class="addressSection">
             <div>
-              <input
-                class="input"
-                id="fullNameInput"
-                type="text"
-                placeholder="이름"
-                autocomplete="on"
-              />
+              <input class="input" id="addressInput" type="text" readonly />
+            </div>
+          </div>
+          <div class="addressSection">
+            <div>
+              <input class="input" id="addressDetailInput" type="text" />
             </div>
           </div>
 
-          <div class="paddingContent">
-            <p class="textLeft"><label for="emailInput">이메일</label></p>
-            <div>
-              <input
-                class="input"
-                id="emailInput"
-                type="email"
-                placeholder="email@example.com"
-                autocomplete="on"
-              />
-            </div>
-          </div>
-
-          <div class="paddingContent">
+          <!-- 휴대폰 번호 -->
+          <div class="addressSection">
             <p class="textLeft">
               <label for="phonNumberInput">휴대폰 번호</label>
             </p>
@@ -115,11 +129,10 @@
             </div>
           </div>
 
-          <button class="submitBtn" id="submitButton">회원가입하기</button>
+          <!-- 회원가입 버튼 -->
+          <button class="submitBtn" id="submitButton">회원 가입하기</button>
         </form>
       </div>
-
-      <div data-include-path="../components/footer.html"></div>
     </section>
   </body>
 </html>

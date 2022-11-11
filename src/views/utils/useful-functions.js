@@ -45,25 +45,84 @@ export const checkLogin = () => {
   }
 };
 
-// 클라이언트 사이드 컴포넌트 렌더링
-export const clientSideInclude = () => {
-  window.addEventListener('load', function () {
-    let allElements = document.getElementsByTagName('*');
-    Array.prototype.forEach.call(allElements, function (el) {
-      let includePath = el.dataset.includePath;
-      if (includePath) {
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            el.outerHTML = this.responseText;
-          } else if (this.status == 404) {
-          }
-        };
-        xhttp.open('GET', includePath, true);
-        xhttp.send();
-      }
-    });
+// 관리자 여부 확인
+export const checkAdmin = async () => {
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    // 현재 페이지의 url 주소 추출하기
+    const path = window.location.pathname;
+    const search = window.location.search;
+    // 로그인 후 다시 지금 페이지로 자동으로 돌아가도록 하기 위한 준비작업
+    window.location.replace(`/login?previouspage=${path + search}`);
+  }
+
+  const res = await fetch('/api/admin/check', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  const { result } = await res.json();
+
+  if (result === 'success') {
+    window.document.body.style.display = 'block';
+    return;
+  } else {
+    alert('관리자 전용 페이지입니다.');
+    // 홈으로 리다이렉트
+    window.location.replace('/');
+  }
+};
+
+// 로그인 상태일 때에는 접근 불가한 페이지로 만듦. (회원가입 페이지 등)
+export const blockIfLogin = () => {
+  const token = sessionStorage.getItem('token');
+  if (token) {
+    alert('로그인 상태에서는 접근할 수 없는 페이지입니다.');
+    window.location.replace('/');
+  }
+};
+
+// 클라이언트 사이드 컴포넌트 렌더링
+export const renderClientSideComponent = () => {
+  
+    const headerId = document.querySelector('#header');
+    const footerId = document.querySelector('#footer');
+
+    if (headerId) {
+      const header = fetch('/components/header.html');
+      header
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#header').innerHTML = text;
+          let style = document.createElement("link");
+          style.href = '/components/header.css';
+          style.rel = 'stylesheet'
+          document.head.appendChild(style);
+          let script = document.createElement('script');
+          script.type = 'module';
+          script.src = '/components/header.js';
+          document.body.appendChild(script);
+        });
+    }
+
+    if (footerId) {
+      const footer = fetch('/components/footer.html');
+      footer
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#footer').innerHTML = text;
+          let style = document.createElement("link");
+          style.href = '/components/footer.css';
+          style.rel = 'stylesheet'
+          document.head.appendChild(style);
+          let script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'https://kit.fontawesome.com/9daa42bcef.js';
+          document.body.appendChild(script);
+        });
+    }
+
 };
 
 // 폰 번호 형식 자동 포맷

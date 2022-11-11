@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제품 상세 페이지</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 상세 페이지</title>
 
-    <link rel="stylesheet" href="./product-detail.css">
+    <link rel="stylesheet" href="./product-detail.css" />
 
     <script src="product-detail.js" type="module"></script>
-</head>
-<body>
-    <div data-include-path="../../components/header.html"></div>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header id="header"></header>
 
     <section class="container">
-        <article class="detailWrap">
-            <div class="productImg">
+      <article class="detailWrap">
+        <div class="productImg"></div>
 
+        <div>
+          <div class="productDetail" id="productDetail">
+            <ul class="productDesc" id="productDesc">
+              <li>
+                <label>이니셜 각인 : </label>
+                <input type="text" maxlength="8" id="initialInput" required />
+                <label>최대 8글자</label>
+              </li>
+            </ul>
+          </div>
+          <li>
+            <div class="buttonWrapper" id="buttonWrapper">
+              <button type="button" id="purchaseButton" class="moveOrder">
+                구매하기
+              </button>
+              <button type="button" id="adCartButton" class="moveCart">
+                장바구니 추가하기
+              </button>
             </div>
-
-            <div class="productDetail">
-
-            </div>
-        </article>    
+          </li>
+        </div>
+      </article>
     </section>
- 
 
-    <div data-include-path="../../components/footer.html"></div>
-
-    
-</body>
+    <!-- 푸터 -->
+    <footer id="footer"></footer>
+  </body>
 </html>

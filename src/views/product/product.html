@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제품 상세 페이지</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카테고리 상품 페이지</title>
 
-    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="./product.css" />
 
-</head>
-<body>
-    <div data-include-path="../components/header.html"></div>
-    <section class="container">
-        <div id="product">
-            여기에 상품리스트를 불러옵니다.
-        </div>
-        
-        
-    </section>
-    
-    
-    <div data-include-path="../components/footer.html"></div>
-    
-    
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
+    <!-- bulma css 관련 -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    /> -->
+
     <script src="product.js" type="module"></script>
-</body>
+  </head>
+
+  <body>
+    <header id="header"></header>
+
+    <section class="categoryWrap">
+      <div class="categoryTitle">
+        <h1 id="category"></h1>
+      </div>
+      <div class="birthStoneWrapper">
+        <ul id="birthStoneUl" class="birthCategory">
+          <li>
+            <button class="button" id="all">전체</button>
+          </li>
+          <li>
+            <button class="button" id="garnet">1월<br />가넷</button>
+          </li>
+          <li>
+            <button class="button" id="amethyst">2월<br />자수정</button>
+          </li>
+          <li>
+            <button class="button" id="aquamarine">3월<br />아쿠아마린</button>
+          </li>
+          <li>
+            <button class="button" id="diamond">4월<br />다이아몬드</button>
+          </li>
+          <li>
+            <button class="button" id="emerald">5월<br />에메랄드</button>
+          </li>
+          <li>
+            <button class="button" id="pearl">6월<br />진주</button>
+          </li>
+          <li>
+            <button class="button" id="ruby">7월<br />루비</button>
+          </li>
+          <li>
+            <button class="button" id="peridot">8월<br />페리도트</button>
+          </li>
+          <li>
+            <button class="button" id="sapphire">9월<br />사파이어</button>
+          </li>
+          <li>
+            <button class="button" id="opal">10월<br />오팔</button>
+          </li>
+          <li>
+            <button class="button" id="topaz">11월<br />토파즈</button>
+          </li>
+          <li>
+            <button class="button" id="turquoise">12월<br />터키석</button>
+          </li>
+        </ul>
+      </div>
+
+      <article>
+        <ul class="product" id="productWrapper"></ul>
+      </article>
+
+      <div class="pageWrapper">
+        <ul class="pagelist" id="pagelist"></ul>
+      </div>
+    </section>
+
+    <footer id="footer"></footer>
+  </body>
 </html>

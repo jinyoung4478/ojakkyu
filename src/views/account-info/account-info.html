@@ -23,6 +23,7 @@
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="account-info.css" />
@@ -30,7 +31,8 @@
   </head>
   <body>
     <!-- 헤더 -->
-    <div data-include-path="../components/header.html"></div>
+    <header id="header"></header>
+
     <!-- 바디 -->
     <main role="main" id="mainWrap" class="container is-max-desktop">
       <h2
@@ -41,7 +43,8 @@
       </h2>
       <div class="form-container">
         <form id="infoForm" class="box form-box">
-          <div class="field">
+          <!-- 이메일 -->
+          <div class="field mb-5">
             <label class="label" for="emailInput">이메일</label>
             <div class="control">
               <input
@@ -52,7 +55,8 @@
               />
             </div>
           </div>
-          <div class="field">
+          <!-- 이름 -->
+          <div class="field mb-5">
             <label class="label" for="nameInput">이름</label>
             <div class="control">
               <input
@@ -67,6 +71,7 @@
               </label>
             </div>
           </div>
+          <!-- 새 비밀번호 -->
           <div class="field">
             <label class="label" for="passwordInput">새 비밀번호</label>
             <div class="control">
@@ -82,7 +87,8 @@
               </label>
             </div>
           </div>
-          <div class="field">
+          <!-- 비밀번호 확인 -->
+          <div class="field mb-5">
             <label class="label" for="passwordConfirmInput"
               >비밀번호 확인</label
             >
@@ -95,6 +101,45 @@
               />
             </div>
           </div>
+          <!-- 주소 -->
+          <div class="field">
+            <label class="label" for="postalCodeInput">주소</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="postalCodeInput"
+                readonly
+              />
+              <button id="searchAddressButton" class="button is-danger ml-4">
+                주소 검색
+              </button>
+              <label class="switch">
+                <input type="checkbox" id="addressToggle" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="addressInput"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="addressDetailInput"
+              />
+            </div>
+          </div>
+          <!-- 전화번호 -->
           <div class="field">
             <label class="label" for="phoneNumberInput">전화번호</label>
             <div class="control">
@@ -111,6 +156,7 @@
               </label>
             </div>
           </div>
+          <!-- 수정하기 버튼 -->
           <button
             class="button is-outlined button-submit is-info is-fullwidth js-modal-trigger mt-6 is-large"
             id="saveButton"
@@ -153,6 +199,6 @@
       </div>
     </main>
     <!-- 푸터 -->
-    <div data-include-path="../components/footer.html"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

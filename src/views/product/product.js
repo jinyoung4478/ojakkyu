@@ -1,41 +1,128 @@
+import * as Api from '/utils/api.js';
+import {
+  renderClientSideComponent,
+  addCommas,
+} from '/utils/useful-functions.js';
 
-const products = document.querySelector("#product");
-const category = location.pathname.split('product/category/')[1]
+const productWrapper = document.querySelector('#productWrapper');
+const pagelist = document.querySelector('#pagelist');
 
-async function findAndViewProduct() {
-    try {
-        console.log("제품데이터를 불러옵니다..." + category)
-        let res;
+const categoryUrl = window.location.pathname.split('/');
+const categoryType =
+  categoryUrl[categoryUrl.findIndex((a) => a == 'category') + 1];
+const pageUrl = window.location.search;
+const page = Number(pageUrl.split('?page=')[1] || 1);
 
-        // 제품리스트를 카테고리로 불러올지, 전체를 불러올지 로직을 여기서 구현했습니다.
-        if (category == "All/") {
-            console.log("모든 리스트를 불러옵니다..")
-            res = await fetch(`/api/products`);
-        } else {
-            res = await fetch(`/api/products/category/${category}`);
-        }
+const categoryToKorean = {
+  bracelet: '팔찌',
+  ring: '반지',
+  necklace: '목걸이',
+};
+let totalPage;
+let products;
 
-        const data = await res.json();
-        console.log("data", data)
-        data.forEach((tem) => {
-            console.log(`제품 id : ${tem.product_id}`)
-            products.innerHTML += `<li class="productEvent">
-                    <a href="http://localhost:3000/product/${tem.product_id}">
-                    <img class="productEvent" src="${tem.image[0]}">
-                    <p>${tem.accessory_type}</p>
-                    <p>${tem.description}</p>
-                    <p>${tem.price}</p>
-                    <p>${tem.product_name}</p>
-                    <p>${tem.product_title}</p>
-                    <p>${tem.stone_type}</p>
-                    </a>
-                </li>`;
-        });
+let nowStone = 'all';
 
+// 페이지 렌더링
+renderElements();
+// 이벤트 바인딩
+addAllEvents();
 
-    } catch (err) {
-        console.log(err);
-    }
+function renderElements() {
+  // 컴포넌트 렌더링
+  renderClientSideComponent();
+  // 카테고리 페이지 타이틀 렌더링
+  renderTitle();
+  // 카테고리에 해당하는 상품 리스트 렌더링
+  drawCategoryProducts(page);
 }
 
-findAndViewProduct()
+// 카테고리 페이지 타이틀 렌더링
+function renderTitle() {
+  if (nowStone === 'all') {
+    category.innerText = categoryToKorean[categoryType];
+  } else {
+    category.innerHTML = `${categoryToKorean[categoryType]} - <span>${nowStone}</span>`;
+  }
+}
+
+// 카테고리에 해당하는 상품 리스트 렌더링
+async function drawCategoryProducts(page) {
+  try {
+    let result;
+    if (nowStone === 'all') {
+      result = await Api.get(
+        `/api/product/category/${categoryType}/all/?page=${page}`,
+      );
+    } else {
+      // 탄생석별 API 요청
+      result = await Api.get(
+        `/api/product/category/${categoryType}/${nowStone}?page=${page}?`,
+      );
+    }
+
+    // 총 페이지 수
+    totalPage = result.totalPage;
+    // 현재 페이지 제품 데이터
+    products = result.products;
+
+    productWrapper.innerHTML = products.reduce(
+      (acc, item) =>
+        acc +
+        `
+        <li class="categoryList">
+            <h2><img src=${item.image} class="productEvent" data-id="${
+          item.productId
+        }"></h2>
+            <dl>
+                  <dt><strong>${item.productTitle}</strong></dt>
+                  <dd><span>${item.description}</span></dd>
+                  <dd><small>${addCommas(item.price)}</small></dd>
+            </dl>
+        </li>
+        `,
+      '',
+    );
+    pagelist.innerHTML = '';
+    // 페이지 리스트 렌더링
+    for (let i = 1; i <= totalPage; i++) {
+      if (i == page) {
+        pagelist.innerHTML += `<li><a href="/product/category/${categoryType}?page=${i}" style="font-weight:bold">${i}</a></li>`;
+      } else {
+        pagelist.innerHTML += `<li><a href="/product/category/${categoryType}?page=${i}">${i}</a></li>`;
+      }
+    }
+  } catch (err) {
+    alert(`Error: ${err}`);
+    location.href = '/';
+  }
+}
+
+// 모든 이벤트 핸들러 바인딩
+function addAllEvents() {
+  birthStoneUl.addEventListener('mousedown', handleBirthStoneFilter);
+  productWrapper.addEventListener('click', handleToProductDetail);
+}
+
+// 탄생석별로 모아보기 버튼 이벤트 동작
+function handleBirthStoneFilter(e) {
+  const target = e.target.id;
+  // 빈칸 클릭 방지
+  if (target === '' || target === 'birthStoneUl') {
+    return;
+  }
+  // 선택된 탄생석으로 타이틀 변경
+  nowStone = target;
+  // 타이틀 리렌더링
+  renderTitle();
+  // 제품 리스트 리렌더링
+  drawCategoryProducts(page);
+}
+
+// 제품 클릭 시 해당 상세 페이지로 이동
+function handleToProductDetail(e) {
+  const pareImg = e.target.closest('.productEvent');
+  if (pareImg) {
+    location.href = `/product/${pareImg.dataset.id}`;
+  }
+}

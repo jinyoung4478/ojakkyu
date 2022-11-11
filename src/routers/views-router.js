@@ -9,18 +9,30 @@ const viewsRouter = express.Router();
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
+viewsRouter.use('/about-us', serveStatic('about-us'));
+viewsRouter.use('/birthstone', serveStatic('birthstone'));
+viewsRouter.use('/account-order', serveStatic('account-order'));
+viewsRouter.use('/order-complete', serveStatic('order-complete'));
+viewsRouter.use('/info', serveStatic('account-info'));
 viewsRouter.use('/cart', serveStatic('cart'));
-viewsRouter.use('/order-view', serveStatic('order-view'));
-viewsRouter.use('/info', serveStatic('account-info')); // 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요
+viewsRouter.use('/account/signout', serveStatic('account-signout'));
 viewsRouter.use('/account', serveStatic('account'));
-viewsRouter.use('/product', serveStatic('product'));
-viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
+
+// 제품 페이지 라우팅
+viewsRouter.use('/product/add', serveStatic('product-add'));
 viewsRouter.use('/product/category/:category', serveStatic('product'));
+viewsRouter.use('/product/:product_id', serveStatic('product-detail'));
+viewsRouter.use('/product/edit/:product_id', serveStatic('product-edit'));
 viewsRouter.use('/order', serveStatic('order'));
+viewsRouter.use('/not-found', serveStatic('error'));
 
-// viewsRouter.use('/product/:productId', serveStatic('product_detail'));
 
-// viewsRouter.use('/product/product-category', serveStatic('#'));
+// 어드민 페이지
+viewsRouter.use('/admin', serveStatic('admin'));
+viewsRouter.use('/admin-product', serveStatic('admin-product'));
+viewsRouter.use('/admin-category', serveStatic('admin-category'));
+viewsRouter.use('/admin-order', serveStatic('admin-order'));
+
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));

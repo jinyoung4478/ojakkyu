@@ -1,192 +1,175 @@
-import * as Api from '../utils/api.js';
 import {
   addCommas,
-  clientSideInclude,
-  checkLogin,
-} from '../utils/useful-functions.js';
-clientSideInclude();
+  renderClientSideComponent,
+} from '/utils/useful-functions.js';
 
-console.log('Hello Cart!');
+// dom 요소
+const listItems = document.querySelector('.listItems');
+const productList = document.querySelector('.listItems');
+const totalItemNumber = document.querySelector('#totalItemNumber');
+const allDelete = document.querySelector('.deleteBtn');
+const totalPriceLabel = document.querySelector('#totalPriceLabel');
+const purchaseButton = document.querySelector('#purchaseButton');
+let cartData;
 
-const countProduct = document.getElementById('countAllItem');
-const PRICCE_TOTAL = document.getElementById('priceTotal');
-const BTN_PERCHASE = document.getElementById('btnPurchase');
-const BTN_MOVO_ITEMLIST = document.getElementById('btnMoveToItemList');
-const PRODUCT = document.querySelector('#listItems');
+renderElements();
+addAllEvents();
 
-async function getData() {
-  try {
-    const res = await Api.get('/api/products');
+// 엘리먼트 렌더링
+function renderElements() {
+  renderClientSideComponent();
+  renderCartList();
+}
 
-    res.forEach((tem) => {
-      const img = tem.image;
-      const description = tem.description;
-      const price = tem.price;
-      const id = tem.product_id;
-      const name = tem.product_name;
-      const title = tem.product_title;
-      const type = tem.stone_type;
+// 전체 이벤트 바인딩
+function addAllEvents() {
+  allDelete.addEventListener('click', deleteAllProducts);
+  listItems.addEventListener('click', handleCartItem);
+  purchaseButton.addEventListener('click', purchaseCartProducts);
+}
 
-      PRODUCT.innerHTML += `
-      <div id="purchasing " data-id="${id}">
-      <form
-      class="box block columns is-flex is-align-items-center is-justify-content-space-between"
-      >
-      <div class="is-flex is-align-items-center">
-      <figure class="image is-128x128 is-flex mr-2">
-      <img
-      id="itemPreview"
-      src=${img}
-      class="mr-2"
-      />
-      </figure>
-      <div>
-      <h3 id="txtId" class="title is-5">
-      ${title}
-      </h3>
-      <p id="txtSubtitle" class="subtitle is-7">
-      ${description} <br>
-      ${type}
-      </p>
-      <p class="subtitle is-7 tag is-link is-light">
-      <span id="pricePerItem">${addCommas(price)}</span>&nbsp;원
-      </p>
-      </div>
-      </div>
-      <div
-      class="block is-flex is-align-items-center is-justify-content-flex-end"
-      >
-      <input type="hidden" value="${id}">
-      <input
-      id="countItem"
-      value="${tem.id}"
-      class="countItem input is-3 column mr-4 "
-      type="number"
-      min=1
-      placeholder="0"
-      />
-      <button id="btnDeleteItem" class="delete column"></button>
-      </div>
+// 장바구니 항목 렌더링
+async function renderCartList() {
+  cartData = JSON.parse(sessionStorage.getItem('cart'));
+  if (cartData === null || cartData.length === 0) {
+    productList.innerHTML = '<h1>장바구니가 비었습니다.</h1>';
+  } else {
+    const cartListElem = cartData.reduce((acc, item) => {
+      return (
+        acc +
+        `
+      <form class="cartForm">
+          <div class="cartInfo">
+            <p class="checkBox">
+              <input 
+                type="checkbox" 
+                name="${item._id}"
+                class="checkCart"
+                id="checkbox-${item.id}"
+                data-id="${item._id}"
+                ${item.selected ? 'checked' : ''}
+              />
+            </p>
+            <figure class="innerImg">
+              <img src=${item.image} />
+            </figure>
+            <div class="subWrap">
+              <h3 class="subTitle">
+                ${item.title}
+              </h3>
+              <span class="nameText">${item.name}</span>
+              <p class="descText">
+                ${item.description}
+              </p>
+              <p class="totalPrice">
+                <span id="pricePerItem">${addCommas(item.price)}원</span>
+              </p>
+            </div>
+          </div>
+          <div class="initialWrap">
+            <label>
+              ${item.initial ? `각인될 문구: ` : `입력하신 문구가 없습니다.`}
+              ${item.initial ? `<span>${item.initial}</span>` : ''}
+            </label>
+          </div>
+          <div class="quantityInput">
+            <input
+              value="${item.quantity}"
+              class="countItem"
+              name="${item._id}"
+              type="number"
+              min="1"
+            />
+            <button
+              type="button"
+              data-id="${item.id}"
+              class="deleteProduct"
+              >
+            </button>
+          </div>
+        </div>
       </form>
-      </div>
-      `;
-
-      // read: 장바구니 물건 총개수
-      const INPUT_VALUES = document.querySelectorAll('#countItem');
-      let totalItems = [];
-      for (let el of INPUT_VALUES) {
-        totalItems.push(el.value);
-      }
-
-      let values = 0;
-      for (let i = 0; i < totalItems.length; i++) {
-        values += totalItems[i] * 1;
-      }
-
-      const countProduct = document.getElementById('countAllItem'); //객체:카멜케이스
-      countProduct.innerHTML = values;
-
-      //update: 장바구니 물건 개수 변경
-      for (let i = 0; i < INPUT_VALUES.length; i++) {
-        let input = INPUT_VALUES[i];
-        input.addEventListener('input', () => {
-          let totalItems = [];
-          for (let el of INPUT_VALUES) {
-            totalItems.push(el.value);
-          }
-
-          let values = 0;
-          for (let i = 0; i < totalItems.length; i++) {
-            values += totalItems[i] * 1;
-          }
-
-          countProduct.innerHTML = values.toString();
-        });
-      }
-
-      //read: 장바구니 총액 반영
-      for (let i = 0; i < INPUT_VALUES.length; i++) {
-        const INPUT_VALUES = document.querySelectorAll('#countItem');
-        let totalItems = [];
-        for (let el of INPUT_VALUES) {
-          totalItems.push(el.value);
-        }
-
-        let values = 0;
-        for (let i = 0; i < totalItems.length; i++) {
-          values += totalItems[i] * 1 * (tem.productPrice * 1);
-        }
-
-        PRICCE_TOTAL.innerHTML = addCommas(values).toString();
-      }
-
-      //update: 총액 숫자 변경
-      for (let i = 0; i < INPUT_VALUES.length; i++) {
-        let input = INPUT_VALUES[i];
-        input.addEventListener('input', () => {
-          const INPUT_VALUES = document.querySelectorAll('#countItem');
-          let totalItems = [];
-          for (let el of INPUT_VALUES) {
-            totalItems.push(el.value);
-          }
-
-          let values = 0;
-          for (let i = 0; i < totalItems.length; i++) {
-            values += totalItems[i] * 1 * (tem.productPrice * 1);
-          }
-          PRICCE_TOTAL.innerHTML = addCommas(values).toString();
-        });
-      }
-
-      //delete: 장바구니 물건 전체 삭제
-      const BTN_ALL_REMOVE = document.getElementById('btnAllRemove');
-      BTN_ALL_REMOVE.addEventListener('click', (e) => {
-        e.preventDefault();
-        countProduct.innerHTML = '0';
-        PRICCE_TOTAL.innerHTML = '0';
-        PRODUCT.innerHTML = '';
-        console.log('all items delete - clear -');
-      });
-
-      //delete: 장바구니 물건 개별 삭제
-      //[221104 - 진행중: splice를 사용하면 순차적 삭제시 4번 이후로 삭제가 어렵습니다.]
-      const BTN_DEL_ITEMS = document.querySelectorAll('#btnDeleteItem');
-      const PERCHAISING = document.querySelector('#perchasing');
-      for (let i = 0; i < BTN_DEL_ITEMS.length; i++) {
-        let btndel = BTN_DEL_ITEMS[i];
-        btndel.addEventListener('click', (e) => {
-          e.preventDefault();
-
-          //update: 장바구니 물건 개수 변경
-          totalItems.splice(i, 1);
-          let result = totalItems.reduce((pre, cur) => pre * 1 + cur * 1);
-          console.log(totalItems);
-          countProduct.innerHTML = result;
-
-          btndel.parentElement.parentElement.parentElement.remove();
-          //1. 개별삭제시 총액에 반영하기
-          //2. 개별삭제로 목록이 모두 삭제될 시 총액 0으로 변경
-          //3. 개별삭제 모두 진행시 금액 반영
-          //4. 결제하기 버튼
-          BTN_PERCHASE.addEventListener('click', (e) => {
-            // e.preventDefault();
-            checkLogin();
-          });
-        });
-      }
-    });
-  } catch (err) {
-    console.log(err);
+      `
+      );
+    }, '');
+    productList.innerHTML = cartListElem;
+    renderTotalPrice();
   }
 }
 
-// 로컬스토리지에 제품 저장 함수
-function saveProduct(productData) {
-  localStorage.setItem('product', JSON.stringify(productData));
+// 전체삭제
+function deleteAllProducts() {
+  if (window.confirm('정말 삭제 하시겠습니까?')) {
+    cartData = [];
+    productList.innerHTML = '';
+    sessionStorage.removeItem('cart');
+    renderTotalPrice();
+  }
 }
 
-async function creatProduct() {
-  await getData();
+// 장바구니 품목 내부 이벤트
+function handleCartItem(e) {
+  // 장바구니 품목 선택 / 선택 해제
+  if (e.target.type === 'checkbox') {
+    cartData.filter((item) => item._id === e.target.name)[0].selected =
+      e.target.checked;
+    sessionStorage.setItem('cart', JSON.stringify(cartData));
+    renderTotalPrice();
+  }
+  // 해당 품목 개별 삭제
+  if (e.target.type === 'button') {
+    cartData = cartData.filter((item) => item.id !== e.target.dataset.id);
+    sessionStorage.setItem('cart', JSON.stringify(cartData));
+    renderCartList();
+    renderTotalPrice();
+  }
+  // 해당 품목 개수 조절
+  if (e.target.type === 'number') {
+    cartData = cartData.map((item) => {
+      if (item._id === e.target.name) {
+        item.quantity = e.target.value;
+      }
+      return item;
+    });
+    sessionStorage.setItem('cart', JSON.stringify(cartData));
+    renderTotalPrice();
+  }
+}
+// 총액 구하기
+function renderTotalPrice() {
+  let totalNumber = 0;
+  const totalPrice = cartData.reduce((acc, item) => {
+    if (item.selected) {
+      totalNumber++;
+      return acc + Number(item.price) * Number(item.quantity);
+    } else {
+      return acc;
+    }
+  }, 0);
+  totalItemNumber.innerText = `총 ${totalNumber}개`;
+  totalPriceLabel.innerText = addCommas(totalPrice);
 }
 
-creatProduct();
+// 주문하기 버튼
+function purchaseCartProducts(e) {
+  e.preventDefault();
+  const orderData = cartData.reduce((acc, item) => {
+    if (item.selected) {
+      acc.push({
+        id: item.id,
+        initial: item.initial,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      });
+    }
+    return acc;
+  }, []);
+  if (orderData.length === 0) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
+  // 현재 상품으로 session Storage의 order 덮어쓰기
+  sessionStorage.setItem('order', JSON.stringify(orderData));
+  location.href = '/order';
+}

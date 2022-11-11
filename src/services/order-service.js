@@ -8,23 +8,8 @@ class OrderService {
 
   // 주문 변경
   async addOrder(orderInfo) {
-    // 객체 destructuring
-    const { 
-      userId, 
-      status, 
-      totalPrice, 
-      productList,
-    } = orderInfo;
-
-    const newOrderInfo = { 
-      userId, 
-      status, 
-      totalPrice, 
-      productList,
-    };
-
     // db에 저장
-    const createdNewOrder = await this.orderModel.create(newOrderInfo);
+    const createdNewOrder = await this.orderModel.create(orderInfo);
 
     return createdNewOrder;
   }
@@ -35,29 +20,49 @@ class OrderService {
     return orders;
   }
 
-  // user_id로 사용자 별 주문 내역 조회
-  async getFindByUserId(userId) {
-    const orders = await this.orderModel.findByUserId(userId);
+  // orderId별 주문 조회
+  async getOrder(orderId) {
+    const order = await this.orderModel.findById(orderId);
+
+    if (!order) {
+      throw new Error("해당 id의 주문은 없습니다.");
+    }
+
+    return order;
+  }
+
+  // userId로 사용자 별 주문 내역 조회
+  async getOrdersByUserId(userId) {
+    const orders = await this.orderModel.findAllByUserId(userId);
     return orders;
   }
 
-  // order_id로 주문 상세 조회
-  async getFindByOrderId(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
-    return order;
+  // productId로 사용자 별 주문 내역 조회
+  async getOrdersByProductId(productId) {
+    const orders = await this.orderModel.findAllByProductId(productId);
+    return orders;
   }
 
-  // 주문 상태 변경
-  async setOrderStatus(orderId, status) {
-    const order = await this.orderModel.update(orderId, status);
+  // 주문 변경
+  async setOrder(orderId, toUpdate) {
+    const updatedOrder = await this.orderModel.update({
+      orderId,
+      update: toUpdate,
+    });
 
-    return order;
+    return updatedOrder;
   }
 
   // 주문 내역 삭제
   async deleteOrder(orderId) {
-    const deletedOrder = await this.orderModel.deleteById(orderId);
-    return deletedOrder;
+    const { deletedOrder } = await this.orderModel.deleteById(orderId);
+    
+    // 삭제 실패시 에러 메시지 반환
+    if (deletedOrder === 0) {
+      throw new Error(`${orderId} 주문 삭제에 실패했습니다.`);
+    }
+    
+    return { result: "success" };
   }
 
 }

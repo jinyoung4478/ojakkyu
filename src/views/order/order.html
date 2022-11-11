@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>주문/결제</title>
     <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../images/facon.ico"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
 
     <!-- bulma css -->
     <link
@@ -25,36 +20,24 @@
     ></script>
 
     <link rel="stylesheet" href="./order.css" />
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="order.js" type="module" defer></script>
-    <script src="order-modal.js" type="module" defer></script>
   </head>
 
-  <!-- 뒤로가기 방지 -->
-  <script type="text/javascript">
-    window.history.forward();
-    function noBack() {
-      window.history.forward();
-    }
-  </script>
-
-  <body
-    class="cartOrder"
-    onload="noBack();"
-    onpageshow="if(event.persisted) noBack();"
-    onunload=""
-  >
+  <body class="cartOrder">
     <!-- 헤더 -->
-    <div data-include-path="../components/header.html"></div>
+    <header id="header"></header>
 
-    <main role="main" id="mainWrap" class="container is-max-desktop">
-      <div class="mainInner px-6 box mt-6">
+    <!-- 바디 -->
+    <main role="main">
+      <div class="orderWrap p-6">
         <section class="title-sub mt-2">
           <h2 class="title mb-5 has-text-grey-dark has-text-centered">
             주문/결제
           </h2>
         </section>
 
-        <section id="listItems">
+        <section id="listItems" class="has-text-centered">
           <!-- innerHTML -->
           <ul>
             <li>상품정보</li>
@@ -62,104 +45,91 @@
             <li>수량</li>
             <li>금액</li>
           </ul>
-
-          <ul>
-            <li>
-              <p>반지</p>
-              <p>1</p>
-              <p>10,000</p>
-            </li>
-            <li>
-              <p>팔찌</p>
-              <p>1</p>
-              <p>20,000</p>
-            </li>
-          </ul>
         </section>
 
         <form class="userInfo">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">이름</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="text" />
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">연락처</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="text" />
-                </p>
-              </div>
+          <!-- 이름 -->
+          <div class="field mb-5">
+            <label class="label" for="nameInput">이름</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="nameInput"
+                autocomplete="off"
+              />
             </div>
           </div>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">주소</label>
+          <!-- 주소 -->
+          <div class="field">
+            <label class="label" for="postalCodeInput">주소</label>
+            <div class="control is-flex">
+              <input
+                type="text"
+                class="input is-normal"
+                id="postalCodeInput"
+                readonly
+              />
+              <button id="searchAddressButton" class="button is-danger ml-4">
+                주소 검색
+              </button>
             </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="text" />
-                </p>
-              </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="addressInput"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input
+                type="text"
+                class="input is-normal"
+                id="addressDetailInput"
+              />
+            </div>
+          </div>
+          <!-- 전화번호 -->
+          <div class="field">
+            <label class="label" for="phoneNumberInput">전화번호</label>
+            <div class="control">
+              <input
+                type="tel"
+                class="input is-normal"
+                id="phoneNumberInput"
+                maxlength="13"
+                autocomplete="off"
+              />
             </div>
           </div>
         </form>
 
         <section class="total mt-6">
           <div class="is-flex is-flex-direction-column">
-            <div class="block is-align-self-flex-end">
-              <h3 class="title is-4 has-text-grey-dark">
-                총액:&nbsp;<span id="priceTotal" class="has-text-danger"
-                  >30,000</span
-                >&nbsp;원
+            <div class="is-align-self-flex-end">
+              <h3 class="title is-4 has-text-grey-dark mt-5">
+                <span>총액:</span>
+                <span id="priceTotalSpan" class="has-text-danger">30,000</span>
+                <span>원</span>
               </h3>
-              <p class="subtitle is-7"></p>
             </div>
-
             <button
-              class="js-modal-trigger subtitle button is-danger is-outlined py-5 mt-4"
-              data-target="modal-js-example"
+              class="subtitle button is-danger is-outlined py-5 mt-4 mb-2 is-fullwidth is-large"
+              id="purchaseButton"
             >
               결제하기
             </button>
-
-            <div
-              class="modal"
-              id="modal-js-example"
-              onclick="location.href='http://localhost:3000/order-view'"
-            >
-              <div class="modal-background"></div>
-              <div class="modal-content box" style="text-align: center">
-                결제가 완료되었습니다. 주문조회 화면으로 이동합니다.
-              </div>
-              <!-- <button class="modal-close is-large" aria-label="close"></button> -->
-            </div>
           </div>
-
-          <a href="/">
-            <button
-              id="btnMoveToItemList"
-              class="button is-danger is-outlined mt-4 mb-4 px-5"
-            >
-              더 구매하기
-            </button>
-          </a>
         </section>
       </div>
     </main>
 
     <!-- 푸터 -->
-    <div data-include-path="../components/footer.html"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

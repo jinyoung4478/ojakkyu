@@ -1,22 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>장바구니</title>
-    <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../images/facon.ico"
-    />
 
-    <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
 
     <script
       defer
@@ -24,63 +13,45 @@
       crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="./css/cart.css" />
+    <link rel="stylesheet" href="cart.css" />
     <script src="cart.js" type="module" defer></script>
   </head>
 
   <body>
     <!-- 헤더 -->
-    <div data-include-path="../components/header.html"></div>
+    <header id="header"></header>
 
-    <main role="main" id="mainWrap" class="container is-max-desktop">
-      <section class="title-sub mt-6">
-        <h2 class="title mb-6 has-text-grey-dark has-text-centered">
-          장바구니
-        </h2>
-        <div class="mb-4 is-flex is-justify-content-space-between">
-          <p class="subtitle">
-            총&nbsp;
-            <span id="countAllItem">3</span>
-            개
-          </p>
-          <button id="btnAllRemove" class="button is-info is-light">
-            전체삭제
-          </button>
-        </div>
-      </section>
+    <main role="main">
+      <section class="container">
+        <div class="cartWrap">
+          <h2 class="cartTitle">장바구니</h2>
 
-      <section id="listItems"></section>
-      <section class="total mt-6">
-        <div class="is-flex is-justify-content-space-between">
-          <div class="block">
-            <h3 class="title is-4 has-text-grey-dark">
-              총액:&nbsp;<span id="priceTotal" class="has-text-danger"
-                >19,000</span
-              >&nbsp;원
-            </h3>
-            <p class="subtitle is-7"></p>
+          <div class="countDelete">
+            <p class="productCount" id="totalItemNumber"></p>
+            <p>
+              <button class="deleteBtn">전체삭제</button>
+            </p>
           </div>
-          <a href="/order">
-            <button
-              id="btnPurchase"
-              class="button is-danger is-outlined px-6 py-5"
-            >
-              주문하기
-            </button>
-          </a>
+
+          <section class="listItems"></section>
         </div>
-        <a href="/">
-          <button
-            id="btnMoveToItemList"
-            class="button is-danger is-outlined mb-4 px-5"
-          >
-            더 구매하기
-          </button>
-        </a>
+
+        <div class="totalPriceOrder">
+          <div class="priceWrap">
+            <div>
+              <h3 class="productCount">
+                총액: <span class="priceText" id="totalPriceLabel"></span> 원
+              </h3>
+            </div>
+            <a>
+              <button id="purchaseButton" class="orderBtn">주문하기</button>
+            </a>
+          </div>
+        </div>
       </section>
     </main>
 
     <!-- 푸터 -->
-    <div data-include-path="../components/footer.html"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

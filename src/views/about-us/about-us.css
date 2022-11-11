@@ -1,0 +1,27 @@
+@charset "utf-8";
+@import '../styles/reset.css';
+
+.contentsIn {
+  padding-top: 60px;
+  margin: 0 auto;
+  max-width: 1280px;
+
+  text-align: center;
+
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.txt {
+  color: white;
+  text-align: left;
+  line-height: 2em;
+
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}

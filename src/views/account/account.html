@@ -33,7 +33,7 @@
   </head>
   <body>
     <!-- 헤더 -->
-    <div data-include-path="../components/header.html"></div>
+    <header id="header"></header>
     <!-- 바디 -->
     <main role="main" id="mainWrap" class="container is-max-desktop">
       <section class="accountWrapper">
@@ -42,16 +42,16 @@
             <p class="ftSerif">세상에 하나뿐인 추억을 선물하세요</p>
           </aside>
           <ul>
-            <li class="img1"><a href="/order-view">주문 목록</a></li>
+            <li class="img1"><a href="/account-order">주문 목록</a></li>
             <li class="img2"><a href="/cart">장바구니</a></li>
             <!-- 개인 정보 페이지 접근 요청 시 비밀번호 확인하는 기능 추가 필요 -->
             <li class="img3"><a href="/info">개인 정보</a></li>
-            <li class="img4"><a href="">회원탈퇴</a></li>
+            <li class="img4"><a href="/account/signout">회원탈퇴</a></li>
           </ul>
         </div>
       </section>
     </main>
     <!-- 푸터 -->
-    <div data-include-path="../components/footer.html"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

@@ -1,19 +1,53 @@
 @charset "utf-8";
-@import "../../styles/reset.css";
+@import '/styles/reset.css';
 
-.container{
-    width: 1280px;
-    margin: 0 auto;
+/* 레이아웃 */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-.detailWrap{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding-top: 4%;
+.detailWrap {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 100px;
+  padding-top: 4%;
 }
 
-.detailWrap .productImg img{
-    width: 400px;
-    height: 300px;
+/* 이메일 */
+.detailWrap .productImg img {
+  width: 600px;
+  height: 600px;
+}
+
+/* 제품 설명 */
+.productDetail {
+  width: 100%;
+}
+
+.productDesc {
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid #000;
+}
+
+.productDesc li {
+  padding: 20px 0;
+  border-top: 1px solid #d3d3d3;
+}
+
+.productDesc li h1 {
+  font-family: none;
+  font-size: 2em;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonWrapper button {
+  border: none;
+  padding: 20px 60px;
+  cursor: pointer;
 }

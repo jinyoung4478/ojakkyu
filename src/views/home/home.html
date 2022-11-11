@@ -1,40 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>오작뀨</title>
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../images/facon.ico"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/facon.ico" />
 
-
-    <script
-      defer
-      src="https://kit.fontawesome.com/9daa42bcef.js"
-      crossorigin="anonymous"
-    ></script>
-
-
-    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="home.css" />
     <script src="home.js" type="module"></script>
-   
   </head>
 
   <body>
     <!-- 헤더 -->
-   
-    <div data-include-path="../components/header.html"></div>
-
+    <header id="header"></header>
 
     <!-- 비주얼 배너 -->
-    <article class="visualBanner">
-      <img src="../images/visualBanner1.png" alt="visulaImage" />
-    </article>
+
+    <section class="bannerContainer">
+      <article class="bannerWrap">
+        <div class="slideWrap">
+          <input type="radio" name="slide" id="slide01" checked />
+          <input type="radio" name="slide" id="slide02" />
+          <input type="radio" name="slide" id="slide03" />
+
+          <ul class="slideList">
+            <li>
+              <a>
+                <label for="slide03" class="left"></label>
+                <img src="/images/visualBanner1.png" alt="bg01" />
+                <label for="slide02" class="right"></label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <label for="slide01" class="left"></label>
+                <img src="/images/visualBanner2.jpg" alt="bg02" />
+                <label for="slide03" class="right"></label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <label for="slide02" class="left"></label>
+                <img src="/images/visualBanner3.jpg" alt="bg03" />
+                <label for="slide01" class="right"></label>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </section>
 
     <!-- 메인 -->
     <main role="main" id="mainWrap">
@@ -42,38 +57,42 @@
       <section class="contentsOne">
         <ul>
           <li>
-            <img src="../images/eventContents1.png" alt="Fast shipping" />
+            <img src="/images/eventContents1.png" alt="Fast shipping" />
           </li>
-          <li><img src="../images/eventContents2.png" alt="Review event" /></li>
-          <li><img src="../images/eventContents3.png" alt="Custom carve" /></li>
+          <li><img src="/images/eventContents2.png" alt="Review event" /></li>
+          <li><img src="/images/eventContents3.png" alt="Custom carve" /></li>
         </ul>
       </section>
 
       <!-- 두 번째 컨텐츠 -->
       <section class="contentsSec">
         <article>
-          <iframe
-            title="#"
+          <!-- <iframe
+            title="youtube"
             width="600"
             height="360"
             src="https://www.youtube.com/embed/CWTwiE15pdY"
           >
-            <a href="../images/iframe.jpg" target="img">
-              <img src="../images/iframe.jpg" alt="iframe" />
+            <a href="/images/iframe.jpg" target="img">
+              <img src="/images/iframe.jpg" alt="iframe" />
             </a>
-          </iframe>
+          </iframe> -->
+
+          <div class="sideIframe">
+            <img src="../images/main_img.jpg" alt="jewerly_img" />
+          </div>
 
           <div class="besideIframe">
             <div>
               <p>
                 GIFT FOR MEMORY<br />
-                <span class="subText"
-                  >당신의 소중한 사람에게 <br />
-                  단 하나뿐인 기억을 선물하세요. <br />
+                <span class="subText">
+                  # 당신의 소중한 사람에게 <br />
+                  <strong> 단 하나뿐인 기억을 선물하세요.</strong>
                 </span>
-                <span class="hashTag">
+                <!-- <span class="hashTag">
                   #세상에하나뿐인둘만의추억#선물#기억을선물한다<br />#커스텀쥬얼리#기념선물
-                </span>
+                </span> -->
               </p>
             </div>
           </div>
@@ -82,19 +101,18 @@
 
       <!-- 세 번째 컨텐츠 -->
       <section class="newArrival">
-        <strong>NEW ARRIVAL</strong>
+        <div class="arrivalTitle">
+          <strong>NEW ARRIVAL</strong>
+          <p>오작뀨의 신상 아이템</p>
+        </div>
+
         <article class="productWrap">
-          <ul class="product">
-            
-          </ul>
+          <ul class="product"></ul>
         </article>
       </section>
     </main>
 
-
-
     <!-- 푸터 -->
-    <div data-include-path="../components/footer.html"></div>
-
+    <footer id="footer"></footer>
   </body>
 </html>

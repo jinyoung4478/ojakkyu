@@ -1,0 +1,63 @@
+@charset "utf-8";
+@import '../styles/reset.css';
+
+/* description */
+.error .description {
+  margin-bottom: 20px;
+  padding-top: 80px;
+
+  color: rgba(182, 182, 182, 0.7);
+}
+
+.error .descriptionInner {
+  text-align: center;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: repeat(2, 300px);
+}
+
+.error .description h2 {
+  opacity: 0.2;
+  margin-bottom: 20px;
+
+  font-weight: bold;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 1px black;
+}
+
+.error .description p {
+  line-height: 2em;
+}
+
+.error .description .txtError {
+  opacity: 0.1;
+
+  font-size: 20em;
+  text-shadow: 1px 1px 1px s;
+}
+
+.error .linkHomeWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.error .linkHome:hover {
+  color: white;
+  background-color: #f15a99;
+}
+
+.error .linkHome {
+  padding: 8px 10px;
+
+  color: #f15a99;
+
+  background-color: transparent;
+  border: 1px solid #f15a99;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}

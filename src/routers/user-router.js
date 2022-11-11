@@ -1,14 +1,8 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from "../middlewares";
+import { loginRequired, adminRequired } from "../middlewares";
 import { userService } from "../services/user-service";
-import { orderService } from "../services/order-service";
-
-import { model } from "mongoose";
-import { UserSchema } from "../db/schemas/user-schema";
-
-const User = model("users", UserSchema);
 
 const userRouter = Router();
 
@@ -29,23 +23,11 @@ userRouter.post("/login", async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    // 쿠키 설정
-    //res.cookie("token", userToken).cookie("login", "true")
     res.status(200).json(userToken);
   } catch (error) {
     next(error);
   }
 });
-
-// 로그아웃
-// 쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
-// userRouter.get("/logout", async function (req, res, next) {
-//   try { 
-//     res.clearCookie("token").clearCookie("login").redirect("/");
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users/register 로 요청해야 함.)
 userRouter.post("/", async (req, res, next) => {
@@ -82,7 +64,7 @@ userRouter.post("/", async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/", async function (req, res, next) {
+userRouter.get("/", adminRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -93,17 +75,6 @@ userRouter.get("/", async function (req, res, next) {
     next(error);
   }
 });
-
-// 사용자 정보 조회
-// userRouter.get("/:userId", async (req, res, next) => {
-//   try {
-//     const { userId } = req.params;
-//     const userData = await userService.getUser(userId);
-//     res.status(200).json(userData);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
   try {
@@ -119,6 +90,7 @@ userRouter.get("/myInfo", loginRequired, async (req, res, next) => {
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.put(
   "/:userId",
+  loginRequired,
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -168,7 +140,7 @@ userRouter.put(
 );
 
 // 사용자 삭제
-userRouter.delete("/:userId", async (req, res, next) => {
+userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -191,63 +163,15 @@ userRouter.delete("/:userId", async (req, res, next) => {
   }
 });
 
-// 회원탈퇴 userId를 파라미터에 넣어서 전송
-// userRouter.delete(
-//   "/users/:userId",
-//   loginRequired,
-//   async function (req, res, next) {
-//     try {
-//       const userId = req.params.userId;
-
-//       // 관리자 계정이 아니라면 유저 아이디 일치하는지 검증
-//       if (req.role !== "admin-user") {
-//         if (req.currentUserId !== userId) {
-//           throw new Error("토큰의 정보와 삭제하려는 유저의 정보가 다릅니다.");
-//         }
-//       }
-//       await userService.deleteUser(userId);
-
-//       res.status(200).json("정상적으로 회원탈퇴 처리 되었습니다.");
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
-
-
-// 사용자 주문 내역 조회
-// userRouter.get("/:userId/orders", async (req, res, next) => {
-//   // 로그인이 되어있으면 그 사용자의 주문들을 전부 반환
-//   try {
-//     const { userId } = req.params;
-//     const orders = await orderService.findOrders(userId);
-//     res.status(200).json(orders);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// 사용자 주문 삭제
-// userRouter.get("/:userId/orders/:orderId", async (req, res, next) => {
-//   try {
-//     const { userId, orderId } = req.params;
-//     const currentUserId = await orderService.findUser(orderId);
-
-//     if (currentUserId !== userId) {
-//       throw new Error(
-//         "사용자 아이디와 현재 주문하는 사용자 아이디 정보가 일치하지 않습니다."
-//       );
-//     }
-//     const deletedOrder = await orderService.deleteUserOrder(orderId);
-//     if (deletedOrder) {
-//       await userService.pullUserOrderList(userId, orderId);
-//       res.status(200).json({ result: "success" });
-//     } else {
-//       throw new Error("주문한 기록이 없습니다.");
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+// 관리자 토큰 여부 확인
+// adminRequired
+userRouter.get("/admin/check", adminRequired, async (req, res, next) => {
+  try {
+    // adminRequired 통과 -> 관리자 토큰 가짐 확인됨
+    res.status(200).json({ result: "success" });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { userRouter };

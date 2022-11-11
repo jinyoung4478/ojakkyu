@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./product-edit.js" type="module"></script>
+
+    <title>상품 수정</title>
+
+    <!-- 아이콘 -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/elice-rabbit-favicon.png"
+    />
+
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="./product-edit.css" />
+    <script src="./product-edit.js" type="module"></script>
+  </head>
+  
+  <body>
+    <!-- 헤더 -->
+    <header id="header"></header>
+
+    <!-- 상품 수정 폼(Form) -->
+    <main role="main" id="addProductSection">
+        <h2>상품 수정/삭제</h2>
+        <form class="addProduct" id="addProductForm">
+          <div class="formInputs">
+            <div class="left">
+    <!-- 상품 사진 -->
+                <div>
+                    <label for="productImage" class="textLeft">상품 사진</label>
+                    <div>
+                        <input
+                        class="input"
+                        id="productImage"
+                        type="text"
+                        placeholder="상품 사진 링크를 입력하세요"
+                        />
+                    </div>
+                </div>
+                
+    <!-- 상품 ID -->
+              <div>
+                <label for="productId" class="textLeft">productId</label>
+                <div>
+                  <input
+                    class="input"
+                    id="productId"
+                    type="text"
+                    placeholder="상품 id 값을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    <!-- 상품 명 -->
+              <div>
+                <label for="productName" class="textLeft">productName</label>
+                <div>
+                  <input
+                    class="input"
+                    id="productName"
+                    type="text"
+                    placeholder="상품 명을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    <!-- 상품 제목 -->
+              <div>
+                <label for="productTitle" class="textLeft">productTitle</label>
+                <div>
+                  <input
+                    class="input"
+                    id="productTitle"
+                    type="text"
+                    placeholder="상품 제목을 입력하세요"
+                  />
+                </div>
+              </div>
+              
+            </div>
+            <div class="right">
+    <!-- 상품 설명 -->
+              <div>
+                <label for="description" class="textLeft">description</label>
+                <div>
+                  <input
+                    class="input"
+                    id="description"
+                    type="text"
+                    placeholder="상품 설명을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    
+              <div>
+                <label for="price" class="textLeft">price</label>
+                <div>
+                  <input
+                    class="input"
+                    id="price"
+                    type="text"
+                    placeholder="상품 가격을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    <!-- 탄생석 -->
+              <div>
+                <label for="stoneType" class="textLeft">stoneType</label>
+                <div>
+                  <input
+                    class="input"
+                    id="stoneType"
+                    type="text"
+                    placeholder="탄생석을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    <!-- 카테고리 -->
+              <div>
+                <label for="category" class="textLeft">category</label>
+                <div>
+                  <input
+                    class="input"
+                    id="category"
+                    type="text"
+                    placeholder="카테고리를 입력하세요"
+                  />
+                </div>
+              </div>
+    
+              <!-- 좋아요 수 -->
+              <div>
+                <label for="likesInput" class="textLeft">likes</label>
+                <div>
+                  <input
+                    class="input"
+                    id="likesInput"
+                    type="text"
+                    placeholder="상품 likes 값을 입력하세요"
+                  />
+                </div>
+              </div>
+    
+    
+              <!-- 주문가능여부
+              <div>
+                <p class="textLeft">category</p>
+                <div>
+                  <select>
+                    <label> 주문 가능 여부 </label>
+                    <option>true</option>
+                </select>
+                </div>
+              </div> -->
+            </div>
+          </div class="formInputs">
+
+          <!-- 상품수정 버튼 -->
+          <div class="buttons">
+            <button class="submitButton" id="editButton">상품 수정하기</button>
+            <button class="submitButton" id="deleteButton">상품 삭제하기</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer id="footer"></footer>
+  </body>
+</html>
