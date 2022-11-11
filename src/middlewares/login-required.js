@@ -32,7 +32,7 @@ function loginRequired(req, res, next) {
   } catch (error) {
     if (error.name === "TokenExpiredError") { // 유효기간 초과
       console.log("토큰 기간 만료");
-      alert("토큰 기간 만료");
+      //window.alert("토큰 기간 만료");
       //sessionStorage.removeItem('token');
       return res.status(419).json({
         result: "token-expired",

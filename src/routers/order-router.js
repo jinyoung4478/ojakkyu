@@ -19,19 +19,6 @@ orderRouter.get('/all', adminRequired, async (req, res, next) => {
   }
 });
 
-// orderId에 해당하는 주문 내역 보기, /api/orders/:orderId
-// loginRequired
-// orderRouter.get('/:orderId', loginRequired, async (req, res, next) => {
-//   try {
-//     const orderId = req.params.orderId;
-//     const order = await orderService.getOrder(orderId);
-
-//     res.status(200).json(order);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 // userId에 해당하는 주문 내역 보기, /api/orders/:userId
 // loginRequired
 orderRouter.get('/:userId', loginRequired, async (req, res, next) => {
@@ -99,7 +86,6 @@ orderRouter.post('/payment', async (req, res, next) => {
 
     const userId = req.body.currentUserId;
     const summaryTitle = req.body.summaryTitle;
-    const initial = req.body.initial;
     const status = req.body.status;
     const totalPrice = req.body.totalPrice;
     const address = req.body.address;
@@ -107,7 +93,6 @@ orderRouter.post('/payment', async (req, res, next) => {
     const newOrder = await orderService.addOrder({
       userId,
       summaryTitle,
-      initial,
       status,
       totalPrice,
       address,

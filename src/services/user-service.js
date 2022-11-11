@@ -96,10 +96,6 @@ class UserService {
       throw new Error('해당 ID는 찾을 수 없습니다.');
     }
 
-    // const { email, full_name, password, phone_number, address, role } = user;
-
-    // return { email, full_name, password, phone_number, address, role };
-
     return user;
   }
 
@@ -182,24 +178,6 @@ class UserService {
     const deletedUser = await this.userModel.deleteById(userId);
     return deletedUser;
   }
-
-  // 사용자 주문 내역 가져오기
-  // async pushUserOrderList(user_id, order_id) {
-  //   const updatedUser = await this.userModel.updateOrder({
-  //     user_id,
-  //     order_id,
-  //   });
-  //   return updatedUser;
-  // }
-
-  // 사용자 주문 내역 삭제
-  // async pullUserOrderList(user_id, order_id) {
-  //   const updatedUser = await this.userModel.deletOrder({
-  //     user_id,
-  //     order_id,
-  //   });
-  //   return updatedUser;
-  // }
 }
 
 const userService = new UserService(userModel);

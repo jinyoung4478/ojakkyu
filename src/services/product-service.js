@@ -19,7 +19,7 @@ class ProductService {
       throw new Error(' 입력한 상품 ID 가 이미 존재합니다.');
     }
     if (existedName) {
-      throw new Error('입력한 상품 명이 이미 존재합니다.');
+      throw new Error('입력한 상품 이름이 이미 존재합니다.');
     }
     //아닐 경우 db에 저장
     const createdNewProduct = await this.productModel.create(productInfo);
@@ -102,7 +102,11 @@ class ProductService {
   }
 
   async deleteProduct(productInfo) {
-    await this.productModel.delete(productInfo);
+    const deletedPrdocut = await this.productModel.delete(productInfo);
+    if (!deletedPrdocut) {
+      throw new Error('상품 삭제에 실패했습니다');
+    }
+    return deletedPrdocut;
   }
 
   async getProductsByCategory(category, page) {
