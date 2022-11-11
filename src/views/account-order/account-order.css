@@ -95,7 +95,7 @@
   align-items: center;
 }
 
-.orders-item:not(:last-child) {
+.orders-item {
   border-bottom: #bbb 1px solid;
 }
 
