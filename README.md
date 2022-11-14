@@ -147,32 +147,38 @@ src
 | 이유정       | FE     | -                         |
 | 김진영       | FE     | 로그인/회원가입, 개인정보 |
 
+<!--
+메인 페이지, 헤더, 푸터
+
+장바구니, 상품, 주문 페이지
+관리자 페이지
+
+페이지네이션
+-->
 <br />
 
-## 6. 로컬 환경 실행
+## 6. 실행 방법
 
-### 6.1. Git Clone
+### 6.1 데모 웹 사이트 방문
+
+### http://www.ojakkyu.com
+
+<br />
+
+### 6.2 로컬 환경 실행
 
 ```bash
+1. Git Clone
 git clone https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu.git
-```
 
-### 6.2. Node Package 설치
-
-```bash
+2. Node Package 설치
 npm install
-```
 
-### 6.3. `.env`(환경 변수) 설정
-
-```bash
+3. .env(환경 변수) 파일 설정
 MONGODB_URL=<몽고DB URL>
 PORT=3000
-```
 
-### 6.4. express 앱 실행
-
-```bash
+4. express 앱 실행
 npm start
 ```
 
@@ -180,4 +186,4 @@ npm start
 
 ## 7. 버전
 
-> ### 1.0.0 : 최초 배포 22.11.11
+### 1.0.0 : 최초 배포 22.11.11
