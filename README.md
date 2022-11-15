@@ -60,47 +60,77 @@
 
 <br>
 
-<!--
-### 1-4. 데모 영상
-
-=== 준비 중 입니다. ===
-
-<details><summary>사용자 회원가입, 로그인</summary>
-
-![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
-
-
-</details>
-
-<details><summary>카테고리 추가 및 반영</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<br /> -->
-
-<!--
-### 1-3. 페이지 별 화면
-
-=== 준비 중 입니다. ===
-
-|                                              |                                              |
-| -------------------------------------------- | -------------------------------------------- |
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/Q860RKz/image.png) |
-| 메인 페이지                                  | 회원가입 화면                                |
-| ![image](https://i.ibb.co/RpYN379/image.png) |                                              |
-| 로그인 페이지                                | 앞으로 추가할 페이지                         |
-
-<br />
--->
-
 ## 3. 페이지별 UI 및 기능 설명
 
-=== 준비중 ===
+<details><summary>회원가입 / 로그인 페이지</summary>
+
+![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/cd543580b46caa2397655257187e47ef/%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8_%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%8B%E1%85%B5%E1%86%AB.png)
+
+</details>
+<details><summary>홈페이지</summary>
+
+|                                                                                                                                       |
+| :-----------------------------------------------------------------------------------------------------------------------------------: |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/0495077ed3fc35961f4ea223f0cb4c44/home_1.png) |
+|                                                              홈페이지 ⓵                                                               |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/cc89ec2f496796a92134bd75402ecf2a/home_2.png) |
+|                                                              홈페이지 ⓶                                                               |
+
+</details>
+<details><summary>제품 관련 페이지</summary>
+
+|                                                                                                                                               |
+| :-------------------------------------------------------------------------------------------------------------------------------------------: |
+|  ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/6705cb9285460a3be6a7eefd86101ba9/product_list.png)  |
+|                                                              제품 리스트 페이지                                                               |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/74cabf4819b970cce7d10fa686779b97/product_detail.png) |
+|                                                               제품 상세 페이지                                                                |
+|      ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/48f3fac53d45d0f040c44d70c09535ad/cart.png)      |
+|                                                                장바구니 페이지                                                                |
+
+</details>
+<details><summary>주문 / 결제 페이지</summary>
+
+|                                                                                                                                      |
+| :----------------------------------------------------------------------------------------------------------------------------------: |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/1ce9a92334d7ba6c8b8a04d6f2655b34/order.png) |
+|                                                             주문 페이지                                                              |
+
+</details>
+<details><summary>개인 정보 페이지</summary>
+
+|                                                                                                                                                                                                                                                                                   |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                       ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/44ba128e9e7b1cc6e33222377906faeb/mypage.png)                                                                       |
+|                                                                                                                                 개인 페이지 메인                                                                                                                                  |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/22c8dbe9f6a36ef7ae32371624452884/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.14.png) |
+|                                                                                                                                     주문 조회                                                                                                                                     |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/df11346661a345ab3fae1e9f7c6d4adf/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.19.png) |
+|                                                                                                                               개인정보 조회 / 수정                                                                                                                                |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/bf27be038f2b47f43ab0e45943072a8f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.24.png) |
+|                                                                                                                                     회원 탈퇴                                                                                                                                     |
+
+</details>
+<details><summary>관리자 페이지</summary>
+
+|                                                                                                                                                                                                                                                                                   |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/ab3a3ebcc922552d7f3278b1d0059f28/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.30.png) |
+|                                                                                                                                관리자 페이지 메인                                                                                                                                 |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/143e5b1e80dd40014ec6883d8596e263/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.36.png) |
+|                                                                                                                                     상품 추가                                                                                                                                     |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/843746212ec8fbf0b32a640165fb364e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.40.png) |
+|                                                                                                                                 상품 수정 / 삭제                                                                                                                                  |
+
+</details>
+<details><summary>기타</summary>
+
+|                                                                                                                                                                                                                                                                                   |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/d69f5fbd84698000190d377dff7432a9/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.46.46.png) |
+|                                                                                                                                    404 페이지                                                                                                                                     |
+
+</details>
 
 <br />
 
@@ -139,22 +169,14 @@ src
 
 ## 5. 제작자
 
-| 이름         | 포지션 | 담당 업무                 |
-| ------------ | ------ | ------------------------- |
-| 유의석(팀장) | BE     | -                         |
-| 정지헌       | BE     | -                         |
-| 이다노       | FE     | -                         |
-| 이유정       | FE     | -                         |
-| 김진영       | FE     | 로그인/회원가입, 개인정보 |
+| 이름         | 포지션 | 담당 업무                   |
+| ------------ | ------ | --------------------------- |
+| 유의석(팀장) | BE     | -                           |
+| 정지헌       | BE     | -                           |
+| 이다노       | FE     | -                           |
+| 이유정       | FE     | -                           |
+| 김진영       | FE     | 로그인/회원가입, 마이페이지 |
 
-<!--
-메인 페이지, 헤더, 푸터
-
-장바구니, 상품, 주문 페이지
-관리자 페이지
-
-페이지네이션
--->
 <br />
 
 ## 6. 실행 방법
