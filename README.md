@@ -36,7 +36,7 @@
 
 ### 1-3. 와이어프레임
 
-### [준비중입니다](#)
+### [오작뀨 와이어프레임 바로가기](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team7/ojakkyu/uploads/5c1666b0cdc453c648f8246fe4c8ffbc/7%ED%8C%80_%EC%98%A4%EC%9E%91%EB%80%A8_%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.png)
 
 <br>
 
