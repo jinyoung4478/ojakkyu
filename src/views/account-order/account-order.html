@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주문조회</title>
+
+    <!-- 아이콘 -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/facon.ico"
+    />
+
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- bulma css 관련 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="account-order.css" />
+    <script src="account-order.js" type="module" defer></script>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header id="header"></header>
+    <!-- 바디 -->
+    <section class="section">
+      <div class="container orders-container">
+        <div class="block account-header">
+          <h1 class="subtitle is-4">주문 조회</h1>
+        </div>
+        <div class="container orders-container" id="ordersContainer">
+          <div
+            class="columns notification is-info is-light is-mobile orders-top"
+          >
+            <div class="column is-2">날짜</div>
+            <div class="column is-6">주문정보</div>
+            <div class="column is-2">상태</div>
+            <div class="column is-2">신청</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer id="footer"></footer>
+  </body>
+</html>

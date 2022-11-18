@@ -1,0 +1,113 @@
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+}
+
+/* 푸터 */
+footer {
+  width: 100%;
+  padding-top: 100px;
+
+  text-align: center;
+
+  justify-self: self-end;
+}
+
+footer article {
+  border-top: 1px solid #d2d2d2;
+  padding: 20px 0;
+}
+
+footer article ul {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+footer article ul li {
+  font-size: 30px;
+}
+
+footer article ul li:first-child a {
+  color: red;
+}
+
+footer article ul li:nth-of-type(2) a {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+footer article ul li:nth-of-type(3) a {
+  color: #4267b2;
+}
+
+footer article ul li:nth-of-type(4) a {
+  color: #2db400;
+}
+
+footer article ul li:nth-of-type(5) a {
+  border-radius: 50%;
+  color: orangered;
+  text-decoration: dotted;
+}
+
+footer article ul li:last-child a {
+  color: #1da1f2;
+}
+
+footer address {
+  background-color: #444b55;
+  padding-top: 40px;
+}
+
+/* footer address .addressLink {
+      display: flex;
+      gap: 10px;
+    } */
+
+footer address .addressLink li {
+  padding-right: 10px;
+  /* border-right: 1px solid #a0a0a0; */
+}
+
+.addressLink li:nth-of-type(4) a,
+.addressLink li:nth-of-type(5) a,
+.addressLink li:last-child a {
+  color: #d1d1d1;
+}
+
+footer address .addressLink li:first-child {
+  margin-left: 40px;
+}
+
+footer address .addressLink li a {
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+address .addressText {
+  padding: 20px 0;
+  line-height: 1.4;
+  color: #8e8e8e;
+  font-size: 12px;
+  margin-left: 40px;
+}
+
+address .addressText p:first-child {
+  text-transform: uppercase;
+}
+
+.addressText .copyLight {
+  font-size: 1.2em;
+  font-weight: 700;
+}

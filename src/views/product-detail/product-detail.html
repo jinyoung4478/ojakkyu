@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>제품 상세 페이지</title>
+    <title>상품 상세 페이지</title>
 
     <link rel="stylesheet" href="./product-detail.css" />
 
@@ -11,17 +11,37 @@
   </head>
   <body>
     <!-- 헤더 -->
-    <div id="header"></div>
+    <header id="header"></header>
 
     <section class="container">
       <article class="detailWrap">
         <div class="productImg"></div>
 
-        <div class="productDetail"></div>
+        <div>
+          <div class="productDetail" id="productDetail">
+            <ul class="productDesc" id="productDesc">
+              <li>
+                <label>이니셜 각인 : </label>
+                <input type="text" maxlength="8" id="initialInput" required />
+                <label>최대 8글자</label>
+              </li>
+            </ul>
+          </div>
+          <li>
+            <div class="buttonWrapper" id="buttonWrapper">
+              <button type="button" id="purchaseButton" class="moveOrder">
+                구매하기
+              </button>
+              <button type="button" id="adCartButton" class="moveCart">
+                장바구니 추가하기
+              </button>
+            </div>
+          </li>
+        </div>
       </article>
     </section>
 
     <!-- 푸터 -->
-    <div id="footer"></div>
+    <footer id="footer"></footer>
   </body>
 </html>

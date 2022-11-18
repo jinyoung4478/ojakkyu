@@ -1,0 +1,127 @@
+@charset "utf-8";
+@import '/styles/reset.css';
+
+/* 레이아웃 */
+.categoryWrap {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.categoryTitle {
+  padding: 4% 0;
+}
+
+.categoryTitle h1 {
+  font-size: 1.4em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.categoryTitle h1 span {
+  font-weight: 400;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 4%;
+  gap: 20px;
+}
+
+/* 제품 li 리스트 */
+
+.categoryList dl {
+  text-align: left;
+  padding-top: 10px;
+  line-height: 1.4;
+}
+
+.categoryList dl dt {
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #d3d3d3;
+  font-weight: 600;
+}
+
+.categoryList dl dd {
+  font-size: 14px;
+  color: #222;
+}
+
+.categoryList dl dd:first-of-type {
+  padding-top: 0.5rem;
+  padding-bottom: 0.2rem;
+  font-size: 13px;
+  color: #888;
+}
+
+.product .productEvent {
+  width: 300px;
+}
+
+.product .productEvent img {
+  width: 300px;
+  height: 300px;
+}
+
+.productEvent {
+  cursor: pointer;
+}
+
+.productEvent:hover {
+  transform: scale(1.1);
+  transition: all 0.4s;
+}
+
+.birthStoneWrapper {
+  max-width: 100%;
+}
+
+.birthCategory {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.birthCategory li .button {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  color: #363636;
+  cursor: pointer;
+  padding: calc(0.5em - 1px) 1.2rem;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 20px;
+}
+
+.birthCategory li .button:active {
+  border-color: #4a4a4a;
+  color: #363636;
+}
+
+.birthCategory li .button:focus {
+  border-color: #485fc7;
+  color: #363636;
+}
+
+.birthCategory li .button:hover {
+  border-color: #b5b5b5;
+  color: #363636;
+}
+
+.birthCategory li:first-of-type .button {
+  padding: 1em;
+}
+
+.pageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  font-size: 22px;
+}
+
+.pageWrapper ul li {
+  margin: 0 10px;
+  float: left;
+}

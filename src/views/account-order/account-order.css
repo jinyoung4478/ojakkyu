@@ -1,0 +1,111 @@
+@charset "utf-8";
+@import '../styles/reset.css';
+
+/* 시작 */
+
+/* #orderContainer {
+  max-width: 100%;
+}
+
+.orderWrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10%;
+}
+
+.orderWrap h2 {
+  font-family: 'Stick No Bills', sans-serif;
+  padding-top: 32px;
+  padding-bottom: 36px;
+  font-size: 2em;
+  font-weight: 600;
+  color: rgb(27, 34, 75);
+}
+
+.orderSubtitles {
+  margin-bottom: 40px;
+  font-weight: bold;
+
+  border: 1px solid rgb(55, 72, 119);
+}
+
+.orderSubtitles,
+.orderList {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+
+  color: rgba(27, 34, 75);
+  text-align: center;
+}
+
+.orderList {
+  border-bottom: 1px solid rgb(55, 72, 119);
+}
+
+.deleteButton:active {
+  color: black;
+  background-color: #fff;
+  border: 2px solid rgb(30, 38, 59);
+}
+.deleteButton {
+  border: none;
+  border-radius: 5px;
+  padding: 6px 2px;
+  background-color: rgb(30, 38, 59);
+  border: 2px solid rgb(30, 38, 59);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+} */
+
+/* ----- */
+
+.account-header {
+  display: block;
+  border-bottom: #ddd 1px solid;
+  padding-bottom: 0.7rem;
+}
+
+/* 주문 리스트 */
+.orders-container {
+  max-width: 1000px !important;
+  margin: 5rem auto 2rem auto;
+}
+
+.orders-top {
+  text-align: center;
+  border-bottom: #aaa 1px solid;
+  padding: 0;
+}
+
+.orders-item {
+  text-align: center;
+  align-items: center;
+}
+
+.orders-item {
+  border-bottom: #bbb 1px solid;
+}
+
+.order-summary {
+  white-space: pre-line;
+}
+
+.modal .box {
+  text-align: center;
+}
+.modal .buttons {
+  justify-content: center;
+}

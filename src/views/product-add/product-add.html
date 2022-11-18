@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>상품 추가</title>
+
+    <!-- 아이콘 -->
+    <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/elice-rabbit-favicon.png"
+  />
+
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="./product-add.css" />
+    <script src="./product-add.js" type="module"></script>
+  </head>
+
+  <body>
+    <!-- 헤더 -->
+    <header id="header"></header>
+
+    <!-- 회원가입 폼(Form) -->
+    <main role="main" id="addProductSection">
+      <h2>상품 추가</h2>
+        <form class="addProduct" id="addProductForm">
+          <div class="formInputs">
+            <div class="left">
+  <!-- 상품 사진 -->
+              <div>
+                  <label for="productImage" class="textLeft">상품 사진</label>
+                  <div>
+                      <input
+                      class="input"
+                      id="productImage"
+                      type="text"
+                      placeholder="상품 사진 링크를 입력하세요"
+                      />
+                  </div>
+              </div>
+              
+  <!-- 상품 ID -->
+            <div>
+              <label for="productId" class="textLeft">productId</label>
+              <div>
+                <input
+                  class="input"
+                  id="productId"
+                  type="text"
+                  placeholder="상품 id 값을 입력하세요"
+                />
+              </div>
+            </div>
+  
+  <!-- 상품 명 -->
+            <div>
+              <label for="productName" class="textLeft">productName</label>
+              <div>
+                <input
+                  class="input"
+                  id="productName"
+                  type="text"
+                  placeholder="상품 명을 입력하세요"
+                />
+              </div>
+            </div>
+  
+  <!-- 상품 제목 -->
+            <div>
+              <label for="productTitle" class="textLeft">productTitle</label>
+              <div>
+                <input
+                  class="input"
+                  id="productTitle"
+                  type="text"
+                  placeholder="상품 제목을 입력하세요"
+                />
+              </div>
+            </div>
+</div>  
+<div class="right">
+  
+  <!-- 상품 설명 -->
+            <div>
+              <label for="description" class="textLeft">description</label>
+              <div>
+                <input
+                  class="input"
+                  id="description"
+                  type="text"
+                  placeholder="상품 설명을 입력하세요"
+                />
+              </div>
+            </div>
+  
+  
+            <div>
+              <label for="price" class="textLeft">price</label>
+              <div>
+                <input
+                  class="input"
+                  id="price"
+                  type="text"
+                  placeholder="상품 가격을 입력하세요"
+                />
+              </div>
+            </div>
+  
+  <!-- 탄생석 -->
+            <div>
+              <label for="stoneType" class="textLeft">stoneType</label>
+              <div>
+                <input
+                  class="input"
+                  id="stoneType"
+                  type="text"
+                  placeholder="탄생석을 입력하세요"
+                />
+              </div>
+            </div>
+  
+  <!-- 카테고리 -->
+            <div>
+              <label for="category" class="textLeft">category</label>
+              <div>
+                <input
+                  class="input"
+                  id="category"
+                  type="text"
+                  placeholder="카테고리를 입력하세요"
+                />
+              </div>
+            </div>
+              
+            </div>
+          </div>
+          <!-- 회원가입 버튼 -->
+          <button class="submitBtn" id="submitButton">상품 등록하기</button>
+        </form>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer id="footer"></footer>
+  </body>
+</html>

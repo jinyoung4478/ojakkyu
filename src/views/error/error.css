@@ -35,7 +35,7 @@
   opacity: 0.1;
 
   font-size: 20em;
-  text-shadow: 1px 1px 1px purple;
+  text-shadow: 1px 1px 1px s;
 }
 
 .error .linkHomeWrap {
@@ -45,16 +45,16 @@
 
 .error .linkHome:hover {
   color: white;
-  background-color: purple;
+  background-color: #f15a99;
 }
 
 .error .linkHome {
   padding: 8px 10px;
 
-  color: gray;
+  color: #f15a99;
 
   background-color: transparent;
-  border: 1px solid rgba(182, 182, 182, 0.7);
+  border: 1px solid #f15a99;
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;

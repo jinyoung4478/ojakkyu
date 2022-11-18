@@ -1,8 +1,12 @@
 import * as Api from '../utils/api.js';
 import {
+  blockIfLogin,
   validateEmail,
   renderClientSideComponent,
 } from '../utils/useful-functions.js';
+
+// 로그인 상태에 접근 차단
+blockIfLogin();
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
@@ -33,6 +37,7 @@ async function handleSubmit(e) {
   const isPasswordValid = password.length >= 4;
 
   if (!isEmailValid || !isPasswordValid) {
+    passwordInput.value = '';
     return alert(
       '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.',
     );
@@ -56,7 +61,7 @@ async function handleSubmit(e) {
     // 기본 페이지로 이동
     window.location.href = '/';
   } catch (err) {
-    console.error(err.stack);
+    passwordInput.value = '';
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
