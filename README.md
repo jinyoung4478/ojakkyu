@@ -1,10 +1,8 @@
 # 오작뀨 :: 탄생석 악세사리 주문제작 쇼핑몰
 
-<div>
-
-</div>
-
 <br />
+
+<img src="https://user-images.githubusercontent.com/102174146/202891785-d96bc71f-58a9-48ca-bedb-80b8fa943ec5.jpeg" width="640" />
 
 ## 1. 프로젝트 소개
 
